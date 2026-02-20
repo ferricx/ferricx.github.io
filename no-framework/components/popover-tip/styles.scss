@@ -1,0 +1,44 @@
+:host {
+  display: inline-block;
+}
+
+.popover-root {
+  position: relative;
+  display: inline-block;
+}
+
+.popover-trigger {
+  appearance: none;
+  border: 1px solid var(--tab-border, #e2e8f0);
+  border-radius: 999px;
+  background: var(--tab-surface, #ffffff);
+  color: var(--tab-text, #0f172a);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--tab-accent, #2563eb);
+    outline-offset: 2px;
+  }
+}
+
+.popover-panel {
+  position: fixed;
+  margin: 0;
+  inset: auto;
+  z-index: 30;
+  width: max-content;
+  max-width: min(22rem, 78vw);
+  border: 1px solid var(--tab-border, #e2e8f0);
+  border-radius: 0.5rem;
+  background: var(--tab-surface, #ffffff);
+  color: var(--tab-text, #0f172a);
+  padding: 0.55rem 0.65rem;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+  font-size: 0.875rem;
+  line-height: 1.35;
+}

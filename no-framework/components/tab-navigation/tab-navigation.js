@@ -1,4 +1,5 @@
 import "../form-group/form-group.js";
+import "../popover-tip/popover-tip.js";
 
 class TabNavigation extends HTMLElement {
   static stylesheetText = "";
@@ -118,6 +119,7 @@ class TabNavigation extends HTMLElement {
 
       <section id="panel-page-1" role="tabpanel" aria-labelledby="tab-page-1">
         <p>Ispo lorem vanta selorim quade nesto rilum feri talon. Miro pexa linor, dasto velin cruma poret sivena tral.</p>
+        <p><popover-tip text="You can switch tabs with arrow keys, Home, and End."><span slot="label">Keyboard tip</span></popover-tip></p>
         <p>Quorin fespal umo derin, laska torim veno prast. Zendi foral nupra kesto, belin dravo sita moren alti.</p>
         <p>Trevi nolar ifta querin posha, umbra felin dovar kresto. Polin varga seti runda, xelom nisti para dulin.</p>
       </section>

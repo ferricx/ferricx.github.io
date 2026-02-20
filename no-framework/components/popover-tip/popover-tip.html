@@ -1,0 +1,17 @@
+<span class="popover-root">
+  <button
+    id="popover-trigger"
+    class="popover-trigger"
+    type="button"
+    aria-expanded="false"
+    aria-controls="popover-panel"
+    popovertarget="popover-panel"
+    popovertargetaction="toggle"
+    aria-label="Show tip"
+  >
+    <slot name="label">Tip</slot>
+  </button>
+  <span id="popover-panel" class="popover-panel" popover="auto" role="tooltip">
+    <slot id="content-slot">This is a helpful tip.</slot>
+  </span>
+</span>

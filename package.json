@@ -1,0 +1,11 @@
+{
+  "name": "ferricx-github-io",
+  "private": true,
+  "scripts": {
+    "sass:build": "sass no-framework/components/tab-navigation/tab-navigation.scss no-framework/components/tab-navigation/tab-navigation.css --style=expanded --no-source-map && sass no-framework/components/form-group/styles.scss no-framework/components/form-group/styles.css --style=expanded --no-source-map && sass no-framework/styles.scss no-framework/styles.css --style=expanded --no-source-map",
+    "sass:watch": "sass --watch no-framework/components/tab-navigation/tab-navigation.scss:no-framework/components/tab-navigation/tab-navigation.css no-framework/components/form-group/styles.scss:no-framework/components/form-group/styles.css no-framework/styles.scss:no-framework/styles.css --style=expanded"
+  },
+  "devDependencies": {
+    "sass": "^1.93.2"
+  }
+}

@@ -1,0 +1,23 @@
+<div class="popover-root" style="--popover-offset: 1rem;">
+  <button
+    id="popover-trigger"
+    class="popover-trigger"
+    type="button"
+    aria-expanded="false"
+    aria-controls="username-tip"
+    aria-describedby="username-tip"
+    popovertarget="username-tip"
+    popovertargetaction="toggle"
+    aria-label="Show tip"
+    style="anchor-name: --username-anchor;"
+  >
+    <slot name="label">Tip</slot>
+  </button>
+  <div id="username-tip" class="popover" popover="auto" role="tooltip">
+    <div class="popover-content">
+      <div class="popover-body">
+        <slot id="content-slot">This is a helpful tip.</slot>
+      </div>
+    </div>
+  </div>
+</div>

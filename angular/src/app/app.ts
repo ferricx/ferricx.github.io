@@ -1,11 +1,12 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { FormGroupComponent } from './components/form-group/form-group.component';
+import { PopoverTipComponent } from './components/popover-tip/popover-tip.component';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [FormGroupComponent, PopoverTipComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  styleUrl: './app.css'
 })
 export class App {
   @ViewChildren('tabButton')

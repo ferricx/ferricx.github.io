@@ -1,0 +1,26 @@
+<label [for]="fieldId">
+  {{ label }}
+  @if (required) {
+    <span class="required-indicator" aria-hidden="true">*</span>
+    <span class="sr-only"> (required)</span>
+  }
+</label>
+
+<input
+  #fieldInput
+  [id]="fieldId"
+  [name]="name"
+  [type]="type"
+  [attr.autocomplete]="autocomplete || null"
+  [attr.inputmode]="inputmode"
+  [attr.pattern]="pattern"
+  [attr.maxlength]="maxlength"
+  [required]="required"
+  [attr.aria-describedby]="errorId"
+  [attr.aria-invalid]="errorMessage ? 'true' : 'false'"
+  (invalid)="onInvalid($event)"
+  (input)="onInput()"
+  (blur)="onBlur()"
+/>
+
+<div [id]="errorId" class="form-error" aria-live="polite">{{ errorMessage }}</div>

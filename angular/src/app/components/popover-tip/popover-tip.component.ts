@@ -20,6 +20,7 @@ export class PopoverTipComponent {
 
   private closeTimer: ReturnType<typeof setTimeout> | null = null;
   private openedByHover = false;
+  private openedByFocus = false;
 
   constructor(private readonly host: ElementRef<HTMLElement>) {}
 
@@ -29,18 +30,30 @@ export class PopoverTipComponent {
 
     if (!this.isOpen) {
       this.openedByHover = false;
+      this.openedByFocus = false;
+      return;
     }
+
+    this.openedByHover = false;
+    this.openedByFocus = false;
   }
 
   protected openByHover(): void {
     this.clearCloseTimer();
+
+    if (this.isOpen && !this.openedByHover) {
+      return;
+    }
+
     this.openedByHover = true;
+    this.openedByFocus = false;
     this.isOpen = true;
   }
 
   protected openByFocus(): void {
     this.clearCloseTimer();
     this.openedByHover = false;
+    this.openedByFocus = true;
     this.isOpen = true;
   }
 
@@ -66,6 +79,7 @@ export class PopoverTipComponent {
 
       this.isOpen = false;
       this.openedByHover = false;
+      this.openedByFocus = false;
       this.closeTimer = null;
     }, 80);
   }
@@ -126,11 +140,31 @@ export class PopoverTipComponent {
       return;
     }
 
+    if (!this.openedByHover) {
+      this.closeImmediately();
+      return;
+    }
+
     if (this.openedByHover && this.isPointerOverTriggerOrPopover()) {
       return;
     }
 
     this.scheduleClose();
+  }
+
+  @HostListener('document:focusin', ['$event'])
+  protected handleDocumentFocusIn(event: FocusEvent): void {
+    if (!this.isOpen || !this.openedByFocus) {
+      return;
+    }
+
+    const target = event.target;
+
+    if (target instanceof Node && this.host.nativeElement.contains(target)) {
+      return;
+    }
+
+    this.closeImmediately();
   }
 
   protected handleEscape(event: KeyboardEvent): void {
@@ -141,6 +175,7 @@ export class PopoverTipComponent {
     event.preventDefault();
     this.isOpen = false;
     this.openedByHover = false;
+    this.openedByFocus = false;
   }
 
   @HostListener('document:pointerdown', ['$event'])
@@ -157,6 +192,14 @@ export class PopoverTipComponent {
 
     this.isOpen = false;
     this.openedByHover = false;
+    this.openedByFocus = false;
+  }
+
+  private closeImmediately(): void {
+    this.clearCloseTimer();
+    this.isOpen = false;
+    this.openedByHover = false;
+    this.openedByFocus = false;
   }
 
   private isPointerOverTriggerOrPopover(): boolean {

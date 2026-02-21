@@ -1,46 +1,5 @@
 <main>
   <h1>Web Components All Native</h1>
   <p>This is a plain HTML page.</p>
-
-  <section class="tab-navigation" aria-label="Pages">
-    <div role="tablist" aria-label="Pages">
-      @for (tab of tabs; track tab.id; let i = $index) {
-        <button
-          #tabButton
-          [id]="'tab-' + tab.id"
-          role="tab"
-          [attr.aria-controls]="'panel-' + tab.id"
-          [attr.aria-selected]="activeTabIndex === i"
-          [attr.tabindex]="activeTabIndex === i ? '0' : '-1'"
-          type="button"
-          (click)="activateTab(i, true)"
-          (keydown)="handleTabKeydown($event, i)"
-        >
-          {{ tab.label }}
-        </button>
-      }
-    </div>
-
-    <section id="panel-page-1" role="tabpanel" aria-labelledby="tab-page-1" [hidden]="activeTabIndex !== 0">
-      <p>Ispo lorem vanta selorim quade nesto rilum feri talon. Miro pexa linor, dasto velin cruma poret sivena tral.</p>
-      <p>
-        <app-popover-tip text="You can switch tabs with arrow keys, Home, and End.">
-          <span popoverLabel>Keyboard tip</span>
-        </app-popover-tip>
-      </p>
-      <p>Quorin fespal umo derin, laska torim veno prast. Zendi foral nupra kesto, belin dravo sita moren alti.</p>
-      <p>Trevi nolar ifta querin posha, umbra felin dovar kresto. Polin varga seti runda, xelom nisti para dulin.</p>
-    </section>
-
-    <section id="panel-page-2" role="tabpanel" aria-labelledby="tab-page-2" [hidden]="activeTabIndex !== 1">
-      <form novalidate>
-        <app-form-group field-id="first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required></app-form-group>
-        <app-form-group field-id="last-name" name="lastName" label="Last name" autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." required></app-form-group>
-        <app-form-group field-id="date-of-birth" name="dateOfBirth" label="Date of birth (MM/DD/YYYY)" autocomplete="bday" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" format-message="Use MM/DD/YYYY format." required></app-form-group>
-      </form>
-    </section>
-
-    <section id="panel-page-3" role="tabpanel" aria-labelledby="tab-page-3" [hidden]="activeTabIndex !== 2">Content for page 3</section>
-    <section id="panel-page-4" role="tabpanel" aria-labelledby="tab-page-4" [hidden]="activeTabIndex !== 3">Content for page 4</section>
-  </section>
+  <app-tab-navigation></app-tab-navigation>
 </main>

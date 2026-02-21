@@ -50,6 +50,10 @@ jobs:
         working-directory: angular
         run: npm run build -- --configuration production --base-href /angular-app/ --output-path ../site/angular-app
 
+      - name: Flatten Angular browser output
+        run: |
+          rsync -av site/angular-app/browser/ site/angular-app/
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 

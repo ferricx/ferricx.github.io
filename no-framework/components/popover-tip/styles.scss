@@ -1,44 +1,221 @@
-:host {
-  display: inline-block;
+@position-try --popover-left {
+    --popover-position: left;
+    right: calc(anchor(left) - var(--popover-offset, 0.5rem));
+    bottom: calc(anchor(bottom) - var(--popover-offset, 0.5rem));
+    top: auto;
+    left: auto;
+    margin-right: 0;
 }
 
-.popover-root {
-  position: relative;
-  display: inline-block;
+@position-try --popover-above {
+    --popover-position: above;
+    left: max(var(--popover-offset, 0.5rem), calc(anchor(left) - 1rem));
+    bottom: anchor(top);
+    top: auto;
+    right: auto;
 }
 
-.popover-trigger {
-  appearance: none;
-  border: 1px solid var(--tab-border, #e2e8f0);
-  border-radius: 999px;
-  background: var(--tab-surface, #ffffff);
-  color: var(--tab-text, #0f172a);
-  font: inherit;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  line-height: 1;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
-
-  &:focus-visible {
-    outline: 2px solid var(--tab-accent, #2563eb);
-    outline-offset: 2px;
-  }
+@position-try --popover-center-above {
+    --popover-position: center-above;
+    left: calc(anchor(center) - 50%);
+    left: auto;
+    bottom: anchor(top);
+    top: auto;
+    right: auto;
 }
 
-.popover-panel {
-  position: fixed;
-  margin: 0;
-  inset: auto;
-  z-index: 30;
-  width: max-content;
-  max-width: min(22rem, 78vw);
-  border: 1px solid var(--tab-border, #e2e8f0);
-  border-radius: 0.5rem;
-  background: var(--tab-surface, #ffffff);
-  color: var(--tab-text, #0f172a);
-  padding: 0.55rem 0.65rem;
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
-  font-size: 0.875rem;
-  line-height: 1.35;
+@position-try --popover-below {
+    --popover-position: below;
+    left: calc(anchor(left) - 1rem);
+    top: anchor(bottom);
+    bottom: auto;
+    right: auto;
+}
+
+@position-try --popover-center-below {
+    --popover-position: center-below;
+    left: max(var(--popover-offset, 0.5rem), calc(anchor(center) - 50%));
+    top: anchor(bottom);
+    bottom: auto;
+    right: auto;
+}
+
+.popover {
+    --popover-offset: 0.5rem;
+    --popover-position: right;
+    --popover-center-tolerance: 0.75rem;
+    --popover-transition-duration: 320ms;
+    --popover-transition-easing: ease;
+    --popover-pointer-open-duration: 420ms;
+    --popover-pointer-close-duration: 120ms;
+    position: fixed;
+    padding: 0;
+    font-size: 0.95rem;
+    min-width: fit-content;
+    max-width: 15.75rem;
+    box-shadow: none;
+    position-visibility: anchors-visible;
+    inset: auto;
+    border: none;
+    background-color: transparent;
+    overflow: visible;
+    opacity: 0;
+    transition:
+        opacity var(--popover-transition-duration) var(--popover-transition-easing),
+        display var(--popover-transition-duration) allow-discrete,
+        overlay var(--popover-transition-duration) allow-discrete;
+    left: anchor(right);
+    bottom: anchor(bottom);
+    transform: none;
+    position-try-fallbacks: --popover-left, --popover-above, --popover-center-above, --popover-below, --popover-center-below;
+}
+
+.popover:popover-open {
+    opacity: 1;
+
+    @starting-style {
+        opacity: 0;
+    }
+}
+
+.popover-content {
+    position: relative;
+    margin: 0;
+}
+
+.popover-body {
+    background: #007bff;
+    color: #fff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    opacity: 0;
+    transform: scale(0.1);
+    transform-origin: left center;
+    will-change: transform, opacity;
+    transition:
+        opacity var(--popover-transition-duration) var(--popover-transition-easing),
+        transform var(--popover-transition-duration) var(--popover-transition-easing);
+}
+
+.popover:popover-open .popover-body {
+    opacity: 1;
+    transform: scale(1);
+
+    @starting-style {
+        opacity: 0;
+        transform: scale(0.1);
+    }
+}
+
+/* Triangle pointers */
+.popover-content::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    display: none;
+    opacity: 0;
+    transition: opacity var(--popover-pointer-close-duration) var(--popover-transition-easing);
+}
+
+.popover:popover-open .popover-content::before {
+    opacity: 1;
+    transition-duration: var(--popover-pointer-open-duration);
+
+    @starting-style {
+        opacity: 0;
+    }
+}
+
+/* Default position: right side of anchor */
+.popover.position-right {
+    padding: 0 0 0 var(--popover-offset);
+    min-width: 10rem;
+
+    .popover-body {
+        transform-origin: bottom left;
+    }
+
+    .popover-content::before {
+        display: block;
+        border: 12px solid transparent;
+        border-right-color: #007bff;
+        left: -20px;
+        bottom: 1px;
+    }
+}
+
+/* Left side of anchor */
+.popover.position-left .popover-content::before {
+    display: block;
+    border: 12px solid transparent;
+    border-left-color: #007bff;
+    right: -20px;
+    top: 1px;
+    // transform: translateY(-50%);
+}
+
+.popover.position-left .popover-body {
+    transform-origin: right center;
+}
+
+/* Above anchor */
+.popover.position-above,
+.popover.position-center-above {
+    padding: 0 0 var(--popover-offset);
+    .popover-body {
+        transform-origin: var(--triangle-offset, 50%) bottom;
+    }
+    // transform: translateX(-50%);
+
+    .popover-content::before {
+        display: block;
+        border: 12px solid transparent;
+        border-top-color: #007bff;
+        bottom: -20px;
+        left: var(--triangle-offset, 8px);
+        transform: translateX(-50%);
+    }
+}
+.popover.position-above{
+    min-width: min-content;
+}
+/* Center-above uses dynamically positioned triangle */
+.popover.position-center-above {
+        min-width: min-content;
+    .popover-content::before {
+    left: var(--triangle-offset, 50%);
+    transform: translateX(-50%);
+}
+}
+
+/* Below anchor */
+.popover.position-below,
+.popover.position-center-below {
+
+    padding: var(--popover-offset) var(--popover-offset) 0 0;
+    transform: translateX(-50%);
+
+    .popover-body {
+        transform-origin: var(--triangle-offset, 50%) top;
+    }
+
+    .popover-content::before {
+        display: block;
+        border: 12px solid transparent;
+        border-bottom-color: #007bff;
+        top: -20px;
+        left: 8px;
+    }
+}
+
+/* Center-below uses dynamically positioned triangle */
+.popover.position-center-below .popover-content::before {
+    left: var(--triangle-offset, 50%);
+    transform: translateX(-50%);
+}
+
+/* CSS Anchor Positioning */
+#username-tip {
+    position-anchor: --username-anchor;
 }

@@ -1,3 +1,4 @@
 node_modules/
 no-framework/*.css
 no-framework/components/**/*.css
+angular-app/

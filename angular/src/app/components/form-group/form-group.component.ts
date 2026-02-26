@@ -54,9 +54,6 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
   @Input({ alias: 'tip-link-label' })
   tipLinkLabel = 'Learn more';
 
-  @Input({ alias: 'tip-use-aria-details', transform: booleanAttribute })
-  tipUseAriaDetails = false;
-
   @ViewChild('fieldInput', { static: true })
   private readonly fieldInput!: ElementRef<HTMLInputElement>;
 

@@ -3,6 +3,7 @@ class PopoverTip extends HTMLElement {
   static stylesheetPromise;
   static templateElement;
   static templatePromise;
+  static nextInstanceId = 0;
 
   constructor() {
     super();
@@ -637,6 +638,20 @@ class PopoverTip extends HTMLElement {
     if (!triggerElement || !panelElement) {
       return;
     }
+
+    const instanceId = PopoverTip.nextInstanceId++;
+    const popoverId = `popover-tip-${instanceId}`;
+    const triggerId = `${popoverId}-trigger`;
+    const anchorName = `--${popoverId}-anchor`;
+
+    triggerElement.id = triggerId;
+    triggerElement.setAttribute("aria-controls", popoverId);
+    triggerElement.setAttribute("aria-describedby", popoverId);
+    triggerElement.setAttribute("popovertarget", popoverId);
+    triggerElement.style.setProperty("anchor-name", anchorName);
+
+    panelElement.id = popoverId;
+    panelElement.style.setProperty("position-anchor", anchorName);
 
     if (labelSlot) {
       const labelSpan = document.createElement("span");

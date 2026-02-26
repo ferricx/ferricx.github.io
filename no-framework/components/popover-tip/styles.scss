@@ -220,8 +220,3 @@
     left: var(--triangle-offset, 50%);
     --popover-pointer-translate: translateX(-50%);
 }
-
-/* CSS Anchor Positioning */
-#username-tip {
-    position-anchor: --username-anchor;
-}

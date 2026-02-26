@@ -11,41 +11,26 @@
 @position-try --popover-above {
     --popover-position: above;
     translate: 0 0;
-    left: max(var(--popover-offset, 0.5rem), calc(anchor(left) - 1rem));
     bottom: anchor(top);
     top: auto;
+    left: auto;
     right: auto;
-}
-
-@position-try --popover-center-above {
-    --popover-position: center-above;
-    left: anchor(center);
-    translate: -50% 0;
-    bottom: anchor(top);
-    top: auto;
-    right: auto;
+    justify-self: anchor-center;
 }
 
 @position-try --popover-below {
     --popover-position: below;
     translate: 0 0;
-    left: calc(anchor(left) - 1rem);
     top: anchor(bottom);
     bottom: auto;
+    left: auto;
     right: auto;
-}
-
-@position-try --popover-center-below {
-    --popover-position: center-below;
-    left: anchor(center);
-    translate: -50% 0;
-    top: anchor(bottom);
-    bottom: auto;
-    right: auto;
+    justify-self: anchor-center;
 }
 
 .popover {
     --popover-offset: 0.5rem;
+    --popover-viewport-padding: 0.5rem;
     --popover-position: right;
     --popover-center-tolerance: 0.75rem;
     --popover-transition-duration: 320ms;
@@ -55,8 +40,9 @@
     position: fixed;
     padding: 0;
     font-size: 0.95rem;
-    min-width: 12rem;
-    max-width: 15.75rem;
+    min-width: min(12rem, calc(100vw - (var(--popover-viewport-padding) * 2)));
+    max-width: min(15.75rem, calc(100vw - (var(--popover-viewport-padding) * 2)));
+    max-inline-size: calc(100vw - (var(--popover-viewport-padding) * 2));
     box-shadow: none;
     margin: 0;
     inset: auto;
@@ -73,7 +59,7 @@
     left: anchor(right);
     bottom: anchor(bottom);
     transform: none;
-    position-try-fallbacks: --popover-center-above, --popover-above, --popover-left, --popover-below;
+    position-try-fallbacks: --popover-above, --popover-left, --popover-below;
 }
 
 .popover:popover-open {
@@ -151,7 +137,7 @@
 /* Default position: right side of anchor */
 .popover.position-right {
     padding: 0 0 0 var(--popover-offset);
-    min-width: 12rem;
+    min-width: min(12rem, calc(100vw - (var(--popover-viewport-padding) * 2)));
 
     .popover-body {
         transform-origin: bottom left;
@@ -186,8 +172,7 @@
 }
 
 /* Above anchor */
-.popover.position-above,
-.popover.position-center-above {
+.popover.position-above {
     padding: 0 0 var(--popover-offset);
     .popover-body {
         transform-origin: var(--triangle-offset, 50%) bottom;
@@ -206,21 +191,11 @@
 .popover.position-above{
     min-width: min-content;
 }
-/* Center-above uses dynamically positioned triangle */
-.popover.position-center-above {
-        min-width: min-content;
-    .popover-content::before {
-    left: var(--triangle-offset, 50%);
-    --popover-pointer-translate: translateX(-50%);
-}
-}
 
 /* Below anchor */
-.popover.position-below,
-.popover.position-center-below {
-
+.popover.position-below {
     padding: var(--popover-offset) var(--popover-offset) 0 0;
-    transform: translateX(-50%);
+    transform: none;
 
     .popover-body {
         transform-origin: var(--triangle-offset, 50%) top;
@@ -231,13 +206,8 @@
         border: 12px solid transparent;
         border-bottom-color: #007bff;
         top: -20px;
-        left: 8px;
+        left: var(--triangle-offset, 8px);
+        --popover-pointer-translate: translateX(-50%);
     }
-}
-
-/* Center-below uses dynamically positioned triangle */
-.popover.position-center-below .popover-content::before {
-    left: var(--triangle-offset, 50%);
-    --popover-pointer-translate: translateX(-50%);
 }
 

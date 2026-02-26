@@ -318,9 +318,7 @@ export class PopoverTipComponent {
       right: 'position-right',
       left: 'position-left',
       above: 'position-above',
-      'center-above': 'position-center-above',
-      below: 'position-below',
-      'center-below': 'position-center-below'
+      below: 'position-below'
     };
 
     return classByPosition[cssPositionToken] ?? '';
@@ -331,7 +329,6 @@ export class PopoverTipComponent {
     const anchorCenterY = anchorRect.top + anchorRect.height / 2;
     const popoverCenterX = popoverRect.left + popoverRect.width / 2;
     const popoverCenterY = popoverRect.top + popoverRect.height / 2;
-    const centerTolerance = Math.max(20, popoverRect.width * 0.15);
 
     const horizontalOverlap =
       Math.max(0, Math.min(popoverRect.right, anchorRect.right) - Math.max(popoverRect.left, anchorRect.left));
@@ -342,23 +339,7 @@ export class PopoverTipComponent {
 
     if (isVerticalPlacement) {
       const isAbove = popoverCenterY < anchorCenterY;
-      const anchorCenterInsidePopover =
-        anchorCenterX >= popoverRect.left + 14 &&
-        anchorCenterX <= popoverRect.right - 14;
-
-      if (isAbove) {
-        if (anchorCenterInsidePopover || Math.abs(popoverCenterX - anchorCenterX) <= centerTolerance) {
-          return 'position-center-above';
-        }
-
-        return 'position-above';
-      }
-
-      if (anchorCenterInsidePopover || Math.abs(popoverCenterX - anchorCenterX) <= centerTolerance) {
-        return 'position-center-below';
-      }
-
-      return 'position-below';
+      return isAbove ? 'position-above' : 'position-below';
     }
 
     if (popoverCenterX < anchorCenterX) {
@@ -403,9 +384,7 @@ export class PopoverTipComponent {
 
     if (
       positionClass === 'position-above' ||
-      positionClass === 'position-center-above' ||
-      positionClass === 'position-below' ||
-      positionClass === 'position-center-below'
+      positionClass === 'position-below'
     ) {
       const rawOffset = anchorCenterX - contentRect.left;
       const minOffset = 14;
@@ -457,6 +436,15 @@ export class PopoverTipComponent {
 
   @HostListener('window:resize')
   protected handleWindowResize(): void {
+    if (!this.isOpen) {
+      return;
+    }
+
+    this.schedulePositionDetections();
+  }
+
+  @HostListener('window:scroll', [])
+  protected handleWindowScroll(): void {
     if (!this.isOpen) {
       return;
     }

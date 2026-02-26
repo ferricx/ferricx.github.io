@@ -62,3 +62,9 @@
   color: var(--tab-text);
   box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
 }
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}

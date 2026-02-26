@@ -13,6 +13,7 @@
 }
 
 .popover-trigger {
+  anchor-name: --popover-anchor;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -33,9 +34,12 @@
 }
 
 .popover {
-  position: absolute;
-  left: calc(100% + var(--popover-offset));
-  bottom: 0;
+  position: fixed;
+  position-anchor: --popover-anchor;
+  top: anchor(top);
+  left: calc(anchor(right) + var(--popover-offset));
+  bottom: auto;
+  margin: 0;
   z-index: 20;
   width: max-content;
   max-width: 15.75rem;

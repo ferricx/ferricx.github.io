@@ -10,6 +10,7 @@
     (mouseenter)="openByHover()"
     (mouseleave)="handleHoverLeave($event)"
     (focusin)="openByFocus()"
+    [attr.style]="'anchor-name: --' + popoverId + '-anchor'"
   >
     <ng-content></ng-content>
   </button>
@@ -22,6 +23,7 @@
     (toggle)="handlePopoverToggle()"
     (mouseenter)="handleHoverEnter()"
     (mouseleave)="handleHoverLeave($event)"
+    [attr.style]="'position-anchor: --' + popoverId + '-anchor'"
   >
     <div class="popover-content">
       <div class="popover-body">{{ text }}</div>

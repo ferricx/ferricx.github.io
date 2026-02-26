@@ -10,10 +10,11 @@
   --popover-pointer-close-duration: 120ms;
   position: relative;
   display: inline-block;
+  /* --popover-anchor: var(--anchor-name); */
 }
 
 .popover-trigger {
-  anchor-name: --popover-anchor;
+  anchor-name: var(--anchor-name);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +36,7 @@
 
 .popover {
   position: fixed;
-  position-anchor: --popover-anchor;
+  position-anchor: var(--popover-anchor);
   top: anchor(top);
   left: calc(anchor(right) + var(--popover-offset));
   bottom: auto;

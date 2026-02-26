@@ -6,6 +6,7 @@
     class="popover-trigger"
     type="button"
     [attr.popovertarget]="popoverId"
+    [attr.aria-label]="ariaLabel"
     [attr.aria-describedby]="popoverId"
     popovertargetaction="toggle"
     (click)="markOpenedByClick()"
@@ -14,7 +15,9 @@
     (focusin)="openByFocus()"
     [attr.style]="'anchor-name: --' + popoverId + '-anchor'"
   >
-    <ng-content></ng-content>
+    <span aria-hidden="true">
+      <ng-content></ng-content>
+    </span>
   </button>
 
   <div

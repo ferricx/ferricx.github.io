@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild, booleanAttribute, numberAttribute } from '@angular/core';
+import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
 
 @Component({
   selector: 'app-form-group',
   standalone: true,
+  imports: [PopoverTipComponent],
   templateUrl: './form-group.component.html',
   styleUrl: './form-group.component.css'
 })
@@ -39,6 +41,12 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
 
   @Input({ transform: booleanAttribute })
   required = false;
+
+  @Input({ alias: 'show-tip', transform: booleanAttribute })
+  showTip = false;
+
+  @Input({ alias: 'tip-text' })
+  tipText = 'This is a helpful tip.';
 
   @ViewChild('fieldInput', { static: true })
   private readonly fieldInput!: ElementRef<HTMLInputElement>;

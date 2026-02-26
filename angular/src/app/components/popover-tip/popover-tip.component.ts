@@ -171,15 +171,6 @@ export class PopoverTipComponent {
     this.closeImmediately();
   }
 
-  protected handleEscape(event: KeyboardEvent): void {
-    if (event.key !== 'Escape') {
-      return;
-    }
-
-    event.preventDefault();
-    this.closeImmediately();
-  }
-
   @HostListener('document:pointerdown', ['$event'])
   protected handleDocumentPointerDown(event: PointerEvent): void {
     if (!this.isOpen) {

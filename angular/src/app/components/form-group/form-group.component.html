@@ -1,13 +1,21 @@
-<label [for]="fieldId">
-  {{ label }}
-  @if (hint) {
-    <span class="label-hint">{{ hint }}</span>
+<div class="label-row">
+  <label [for]="fieldId">
+    <span class="label-main">{{ label }}</span>
+    @if (hint) {
+      <span class="label-hint">{{ hint }}</span>
+    }
+    @if (required) {
+      <span class="required-indicator" aria-hidden="true">*</span>
+      <span class="sr-only"> (required)</span>
+    }
+  </label>
+
+  @if (showTip) {
+    <app-popover-tip [text]="tipText">
+      <span popoverLabel>?</span>
+    </app-popover-tip>
   }
-  @if (required) {
-    <span class="required-indicator" aria-hidden="true">*</span>
-    <span class="sr-only"> (required)</span>
-  }
-</label>
+</div>
 
 <input
   #fieldInput

@@ -1,4 +1,4 @@
-<span
+<div
   class="popover-root"
   (focusout)="handleRootFocusOut($event)"
   (keydown)="handleEscape($event)"
@@ -6,29 +6,26 @@
   <button
     class="popover-trigger"
     type="button"
-    [attr.aria-expanded]="isOpen ? 'true' : 'false'"
-    [attr.aria-controls]="popoverId"
-    [attr.aria-describedby]="popoverId"
-    [attr.aria-label]="ariaLabel"
+    [attr.popovertarget]="popoverId"
+    popovertargetaction="toggle"
     (mouseenter)="openByHover()"
     (mouseleave)="handleHoverLeave($event)"
     (focusin)="openByFocus()"
-    (click)="toggle()"
   >
     <ng-content select="[popoverLabel]"></ng-content>
   </button>
 
-  <span
+  <div
+    #popoverPanel
     [id]="popoverId"
     class="popover"
-    role="tooltip"
-    [class.popover-open]="isOpen"
-    [hidden]="!isOpen"
+    popover="auto"
+    (toggle)="handlePopoverToggle()"
     (mouseenter)="handleHoverEnter()"
     (mouseleave)="handleHoverLeave($event)"
   >
-    <span class="popover-content">
-      <span class="popover-body">{{ text }}</span>
-    </span>
-  </span>
-</span>
+    <div class="popover-content">
+      <div class="popover-body">{{ text }}</div>
+    </div>
+  </div>
+</div>

@@ -43,7 +43,7 @@
   transition: opacity var(--popover-transition-duration) var(--popover-transition-easing);
 }
 
-.popover-open {
+.popover:popover-open {
   opacity: 1;
 }
 
@@ -63,7 +63,7 @@
   transition: transform var(--popover-transition-duration) var(--popover-transition-easing);
 }
 
-.popover-open .popover-body {
+.popover:popover-open .popover-body {
   transform: scale(1);
 }
 
@@ -81,7 +81,7 @@
   transition: opacity var(--popover-pointer-close-duration) var(--popover-transition-easing), transform var(--popover-pointer-close-duration) var(--popover-transition-easing);
 }
 
-.popover-open .popover-content::before {
+.popover:popover-open .popover-content::before {
   opacity: 1;
   transform: scale(1);
   transition-duration: var(--popover-pointer-open-duration);

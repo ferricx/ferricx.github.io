@@ -29,6 +29,7 @@ export class PopoverTipComponent {
   private positionDetectionTimers: ReturnType<typeof setTimeout>[] = [];
   private openedByHover = false;
   private openedByFocus = false;
+  private openedByClick = false;
 
   constructor(private readonly host: ElementRef<HTMLElement>) {}
 
@@ -36,6 +37,10 @@ export class PopoverTipComponent {
     this.isOpen = this.isPopoverOpen();
 
     if (this.isOpen) {
+      if (!this.openedByHover && !this.openedByFocus) {
+        this.openedByClick = true;
+      }
+
       this.schedulePositionDetections();
       return;
     }
@@ -44,9 +49,21 @@ export class PopoverTipComponent {
     this.clearPositionDetectionTimers();
     this.openedByHover = false;
     this.openedByFocus = false;
+    this.openedByClick = false;
+  }
+
+  protected markOpenedByClick(): void {
+    this.clearCloseTimer();
+    this.openedByHover = false;
+    this.openedByFocus = false;
+    this.openedByClick = true;
   }
 
   protected openByHover(): void {
+    if (this.openedByClick) {
+      return;
+    }
+
     this.clearCloseTimer();
 
     if (this.isOpen && !this.openedByHover) {
@@ -55,6 +72,7 @@ export class PopoverTipComponent {
 
     this.openedByHover = true;
     this.openedByFocus = false;
+    this.openedByClick = false;
     this.openPopoverPanel();
   }
 
@@ -62,6 +80,7 @@ export class PopoverTipComponent {
     this.clearCloseTimer();
     this.openedByHover = false;
     this.openedByFocus = true;
+    this.openedByClick = false;
     this.openPopoverPanel();
   }
 
@@ -101,6 +120,10 @@ export class PopoverTipComponent {
   }
 
   protected handleHoverLeave(event: MouseEvent): void {
+    if (this.openedByClick) {
+      return;
+    }
+
     if (!this.isOpen || !this.openedByHover) {
       return;
     }
@@ -125,6 +148,10 @@ export class PopoverTipComponent {
 
   @HostListener('document:pointermove', ['$event'])
   protected handleDocumentPointerMove(event: PointerEvent): void {
+    if (this.openedByClick) {
+      return;
+    }
+
     if (!this.isOpen || !this.openedByHover) {
       return;
     }
@@ -217,6 +244,7 @@ export class PopoverTipComponent {
     this.clearPositionDetectionTimers();
     this.openedByHover = false;
     this.openedByFocus = false;
+    this.openedByClick = false;
   }
 
   private schedulePositionDetections(): void {
@@ -294,34 +322,41 @@ export class PopoverTipComponent {
 
   private detectPositionClassByGeometry(popoverRect: DOMRect, anchorRect: DOMRect): string {
     const anchorCenterX = anchorRect.left + anchorRect.width / 2;
+    const anchorCenterY = anchorRect.top + anchorRect.height / 2;
     const popoverCenterX = popoverRect.left + popoverRect.width / 2;
+    const popoverCenterY = popoverRect.top + popoverRect.height / 2;
     const centerTolerance = Math.max(20, popoverRect.width * 0.15);
 
-    const isAbove = popoverRect.top < anchorRect.top && popoverRect.bottom <= anchorRect.top + 24;
-    const isBelow = popoverRect.bottom > anchorRect.bottom && popoverRect.top >= anchorRect.bottom - 24;
+    const horizontalOverlap =
+      Math.max(0, Math.min(popoverRect.right, anchorRect.right) - Math.max(popoverRect.left, anchorRect.left));
+    const verticalOverlap =
+      Math.max(0, Math.min(popoverRect.bottom, anchorRect.bottom) - Math.max(popoverRect.top, anchorRect.top));
 
-    if (popoverRect.left >= anchorRect.right - 10) {
-      return 'position-right';
-    }
+    const isVerticalPlacement = horizontalOverlap >= verticalOverlap;
 
-    if (popoverRect.right <= anchorRect.left + 10) {
-      return 'position-left';
-    }
+    if (isVerticalPlacement) {
+      const isAbove = popoverCenterY < anchorCenterY;
+      const anchorCenterInsidePopover =
+        anchorCenterX >= popoverRect.left + 14 &&
+        anchorCenterX <= popoverRect.right - 14;
 
-    if (isAbove) {
-      if (Math.abs(popoverCenterX - anchorCenterX) <= centerTolerance) {
-        return 'position-center-above';
+      if (isAbove) {
+        if (anchorCenterInsidePopover || Math.abs(popoverCenterX - anchorCenterX) <= centerTolerance) {
+          return 'position-center-above';
+        }
+
+        return 'position-above';
       }
 
-      return 'position-above';
-    }
-
-    if (isBelow) {
-      if (Math.abs(popoverCenterX - anchorCenterX) <= centerTolerance) {
+      if (anchorCenterInsidePopover || Math.abs(popoverCenterX - anchorCenterX) <= centerTolerance) {
         return 'position-center-below';
       }
 
       return 'position-below';
+    }
+
+    if (popoverCenterX < anchorCenterX) {
+      return 'position-left';
     }
 
     return 'position-right';
@@ -354,7 +389,9 @@ export class PopoverTipComponent {
     }
 
     const geometryPositionClass = this.detectPositionClassByGeometry(popoverRect, anchorRect);
-    if (geometryPositionClass) {
+    if (!positionClass && geometryPositionClass) {
+      positionClass = geometryPositionClass;
+    } else if (positionClass === 'position-right' && geometryPositionClass && geometryPositionClass !== 'position-right') {
       positionClass = geometryPositionClass;
     }
 

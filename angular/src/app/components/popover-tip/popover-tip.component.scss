@@ -1,7 +1,8 @@
 @position-try --popover-left {
     --popover-position: left;
-    right: calc(anchor(left) - var(--popover-offset, 0.5rem));
-    bottom: calc(anchor(bottom) - var(--popover-offset, 0.5rem));
+    translate: 0 0;
+    right: anchor(left);
+    bottom: anchor(bottom);
     top: auto;
     left: auto;
     margin-right: 0;
@@ -9,6 +10,7 @@
 
 @position-try --popover-above {
     --popover-position: above;
+    translate: 0 0;
     left: max(var(--popover-offset, 0.5rem), calc(anchor(left) - 1rem));
     bottom: anchor(top);
     top: auto;
@@ -17,7 +19,8 @@
 
 @position-try --popover-center-above {
     --popover-position: center-above;
-    left: calc(anchor(center) - 50%);
+    left: anchor(center);
+    translate: -50% 0;
     bottom: anchor(top);
     top: auto;
     right: auto;
@@ -25,6 +28,7 @@
 
 @position-try --popover-below {
     --popover-position: below;
+    translate: 0 0;
     left: calc(anchor(left) - 1rem);
     top: anchor(bottom);
     bottom: auto;
@@ -33,7 +37,8 @@
 
 @position-try --popover-center-below {
     --popover-position: center-below;
-    left: max(var(--popover-offset, 0.5rem), calc(anchor(center) - 50%));
+    left: anchor(center);
+    translate: -50% 0;
     top: anchor(bottom);
     bottom: auto;
     right: auto;
@@ -66,7 +71,7 @@
     left: anchor(right);
     bottom: anchor(bottom);
     transform: none;
-    position-try-fallbacks: --popover-left, --popover-above, --popover-center-above, --popover-below, --popover-center-below;
+    position-try-fallbacks: --popover-center-above, --popover-above, --popover-left, --popover-below;
 }
 
 .popover:popover-open {
@@ -151,13 +156,18 @@
 }
 
 /* Left side of anchor */
+.popover.position-left {
+    padding: 0 var(--popover-offset) 0 0;
+}
+
 .popover.position-left .popover-content::before {
     display: block;
     border: 12px solid transparent;
     border-left-color: #007bff;
     right: -20px;
-    top: 1px;
-    // transform: translateY(-50%);
+    top: auto;
+    bottom: 1px;
+    transform: none;
 }
 
 .popover.position-left .popover-body {

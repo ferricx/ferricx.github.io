@@ -18,6 +18,13 @@ label {
   margin-left: 0.25rem;
 }
 
+.label-hint {
+  margin-left: 0.5rem;
+  font-weight: 400;
+  color: var(--tab-text-muted, #334155);
+  font-size: 0.875rem;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -60,3 +67,4 @@ input[aria-invalid='true'] {
   font-size: 0.875rem;
   line-height: 1.4;
 }
+

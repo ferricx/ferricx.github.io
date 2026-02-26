@@ -1,11 +1,10 @@
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormGroupComponent } from '../form-group/form-group.component';
-import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
 
 @Component({
   selector: 'app-tab-navigation',
   standalone: true,
-  imports: [FormGroupComponent, PopoverTipComponent],
+  imports: [FormGroupComponent],
   templateUrl: './tab-navigation.component.html',
   styleUrl: './tab-navigation.css'
 })
@@ -16,7 +15,7 @@ export class TabNavigationComponent {
   protected activeTabIndex = 0;
 
   protected readonly tabs = [
-    { id: 'page-1', label: 'Introduction' },
+    { id: 'page-1', label: 'Registration' },
     { id: 'page-2', label: 'User Info' },
     { id: 'page-3', label: 'Page 3' },
     { id: 'page-4', label: 'Page 4' }

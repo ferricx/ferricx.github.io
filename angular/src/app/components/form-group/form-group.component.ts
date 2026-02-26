@@ -34,6 +34,9 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
   @Input({ alias: 'format-message' })
   formatMessage = 'Use the required format.';
 
+  @Input()
+  hint = '';
+
   @Input({ transform: booleanAttribute })
   required = false;
 
@@ -46,6 +49,10 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
 
   protected get errorId(): string {
     return `${this.fieldId}-error`;
+  }
+
+  protected get hintId(): string {
+    return `${this.fieldId}-hint`;
   }
 
   ngAfterViewInit(): void {

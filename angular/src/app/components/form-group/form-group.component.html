@@ -1,5 +1,8 @@
 <label [for]="fieldId">
   {{ label }}
+  @if (hint) {
+    <span class="label-hint">{{ hint }}</span>
+  }
   @if (required) {
     <span class="required-indicator" aria-hidden="true">*</span>
     <span class="sr-only"> (required)</span>

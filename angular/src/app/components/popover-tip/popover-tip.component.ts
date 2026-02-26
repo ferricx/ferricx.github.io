@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild, numberAttribute } from '@angular/core';
 
 let popoverIdCounter = 0;
 
@@ -15,8 +15,14 @@ export class PopoverTipComponent {
   @Input()
   ariaLabel = 'Show tip';
 
+  @Input({ transform: numberAttribute })
+  closeDelay = 0;
+
   protected isOpen = false;
   protected readonly popoverId = `popover-tip-${popoverIdCounter++}`;
+
+  @ViewChild('popoverPanel', { static: true })
+  private readonly popoverPanel!: ElementRef<HTMLElement>;
 
   private closeTimer: ReturnType<typeof setTimeout> | null = null;
   private openedByHover = false;
@@ -24,16 +30,14 @@ export class PopoverTipComponent {
 
   constructor(private readonly host: ElementRef<HTMLElement>) {}
 
-  protected toggle(): void {
-    this.clearCloseTimer();
-    this.isOpen = !this.isOpen;
+  protected handlePopoverToggle(): void {
+    this.isOpen = this.isPopoverOpen();
 
-    if (!this.isOpen) {
-      this.openedByHover = false;
-      this.openedByFocus = false;
+    if (this.isOpen) {
       return;
     }
 
+    this.clearCloseTimer();
     this.openedByHover = false;
     this.openedByFocus = false;
   }
@@ -47,14 +51,14 @@ export class PopoverTipComponent {
 
     this.openedByHover = true;
     this.openedByFocus = false;
-    this.isOpen = true;
+    this.openPopoverPanel();
   }
 
   protected openByFocus(): void {
     this.clearCloseTimer();
     this.openedByHover = false;
     this.openedByFocus = true;
-    this.isOpen = true;
+    this.openPopoverPanel();
   }
 
   protected scheduleClose(): void {
@@ -71,17 +75,17 @@ export class PopoverTipComponent {
   }
 
   private startCloseTimer(): void {
+    const delay = Math.max(0, this.closeDelay);
+
     this.closeTimer = setTimeout(() => {
       if (this.openedByHover && this.isPointerOverTriggerOrPopover()) {
         this.closeTimer = null;
         return;
       }
 
-      this.isOpen = false;
-      this.openedByHover = false;
-      this.openedByFocus = false;
+      this.closePopoverPanel();
       this.closeTimer = null;
-    }, 80);
+    }, delay);
   }
 
   protected handleHoverEnter(): void {
@@ -173,9 +177,7 @@ export class PopoverTipComponent {
     }
 
     event.preventDefault();
-    this.isOpen = false;
-    this.openedByHover = false;
-    this.openedByFocus = false;
+    this.closeImmediately();
   }
 
   @HostListener('document:pointerdown', ['$event'])
@@ -190,16 +192,38 @@ export class PopoverTipComponent {
       return;
     }
 
+    this.closeImmediately();
+  }
+
+  private closeImmediately(): void {
+    this.clearCloseTimer();
+    this.closePopoverPanel();
+  }
+
+  private openPopoverPanel(): void {
+    const popover = this.popoverPanel.nativeElement;
+
+    if (!popover.matches(':popover-open')) {
+      popover.showPopover();
+    }
+
+    this.isOpen = true;
+  }
+
+  private closePopoverPanel(): void {
+    const popover = this.popoverPanel.nativeElement;
+
+    if (popover.matches(':popover-open')) {
+      popover.hidePopover();
+    }
+
     this.isOpen = false;
     this.openedByHover = false;
     this.openedByFocus = false;
   }
 
-  private closeImmediately(): void {
-    this.clearCloseTimer();
-    this.isOpen = false;
-    this.openedByHover = false;
-    this.openedByFocus = false;
+  private isPopoverOpen(): boolean {
+    return this.popoverPanel.nativeElement.matches(':popover-open');
   }
 
   private isPointerOverTriggerOrPopover(): boolean {

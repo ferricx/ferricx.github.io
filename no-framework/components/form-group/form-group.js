@@ -152,12 +152,13 @@ class FormGroup extends HTMLElement {
     const pattern = this.getAttribute("pattern");
     const inputmode = this.getAttribute("inputmode");
     const maxlength = this.getAttribute("maxlength");
+    const hint = this.getAttribute("hint") || "";
     const required = this.hasAttribute("required");
 
     this.shadowRoot.innerHTML = `
       <style id="component-styles"></style>
 
-      <label for="field-input">${label}${required ? '<span class="required-indicator" aria-hidden="true">*</span><span class="sr-only"> (required)</span>' : ""}</label>
+      <label for="field-input">${label}${hint ? `<span class="label-hint">${hint}</span>` : ""}${required ? '<span class="required-indicator" aria-hidden="true">*</span><span class="sr-only"> (required)</span>' : ""}</label>
       <input
         id="field-input"
         name="${fieldName}"

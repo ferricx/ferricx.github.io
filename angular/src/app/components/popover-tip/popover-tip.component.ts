@@ -6,7 +6,7 @@ let popoverIdCounter = 0;
   selector: 'app-popover-tip',
   standalone: true,
   templateUrl: './popover-tip.component.html',
-  styleUrl: './popover-tip.component.css'
+  styleUrl: './popover-tip.component.scss'
 })
 export class PopoverTipComponent {
   @Input()
@@ -19,12 +19,14 @@ export class PopoverTipComponent {
   closeDelay = 0;
 
   protected isOpen = false;
+  protected positionClass = '';
   protected readonly popoverId = `popover-tip-${popoverIdCounter++}`;
 
   @ViewChild('popoverPanel', { static: true })
   private readonly popoverPanel!: ElementRef<HTMLElement>;
 
   private closeTimer: ReturnType<typeof setTimeout> | null = null;
+  private positionDetectionTimers: ReturnType<typeof setTimeout>[] = [];
   private openedByHover = false;
   private openedByFocus = false;
 
@@ -34,10 +36,12 @@ export class PopoverTipComponent {
     this.isOpen = this.isPopoverOpen();
 
     if (this.isOpen) {
+      this.schedulePositionDetections();
       return;
     }
 
     this.clearCloseTimer();
+    this.clearPositionDetectionTimers();
     this.openedByHover = false;
     this.openedByFocus = false;
   }
@@ -199,6 +203,7 @@ export class PopoverTipComponent {
     }
 
     this.isOpen = true;
+    this.schedulePositionDetections();
   }
 
   private closePopoverPanel(): void {
@@ -209,8 +214,167 @@ export class PopoverTipComponent {
     }
 
     this.isOpen = false;
+    this.clearPositionDetectionTimers();
     this.openedByHover = false;
     this.openedByFocus = false;
+  }
+
+  private schedulePositionDetections(): void {
+    this.clearPositionDetectionTimers();
+
+    const delays = [0, 40, 100, 180, 280, 420];
+
+    for (const delay of delays) {
+      const timer = setTimeout(() => {
+        if (this.isPopoverOpen()) {
+          this.detectPopoverPosition();
+        }
+      }, delay);
+
+      this.positionDetectionTimers.push(timer);
+    }
+  }
+
+  private clearPositionDetectionTimers(): void {
+    for (const timer of this.positionDetectionTimers) {
+      clearTimeout(timer);
+    }
+
+    this.positionDetectionTimers = [];
+  }
+
+  private clearPositionClasses(): void {
+    this.applyPositionClassToElement('');
+    this.positionClass = '';
+  }
+
+  private applyPositionClassToElement(positionClass: string): void {
+    const popover = this.popoverPanel?.nativeElement;
+
+    if (!popover) {
+      return;
+    }
+
+    popover.classList.remove(
+      'position-right',
+      'position-left',
+      'position-above',
+      'position-center-above',
+      'position-below',
+      'position-center-below'
+    );
+
+    if (positionClass) {
+      popover.classList.add(positionClass);
+    }
+  }
+
+  private getCssPositionToken(): string {
+    const popover = this.popoverPanel?.nativeElement;
+
+    if (!popover) {
+      return '';
+    }
+
+    return getComputedStyle(popover).getPropertyValue('--popover-position').trim();
+  }
+
+  private getPositionClassFromCssTry(cssPositionToken: string): string {
+    const classByPosition: Record<string, string> = {
+      right: 'position-right',
+      left: 'position-left',
+      above: 'position-above',
+      'center-above': 'position-center-above',
+      below: 'position-below',
+      'center-below': 'position-center-below'
+    };
+
+    return classByPosition[cssPositionToken] ?? '';
+  }
+
+  private detectPositionClassByGeometry(popoverRect: DOMRect, anchorRect: DOMRect): string {
+    const anchorCenterX = anchorRect.left + anchorRect.width / 2;
+    const popoverCenterX = popoverRect.left + popoverRect.width / 2;
+    const centerTolerance = Math.max(20, popoverRect.width * 0.15);
+
+    const isAbove = popoverRect.top < anchorRect.top && popoverRect.bottom <= anchorRect.top + 24;
+    const isBelow = popoverRect.bottom > anchorRect.bottom && popoverRect.top >= anchorRect.bottom - 24;
+
+    if (popoverRect.left >= anchorRect.right - 10) {
+      return 'position-right';
+    }
+
+    if (popoverRect.right <= anchorRect.left + 10) {
+      return 'position-left';
+    }
+
+    if (isAbove) {
+      if (Math.abs(popoverCenterX - anchorCenterX) <= centerTolerance) {
+        return 'position-center-above';
+      }
+
+      return 'position-above';
+    }
+
+    if (isBelow) {
+      if (Math.abs(popoverCenterX - anchorCenterX) <= centerTolerance) {
+        return 'position-center-below';
+      }
+
+      return 'position-below';
+    }
+
+    return 'position-right';
+  }
+
+  private detectPopoverPosition(): void {
+    const popover = this.popoverPanel?.nativeElement;
+    const trigger = this.host.nativeElement.querySelector('.popover-trigger');
+
+    if (!popover || !(trigger instanceof HTMLElement)) {
+      return;
+    }
+
+    const contentRect =
+      (popover.querySelector('.popover-content') as HTMLElement | null)?.getBoundingClientRect() ?? popover.getBoundingClientRect();
+    const anchorRect = trigger.getBoundingClientRect();
+    const anchorCenterX = anchorRect.left + anchorRect.width / 2;
+
+    const popoverRect = popover.getBoundingClientRect();
+
+    let cssPositionToken = this.getCssPositionToken();
+    let positionClass = this.getPositionClassFromCssTry(cssPositionToken);
+
+    this.clearPositionClasses();
+
+    if (!positionClass) {
+      void popover.offsetWidth;
+      cssPositionToken = this.getCssPositionToken();
+      positionClass = this.getPositionClassFromCssTry(cssPositionToken);
+    }
+
+    const geometryPositionClass = this.detectPositionClassByGeometry(popoverRect, anchorRect);
+    if (geometryPositionClass) {
+      positionClass = geometryPositionClass;
+    }
+
+    if (
+      positionClass === 'position-above' ||
+      positionClass === 'position-center-above' ||
+      positionClass === 'position-below' ||
+      positionClass === 'position-center-below'
+    ) {
+      const rawOffset = anchorCenterX - contentRect.left;
+      const minOffset = 14;
+      const maxOffset = Math.max(minOffset, contentRect.width - 14);
+      const triangleOffset = Math.min(maxOffset, Math.max(minOffset, rawOffset));
+      popover.style.setProperty('--triangle-offset', `${triangleOffset}px`);
+    } else {
+      popover.style.removeProperty('--triangle-offset');
+    }
+
+    this.positionClass = positionClass || 'position-right';
+    this.applyPositionClassToElement(this.positionClass);
   }
 
   private isPopoverOpen(): boolean {
@@ -246,5 +410,14 @@ export class PopoverTipComponent {
       clearTimeout(this.closeTimer);
       this.closeTimer = null;
     }
+  }
+
+  @HostListener('window:resize')
+  protected handleWindowResize(): void {
+    if (!this.isOpen) {
+      return;
+    }
+
+    this.schedulePositionDetections();
   }
 }

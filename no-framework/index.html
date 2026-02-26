@@ -23,12 +23,19 @@
         <section id="panel-page-1" role="tabpanel" aria-labelledby="tab-page-1">
           <form novalidate>
             <form-group field-id="reg-first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required></form-group>
+            <popover-tip label="First name tip" text="Use your legal first name exactly as it appears on official documents."></popover-tip>
             <form-group field-id="reg-last-name" name="lastName" label="Last name" autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." required></form-group>
+            <popover-tip label="Last name tip" text="Use your current legal last name. Include hyphens or apostrophes if they are part of your name."></popover-tip>
             <form-group field-id="reg-date-of-birth" name="dateOfBirth" label="Date of birth" hint="MM/DD/YYYY" autocomplete="bday" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" format-message="Use MM/DD/YYYY format." required></form-group>
+            <popover-tip label="DOB tip" text="Enter your date of birth in MM/DD/YYYY format, including leading zeroes."></popover-tip>
             <form-group field-id="reg-social-security-number" name="socialSecurityNumber" label="Social Security number" autocomplete="off" inputmode="numeric" pattern="\d{9}" maxlength="9" format-message="Use 9 digits only." hint="Enter 9 digits, numbers only." required></form-group>
+            <popover-tip label="SSN tip" text="Enter 9 digits only, without spaces or hyphens."></popover-tip>
             <form-group field-id="reg-email" name="email" label="Email" type="email" autocomplete="email" required></form-group>
+            <popover-tip label="Email tip" text="Use an email address you can access for confirmations and account recovery."></popover-tip>
             <form-group field-id="reg-phone" name="phone" label="Phone number" type="tel" autocomplete="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{7,20}" format-message="Phone number must be 7 to 20 characters and can include digits, spaces, parentheses, plus, and hyphens." required></form-group>
+            <popover-tip label="Phone tip" text="Phone number can include country code, spaces, parentheses, and hyphens."></popover-tip>
             <form-group field-id="reg-address" name="address" label="Address" autocomplete="street-address" required></form-group>
+            <popover-tip label="Address tip" text="Enter your current residential street address, including apartment or unit if applicable."></popover-tip>
             <p>
               <button type="reset">Reset</button>
               <button type="submit">Submit</button>

@@ -19,6 +19,12 @@
     #popoverPanel
     [id]="popoverId"
     class="popover"
+    [class.position-right]="positionClass === 'position-right'"
+    [class.position-left]="positionClass === 'position-left'"
+    [class.position-above]="positionClass === 'position-above'"
+    [class.position-center-above]="positionClass === 'position-center-above'"
+    [class.position-below]="positionClass === 'position-below'"
+    [class.position-center-below]="positionClass === 'position-center-below'"
     popover="auto"
     (toggle)="handlePopoverToggle()"
     (mouseenter)="handleHoverEnter()"

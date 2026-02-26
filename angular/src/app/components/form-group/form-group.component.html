@@ -11,7 +11,7 @@
   </label>
 
   @if (showTip) {
-    <app-popover-tip [text]="tipText" [linkHref]="tipLinkHref" [linkLabel]="tipLinkLabel">
+    <app-popover-tip [text]="tipText" [linkHref]="tipLinkHref" [linkLabel]="tipLinkLabel" [useAriaDetails]="tipUseAriaDetails">
       <span>?</span>
     </app-popover-tip>
   }

@@ -2,3 +2,7 @@ node_modules/
 no-framework/*.css
 no-framework/components/**/*.css
 angular-app/
+angular/dist/
+angular/.angular/
+angular/tmp/
+angular/out-tsc/

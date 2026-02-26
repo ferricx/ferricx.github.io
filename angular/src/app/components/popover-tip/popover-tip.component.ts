@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, ViewChild, numberAttribute } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild, booleanAttribute, numberAttribute } from '@angular/core';
 
 let popoverIdCounter = 0;
 
@@ -20,6 +20,9 @@ export class PopoverTipComponent {
 
   @Input()
   ariaLabel = 'Show tip';
+
+  @Input({ transform: booleanAttribute })
+  useAriaDetails = false;
 
   @Input({ transform: numberAttribute })
   closeDelay = 0;

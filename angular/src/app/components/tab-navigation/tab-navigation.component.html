@@ -19,13 +19,13 @@
 
   <section id="panel-page-1" role="tabpanel" aria-labelledby="tab-page-1" [hidden]="activeTabIndex !== 0">
     <form novalidate>
-      <app-form-group field-id="reg-first-name" name="firstName" label="First name" show-tip autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required></app-form-group>
+      <app-form-group field-id="reg-first-name" name="firstName" label="First name" show-tip tip-link-href="https://example.com" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required></app-form-group>
       <app-form-group field-id="reg-last-name" name="lastName" label="Last name" show-tip autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." required></app-form-group>
-      <app-form-group field-id="reg-date-of-birth" name="dateOfBirth" label="Date of birth" show-tip hint="MM/DD/YYYY" autocomplete="bday" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" format-message="Use MM/DD/YYYY format." required></app-form-group>
+      <app-form-group field-id="reg-date-of-birth" name="dateOfBirth" label="Date of birth" show-tip tip-link-href="https://example.com" hint="MM/DD/YYYY" autocomplete="bday" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" format-message="Use MM/DD/YYYY format." required></app-form-group>
       <app-form-group field-id="reg-social-security-number" name="socialSecurityNumber" label="Social Security number" show-tip autocomplete="off" inputmode="numeric" pattern="\d{9}" maxlength="9" format-message="Use 9 digits only." hint="Enter 9 digits, numbers only." required></app-form-group>
-      <app-form-group field-id="reg-email" name="email" label="Email" show-tip type="email" autocomplete="email" required></app-form-group>
+      <app-form-group field-id="reg-email" name="email" label="Email" show-tip tip-link-href="https://example.com" type="email" autocomplete="email" required></app-form-group>
       <app-form-group field-id="reg-phone" name="phone" label="Phone number" show-tip type="tel" autocomplete="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{7,20}" format-message="Phone number must be 7 to 20 characters and can include digits, spaces, parentheses, plus, and hyphens." required></app-form-group>
-      <app-form-group field-id="reg-address" name="address" label="Address" show-tip autocomplete="street-address" required></app-form-group>
+      <app-form-group field-id="reg-address" name="address" label="Address" show-tip tip-link-href="https://example.com" autocomplete="street-address" required></app-form-group>
       <div class="form-actions">
         <button type="reset">Reset</button>
         <button type="submit">Submit</button>

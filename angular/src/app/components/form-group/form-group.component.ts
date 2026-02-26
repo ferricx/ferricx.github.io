@@ -48,6 +48,12 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
   @Input({ alias: 'tip-text' })
   tipText = 'This is a helpful tip.';
 
+  @Input({ alias: 'tip-link-href' })
+  tipLinkHref = '';
+
+  @Input({ alias: 'tip-link-label' })
+  tipLinkLabel = 'Learn more';
+
   @ViewChild('fieldInput', { static: true })
   private readonly fieldInput!: ElementRef<HTMLInputElement>;
 

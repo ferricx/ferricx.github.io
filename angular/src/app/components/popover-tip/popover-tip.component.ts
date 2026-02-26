@@ -13,6 +13,12 @@ export class PopoverTipComponent {
   text = 'This is a helpful tip.';
 
   @Input()
+  linkHref = '';
+
+  @Input()
+  linkLabel = 'Learn more';
+
+  @Input()
   ariaLabel = 'Show tip';
 
   @Input({ transform: numberAttribute })

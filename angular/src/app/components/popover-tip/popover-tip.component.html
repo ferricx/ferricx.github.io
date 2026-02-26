@@ -34,7 +34,12 @@
     [attr.style]="'position-anchor: --' + popoverId + '-anchor'"
   >
     <div class="popover-content">
-      <div class="popover-body">{{ text }}</div>
+      <div class="popover-body">
+        {{ text }}
+        @if (linkHref) {
+          <a [href]="linkHref">{{ linkLabel }}</a>
+        }
+      </div>
     </div>
   </div>
 </div>

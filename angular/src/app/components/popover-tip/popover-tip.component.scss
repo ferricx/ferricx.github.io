@@ -92,6 +92,9 @@
     color: #fff;
     border-radius: 0.5rem;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     opacity: 0;
     transform: scale(0.1);
     transform-origin: left center;
@@ -99,6 +102,12 @@
     transition:
         opacity var(--popover-transition-duration) var(--popover-transition-easing),
         transform var(--popover-transition-duration) var(--popover-transition-easing);
+
+    a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
 }
 
 .popover:popover-open .popover-body {

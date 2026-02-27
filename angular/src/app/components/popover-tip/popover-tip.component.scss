@@ -4,7 +4,8 @@
     background-color: transparent;
     font-weight: 900;
     font-size: 1.0626rem;
-    color: var(--popover-trigger-color, #333);
+    color: var(--popover-trigger-color, #1b5e20);
+    border: 1.5px solid var(--popover-trigger-color, #1b5e20);
 }
 
 @position-try --popover-left {

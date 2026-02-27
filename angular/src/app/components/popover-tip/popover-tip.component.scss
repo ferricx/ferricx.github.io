@@ -38,6 +38,7 @@
     --popover-border-color: #555;
     --popover-offset: 0.5rem;
     --popover-viewport-padding: 0.5rem;
+    --popover-max-width: 15.75rem;
     --popover-position: right;
     --popover-center-tolerance: 0.75rem;
     --popover-transition-duration: 320ms;
@@ -48,8 +49,9 @@
     position: fixed;
     padding: 0;
     font-size: 0.95rem;
+    width: fit-content;
     min-width: min(12rem, calc(100vw - (var(--popover-viewport-padding) * 2)));
-    max-width: min(15.75rem, calc(100vw - (var(--popover-viewport-padding) * 2)));
+    max-width: min(var(--popover-max-width), calc(100vw - (var(--popover-viewport-padding) * 2)));
     max-inline-size: calc(100vw - (var(--popover-viewport-padding) * 2));
     box-shadow: none;
     margin: 0;
@@ -81,6 +83,7 @@
 .popover-content {
     position: relative;
     margin: 0;
+    max-width: 100%;
 }
 
 .popover-body {
@@ -92,6 +95,10 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    max-width: var(--popover-max-width);
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-word;
     opacity: 0;
     transform: scale(0.1);
     transform-origin: left center;
@@ -119,27 +126,32 @@
 
 /* Triangle pointers */
 .popover-content::before {
+    --popover-pointer-size: 12px;
     --popover-pointer-translate: translate(0, 0);
     content: '';
     position: absolute;
-    width: 0;
-    height: 0;
+    width: var(--popover-pointer-size);
+    height: var(--popover-pointer-size);
+    background: var(--popover-bg);
+    border: 1px solid var(--popover-border-color);
     display: none;
     opacity: 0;
-    transform: var(--popover-pointer-translate) scale(0.1);
+    transform: var(--popover-pointer-translate) rotate(45deg) scale(0.1);
     transition:
         opacity var(--popover-pointer-close-duration) var(--popover-transition-easing),
         transform var(--popover-pointer-close-duration) var(--popover-transition-easing);
+        
+    z-index: 1;
 }
 
 .popover:popover-open .popover-content::before {
     opacity: 1;
-    transform: var(--popover-pointer-translate) scale(1);
+    transform: var(--popover-pointer-translate) rotate(45deg) scale(1);
     transition-duration: var(--popover-pointer-open-duration);
 
     @starting-style {
         opacity: 0;
-        transform: var(--popover-pointer-translate) scale(0.1);
+        transform: var(--popover-pointer-translate) rotate(45deg) scale(0.1);
     }
 }
 
@@ -154,10 +166,10 @@
 
     .popover-content::before {
         display: block;
-        border: 12px solid transparent;
-        border-right-color: var(--popover-bg);
-        left: -20px;
-        bottom: 1px;
+        left: -6px;
+        bottom: 8px;
+        border-right: none;
+        border-top: none;
     }
 }
 
@@ -168,12 +180,11 @@
 
 .popover.position-left .popover-content::before {
     display: block;
-    border: 12px solid transparent;
-    border-left-color: var(--popover-bg);
-    right: -20px;
+    right: -6px;
     top: auto;
-    bottom: 1px;
-    transform: none;
+    bottom: 8px;
+    border-left: none;
+    border-bottom: none;
 }
 
 .popover.position-left .popover-body {
@@ -190,10 +201,10 @@
 
     .popover-content::before {
         display: block;
-        border: 12px solid transparent;
-        border-top-color: var(--popover-bg);
-        bottom: -20px;
+        bottom: -6px;
         left: var(--triangle-offset, 8px);
+        border-top: none;
+        border-left: none;
         --popover-pointer-translate: translateX(-50%);
     }
 }
@@ -212,10 +223,10 @@
 
     .popover-content::before {
         display: block;
-        border: 12px solid transparent;
-        border-bottom-color: var(--popover-bg);
-        top: -20px;
+        top: -6px;
         left: var(--triangle-offset, 8px);
+        border-bottom: none;
+        border-right: none;
         --popover-pointer-translate: translateX(-50%);
     }
 }

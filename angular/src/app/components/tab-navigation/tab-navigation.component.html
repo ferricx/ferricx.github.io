@@ -20,7 +20,7 @@
   <section id="panel-page-1" role="tabpanel" aria-labelledby="tab-page-1" [hidden]="activeTabIndex !== 0">
     <form novalidate>
       <app-form-group field-id="reg-first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required>
-        <ng-template #tip>This is a helpful tip. <a href="https://example.com">Learn more</a></ng-template>
+        <ng-template #tip>This is a helpful tip. With some extra text to test width layout. <a href="https://example.com">Learn more</a></ng-template>
       </app-form-group>
       <app-form-group field-id="reg-last-name" name="lastName" label="Last name" autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." required>
         <ng-template #tip>This is a helpful tip.</ng-template>

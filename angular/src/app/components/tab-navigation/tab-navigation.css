@@ -1,3 +1,16 @@
+.required-legend {
+  font-size: 0.875rem;
+  color: var(--tab-text-muted, #334155);
+  margin: 0 0 1rem;
+}
+
+.required-legend .required-indicator {
+  color: #dc2626;
+  vertical-align: super;
+  font-size: 0.75em;
+  font-weight: 700;
+}
+
 :host {
   --tab-surface: #ffffff;
   --tab-surface-muted: #f8fafc;

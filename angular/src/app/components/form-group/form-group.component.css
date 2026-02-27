@@ -29,6 +29,9 @@ label {
 
 .required-indicator {
   margin-left: 0.25rem;
+  color: #dc2626;
+  vertical-align: super;
+  font-size: 0.75em;
 }
 
 .label-hint {

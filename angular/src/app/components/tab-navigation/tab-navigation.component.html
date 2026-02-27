@@ -19,6 +19,7 @@
 
   <section id="panel-page-1" role="tabpanel" aria-labelledby="tab-page-1" [hidden]="activeTabIndex !== 0">
     <form novalidate>
+      <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <app-form-group field-id="reg-first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required>
         <ng-template #tip>This is a helpful tip. With some extra text to test width layout. <a href="https://example.com">Learn more</a></ng-template>
       </app-form-group>
@@ -49,6 +50,7 @@
 
   <section id="panel-page-2" role="tabpanel" aria-labelledby="tab-page-2" [hidden]="activeTabIndex !== 1">
     <form novalidate>
+      <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <app-form-group field-id="first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required></app-form-group>
       <app-form-group field-id="last-name" name="lastName" label="Last name" autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." required></app-form-group>
       <app-form-group field-id="date-of-birth" name="dateOfBirth" label="Date of birth" hint="MM/DD/YYYY" autocomplete="bday" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" format-message="Use MM/DD/YYYY format." required></app-form-group>

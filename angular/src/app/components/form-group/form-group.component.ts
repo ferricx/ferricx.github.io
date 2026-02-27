@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild, booleanAttribute, numberAttribute } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, ElementRef, Input, OnDestroy, TemplateRef, ViewChild, booleanAttribute, numberAttribute } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
 
 @Component({
   selector: 'app-form-group',
   standalone: true,
-  imports: [PopoverTipComponent],
+  imports: [PopoverTipComponent, NgTemplateOutlet],
   templateUrl: './form-group.component.html',
   styleUrl: './form-group.component.css'
 })
@@ -42,17 +43,8 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
   @Input({ transform: booleanAttribute })
   required = false;
 
-  @Input({ alias: 'show-tip', transform: booleanAttribute })
-  showTip = false;
-
-  @Input({ alias: 'tip-text' })
-  tipText = 'This is a helpful tip.';
-
-  @Input({ alias: 'tip-link-href' })
-  tipLinkHref = '';
-
-  @Input({ alias: 'tip-link-label' })
-  tipLinkLabel = 'Learn more';
+  @ContentChild('tip')
+  tipContent!: TemplateRef<unknown>;
 
   @ViewChild('fieldInput', { static: true })
   private readonly fieldInput!: ElementRef<HTMLInputElement>;

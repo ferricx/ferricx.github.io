@@ -1,3 +1,7 @@
+.popover-trigger {
+    anchor-name: var(--popover-anchor-name);
+}
+
 @position-try --popover-left {
     --popover-position: left;
     translate: 0 0;
@@ -29,6 +33,9 @@
 }
 
 .popover {
+    --popover-bg: #fff;
+    --popover-color: #333;
+    --popover-border-color: #555;
     --popover-offset: 0.5rem;
     --popover-viewport-padding: 0.5rem;
     --popover-position: right;
@@ -37,6 +44,7 @@
     --popover-transition-easing: ease;
     --popover-pointer-open-duration: 420ms;
     --popover-pointer-close-duration: 120ms;
+    position-anchor: var(--popover-anchor-name);
     position: fixed;
     padding: 0;
     font-size: 0.95rem;
@@ -76,8 +84,9 @@
 }
 
 .popover-body {
-    background: #007bff;
-    color: #fff;
+    background: var(--popover-bg);
+    color: var(--popover-color);
+    border: 1px solid var(--popover-border-color);
     border-radius: 0.5rem;
     padding: 1rem;
     display: flex;
@@ -146,7 +155,7 @@
     .popover-content::before {
         display: block;
         border: 12px solid transparent;
-        border-right-color: #007bff;
+        border-right-color: var(--popover-bg);
         left: -20px;
         bottom: 1px;
     }
@@ -160,7 +169,7 @@
 .popover.position-left .popover-content::before {
     display: block;
     border: 12px solid transparent;
-    border-left-color: #007bff;
+    border-left-color: var(--popover-bg);
     right: -20px;
     top: auto;
     bottom: 1px;
@@ -182,7 +191,7 @@
     .popover-content::before {
         display: block;
         border: 12px solid transparent;
-        border-top-color: #007bff;
+        border-top-color: var(--popover-bg);
         bottom: -20px;
         left: var(--triangle-offset, 8px);
         --popover-pointer-translate: translateX(-50%);
@@ -204,7 +213,7 @@
     .popover-content::before {
         display: block;
         border: 12px solid transparent;
-        border-bottom-color: #007bff;
+        border-bottom-color: var(--popover-bg);
         top: -20px;
         left: var(--triangle-offset, 8px);
         --popover-pointer-translate: translateX(-50%);

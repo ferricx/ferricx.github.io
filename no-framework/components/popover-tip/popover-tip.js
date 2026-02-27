@@ -648,10 +648,13 @@ class PopoverTip extends HTMLElement {
     triggerElement.setAttribute("aria-controls", popoverId);
     triggerElement.setAttribute("aria-describedby", popoverId);
     triggerElement.setAttribute("popovertarget", popoverId);
-    triggerElement.style.setProperty("anchor-name", anchorName);
 
     panelElement.id = popoverId;
-    panelElement.style.setProperty("position-anchor", anchorName);
+
+    const rootElement = triggerElement.closest('.popover-root') || triggerElement.parentElement;
+    if (rootElement) {
+      rootElement.style.setProperty('--popover-anchor-name', anchorName);
+    }
 
     if (labelSlot) {
       const labelSpan = document.createElement("span");

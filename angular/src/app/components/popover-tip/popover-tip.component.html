@@ -1,5 +1,6 @@
 <div
   class="popover-root"
+  [style.--popover-anchor-name]="'--' + popoverId + '-anchor'"
   (focusout)="handleRootFocusOut($event)"
 >
   <button
@@ -13,11 +14,8 @@
     (mouseenter)="openByHover()"
     (mouseleave)="handleHoverLeave($event)"
     (focusin)="openByFocus()"
-    [attr.style]="'anchor-name: --' + popoverId + '-anchor'"
   >
-    <span aria-hidden="true">
-      <ng-content></ng-content>
-    </span>
+    <span aria-hidden="true">{{ buttonLabel }}</span>
   </button>
 
   <div
@@ -34,14 +32,10 @@
     (toggle)="handlePopoverToggle()"
     (mouseenter)="handleHoverEnter()"
     (mouseleave)="handleHoverLeave($event)"
-    [attr.style]="'position-anchor: --' + popoverId + '-anchor'"
   >
     <div class="popover-content">
       <div class="popover-body">
-        {{ text }}
-        @if (linkHref) {
-          <a [href]="linkHref">{{ linkLabel }}</a>
-        }
+        <ng-content></ng-content>
       </div>
     </div>
   </div>

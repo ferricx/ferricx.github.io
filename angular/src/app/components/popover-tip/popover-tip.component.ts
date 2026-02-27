@@ -10,13 +10,7 @@ let popoverIdCounter = 0;
 })
 export class PopoverTipComponent {
   @Input()
-  text = 'This is a helpful tip.';
-
-  @Input()
-  linkHref = '';
-
-  @Input()
-  linkLabel = 'Learn more';
+  buttonLabel = '?';
 
   @Input()
   ariaLabel = 'Show tip';

@@ -10,9 +10,9 @@
     }
   </label>
 
-  @if (showTip) {
-    <app-popover-tip [text]="tipText" [linkHref]="tipLinkHref" [linkLabel]="tipLinkLabel" [ariaLabel]="'Show tip for ' + label">
-      <span>?</span>
+  @if (tipContent) {
+    <app-popover-tip [ariaLabel]="'Show tip for ' + label">
+      <ng-container [ngTemplateOutlet]="tipContent"></ng-container>
     </app-popover-tip>
   }
 </div>

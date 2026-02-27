@@ -9,7 +9,7 @@
 
 .label-row {
   display: flex;
-  align-items: center;
+  align-items: end;
   gap: 0.5rem;
   flex-wrap: wrap;
   margin-bottom: 0.35rem;
@@ -20,6 +20,7 @@ label {
   margin-bottom: 0;
   font-weight: 600;
   color: var(--tab-text, #0f172a);
+  flex: 1;
 }
 
 .label-main {

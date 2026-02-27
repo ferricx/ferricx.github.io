@@ -181,6 +181,10 @@ export class PopoverTipComponent {
       return;
     }
 
+    if (relatedTarget === null && this.isPointerOverTriggerOrPopover()) {
+      return;
+    }
+
     if (!this.openedByHover) {
       this.closeImmediately();
       return;

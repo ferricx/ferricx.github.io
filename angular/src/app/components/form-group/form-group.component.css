@@ -20,7 +20,7 @@ label {
   margin-bottom: 0;
   font-weight: 600;
   color: var(--tab-text, #0f172a);
-  flex: 1;
+  min-width: fit-content;
 }
 
 .label-main {

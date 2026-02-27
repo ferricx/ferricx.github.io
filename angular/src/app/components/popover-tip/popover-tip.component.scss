@@ -1,5 +1,10 @@
 .popover-trigger {
     anchor-name: var(--popover-anchor-name);
+    border-radius: 99rem;
+    background-color: transparent;
+    font-weight: 900;
+    font-size: 1. 0626rem;
+    color: var(--popover-trigger-color, #333);
 }
 
 @position-try --popover-left {

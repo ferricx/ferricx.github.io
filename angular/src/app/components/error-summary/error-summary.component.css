@@ -1,0 +1,46 @@
+.error-summary {
+  border: 2px solid var(--tab-error, #dc2626);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  background: var(--tab-error-bg, #fef2f2);
+}
+
+.error-summary:focus {
+  outline: 3px solid var(--tab-error, #dc2626);
+  outline-offset: 0;
+}
+
+.error-summary h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  color: var(--tab-error, #dc2626);
+}
+
+.error-summary ul {
+  margin: 0;
+  padding: 0 0 0 1.25rem;
+}
+
+.error-summary li {
+  margin-bottom: 0.25rem;
+}
+
+.error-summary li:last-child {
+  margin-bottom: 0;
+}
+
+.error-summary a {
+  color: var(--tab-error, #dc2626);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.error-summary a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.error-summary a:focus-visible {
+  outline: 2px solid var(--tab-error, #dc2626);
+  outline-offset: 2px;
+}

@@ -1,10 +1,11 @@
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormGroupComponent } from '../form-group/form-group.component';
+import { ErrorSummaryComponent } from '../error-summary/error-summary.component';
 
 @Component({
   selector: 'app-tab-navigation',
   standalone: true,
-  imports: [FormGroupComponent],
+  imports: [FormGroupComponent, ErrorSummaryComponent],
   templateUrl: './tab-navigation.component.html',
   styleUrl: './tab-navigation.css'
 })

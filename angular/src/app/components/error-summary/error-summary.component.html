@@ -1,0 +1,16 @@
+@if (errors.length > 0) {
+  <div
+    #summaryBox
+    class="error-summary"
+    tabindex="-1"
+  >
+    <h2>There is a problem</h2>
+    <ul>
+      @for (error of errors; track error.fieldId) {
+        <li>
+          <a [href]="'#' + error.fieldId" (click)="focusField($event, error.fieldId)">{{ error.message }}</a>
+        </li>
+      }
+    </ul>
+  </div>
+}

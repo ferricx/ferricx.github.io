@@ -97,7 +97,7 @@ class FormGroup extends HTMLElement {
     const label = this.getAttribute("label") || "This field";
 
     if (validity.valueMissing) {
-      return `${label} is required`;
+      return `${label} is required.`;
     }
 
     if (validity.patternMismatch) {

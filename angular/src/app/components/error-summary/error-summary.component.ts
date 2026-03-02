@@ -92,7 +92,7 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
     const label = this.findLabel(input);
 
     if (validity.valueMissing) {
-      return `${label} is required`;
+      return `${label} is required.`;
     }
 
     // Look for the format-message on the parent form-group / app-form-group
@@ -104,7 +104,7 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
     }
 
     if (validity.typeMismatch) {
-      return `Enter a valid ${input.type}`;
+      return `Enter a valid ${input.type}.`;
     }
 
     return formatMessage || 'Please enter a valid value.';

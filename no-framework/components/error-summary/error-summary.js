@@ -83,7 +83,7 @@ class ErrorSummary extends HTMLElement {
     const { validity } = input;
 
     if (validity.valueMissing) {
-      return `${label} is required`;
+      return `${label} is required.`;
     }
 
     if (validity.patternMismatch || validity.customError) {
@@ -92,7 +92,7 @@ class ErrorSummary extends HTMLElement {
     }
 
     if (validity.typeMismatch) {
-      return `Enter a valid ${input.type}`;
+      return `Enter a valid ${input.type}.`;
     }
 
     return "Please enter a valid value.";

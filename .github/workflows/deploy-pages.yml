@@ -28,11 +28,19 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
-          cache-dependency-path: angular/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            angular/package-lock.json
 
       - name: Install Angular dependencies
         working-directory: angular
         run: npm ci
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Build SCSS for no-framework
+        run: npm run build
 
       - name: Assemble static site shell
         run: |

@@ -137,7 +137,7 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
     const { validity } = input;
 
     if (validity.valueMissing) {
-      return `${this.label} is required`;
+      return `${this.label} is required.`;
     }
 
     if (validity.patternMismatch) {

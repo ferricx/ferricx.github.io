@@ -20,6 +20,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "../angular-app",
             "browser": "src/main.ts",
             "baseHref": "./",
             "tsConfig": "tsconfig.app.json",

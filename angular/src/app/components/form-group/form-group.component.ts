@@ -137,18 +137,22 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
     const { validity } = input;
 
     if (validity.valueMissing) {
-      return `${this.label} is required.`;
+      return `Enter ${this.label.toLowerCase()}.`;
     }
 
     if (validity.patternMismatch) {
       return this.formatMessage || 'Use the required format.';
     }
 
+    if (validity.typeMismatch) {
+      return `Enter a valid ${input.type} address.`;
+    }
+
     if (validity.customError) {
       return input.validationMessage;
     }
 
-    return 'Please enter a valid value.';
+    return 'Enter a valid value.';
   }
 
   private showError(message: string): void {

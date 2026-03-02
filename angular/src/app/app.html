@@ -1,8 +1,13 @@
 <header>
   <h1>Angular App</h1>
-  <p>Implementation in Angular</p>
+  <p>
+    Implementation in Angular
+    <app-popover-tip ariaLabel="About this tooltip">
+      Hello, I am a tooltip implemented using the Popover API! <a href="#main-content">Skip to main</a>
+    </app-popover-tip>
+  </p>
 </header>
-<main>
+<main id="main-content">
   <app-tab-navigation></app-tab-navigation>
 </main>
 <footer>

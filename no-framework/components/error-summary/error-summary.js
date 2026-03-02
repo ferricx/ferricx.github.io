@@ -83,19 +83,18 @@ class ErrorSummary extends HTMLElement {
     const { validity } = input;
 
     if (validity.valueMissing) {
-      return `${label} is required.`;
-    }
-
-    if (validity.patternMismatch || validity.customError) {
-      const formatMessage = group.getAttribute("format-message");
-      return formatMessage || input.validationMessage || "Please enter a valid value.";
+      return `${label} is empty.`;
     }
 
     if (validity.typeMismatch) {
-      return `Enter a valid ${input.type}.`;
+      return `${label} is not a valid ${input.type}.`;
     }
 
-    return "Please enter a valid value.";
+    if (validity.patternMismatch || validity.customError) {
+      return `${label} is not in the correct format.`;
+    }
+
+    return `${label} is not valid.`;
   }
 
   showSummary(errors) {

@@ -95,22 +95,18 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
     const label = this.findLabel(input);
 
     if (validity.valueMissing) {
-      return `${label} is required.`;
-    }
-
-    // Look for the format-message on the parent form-group / app-form-group
-    const formGroup = input.closest('app-form-group');
-    const formatMessage = formGroup?.getAttribute('format-message');
-
-    if (validity.patternMismatch || validity.customError) {
-      return formatMessage || input.validationMessage || 'Please enter a valid value.';
+      return `${label} is empty.`;
     }
 
     if (validity.typeMismatch) {
-      return `Enter a valid ${input.type}.`;
+      return `${label} is not a valid ${input.type}.`;
     }
 
-    return formatMessage || 'Please enter a valid value.';
+    if (validity.patternMismatch || validity.customError) {
+      return `${label} is not in the correct format.`;
+    }
+
+    return `${label} is not valid.`;
   }
 
   private findLabel(input: HTMLInputElement): string {

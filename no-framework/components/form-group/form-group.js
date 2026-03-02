@@ -97,18 +97,22 @@ class FormGroup extends HTMLElement {
     const label = this.getAttribute("label") || "This field";
 
     if (validity.valueMissing) {
-      return `${label} is required.`;
+      return `Enter ${label.toLowerCase()}.`;
     }
 
     if (validity.patternMismatch) {
       return this.getAttribute("format-message") || "Use the required format.";
     }
 
+    if (validity.typeMismatch) {
+      return `Enter a valid ${this.inputElement.type} address.`;
+    }
+
     if (validity.customError) {
       return this.inputElement.validationMessage;
     }
 
-    return "Please enter a valid value.";
+    return "Enter a valid value.";
   }
 
   showError(message) {

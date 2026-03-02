@@ -107,7 +107,7 @@ class ErrorSummary extends HTMLElement {
 
     const heading = document.createElement("h2");
     heading.id = "error-summary-heading";
-    heading.textContent = "There is a problem";
+    heading.textContent = "Form errors:";
 
     const list = document.createElement("ul");
     list.setAttribute("aria-labelledby", "error-summary-heading");

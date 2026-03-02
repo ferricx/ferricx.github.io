@@ -1,5 +1,6 @@
 body {
 	margin: 0;
+	font-family: 'Source Sans 3', sans-serif;
 	min-height: 100vh;
 	display: grid;
 	justify-items: center;

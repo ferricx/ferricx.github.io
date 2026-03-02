@@ -79,9 +79,10 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
       message: this.getErrorMessage(input),
     }));
 
-    // Focus the summary box on the next tick (after render)
+    // Focus the first error link on the next tick (after render)
     requestAnimationFrame(() => {
-      this.summaryBox?.nativeElement.focus();
+      const firstLink = this.summaryBox?.nativeElement.querySelector('a');
+      firstLink?.focus();
     });
   };
 

@@ -131,7 +131,9 @@ class ErrorSummary extends HTMLElement {
     container.appendChild(heading);
     container.appendChild(list);
     container.hidden = false;
-    container.focus();
+
+    const firstLink = container.querySelector("a");
+    firstLink?.focus();
 
     // Also trigger inline errors on each form-group
     for (const error of errors) {

@@ -114,7 +114,7 @@ class ErrorSummary extends HTMLElement {
       const li = document.createElement("li");
       const link = document.createElement("a");
       link.href = `#${error.fieldId}`;
-      link.textContent = error.message;
+      link.textContent = `${error.label}: ${error.message}`;
 
       link.addEventListener("click", (event) => {
         event.preventDefault();

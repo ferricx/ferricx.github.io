@@ -9,6 +9,7 @@ import {
 
 export interface FieldError {
   fieldId: string;
+  label: string;
   message: string;
 }
 
@@ -74,6 +75,7 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
 
     this.errors = invalidInputs.map((input) => ({
       fieldId: input.id,
+      label: this.findLabel(input),
       message: this.getErrorMessage(input),
     }));
 

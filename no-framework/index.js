@@ -1,5 +1,6 @@
 import "./components/form-group/form-group.js";
 import "./components/popover-tip/popover-tip.js";
+import "./components/error-summary/error-summary.js";
 
 const root = document.querySelector(".tab-navigation");
 

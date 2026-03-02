@@ -18,7 +18,8 @@
   </div>
 
   <section id="panel-page-1" role="tabpanel" aria-labelledby="tab-page-1" [hidden]="activeTabIndex !== 0">
-    <form novalidate>
+    <h2 id="registration-heading">Registration</h2>
+    <form novalidate aria-labelledby="registration-heading">
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <app-form-group field-id="reg-first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required>
@@ -50,7 +51,8 @@
   </section>
 
   <section id="panel-page-2" role="tabpanel" aria-labelledby="tab-page-2" [hidden]="activeTabIndex !== 1">
-    <form novalidate>
+    <h2 id="user-info-heading">User Info</h2>
+    <form novalidate aria-labelledby="user-info-heading">
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <app-form-group field-id="first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required></app-form-group>

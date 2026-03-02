@@ -83,18 +83,18 @@ class ErrorSummary extends HTMLElement {
     const { validity } = input;
 
     if (validity.valueMissing) {
-      return `${label} is empty.`;
+      return "is empty.";
     }
 
     if (validity.typeMismatch) {
-      return `${label} is not a valid ${input.type}.`;
+      return `is not a valid ${input.type}.`;
     }
 
     if (validity.patternMismatch || validity.customError) {
-      return `${label} is not in the correct format.`;
+      return "is not in the correct format.";
     }
 
-    return `${label} is not valid.`;
+    return "is not valid.";
   }
 
   showSummary(errors) {

@@ -8,7 +8,7 @@
     <ul aria-label="Form errors">
       @for (error of errors; track error.fieldId) {
         <li>
-          <a [href]="'#' + error.fieldId" (click)="focusField($event, error.fieldId)" aria-roledescription="list item, link">{{ error.label }} {{ error.message }}</a>
+          <a [href]="'#' + error.fieldId" (click)="focusField($event, error.fieldId)">{{ error.label }} {{ error.message }}</a>
         </li>
       }
     </ul>

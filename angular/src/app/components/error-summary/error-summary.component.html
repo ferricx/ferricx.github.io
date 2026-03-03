@@ -7,7 +7,7 @@
     <ul role="list" aria-labelledby="error-summary-heading">
       @for (error of errors; track error.fieldId) {
         <li>
-          <a [href]="'#' + error.fieldId" (click)="focusField($event, error.fieldId)" aria-roledescription="list item">{{ error.label }} {{ error.message }}</a>
+          <a [href]="'#' + error.fieldId" (click)="focusField($event, error.fieldId)" aria-roledescription="list item, link">{{ error.label }} {{ error.message }}</a>
         </li>
       }
     </ul>

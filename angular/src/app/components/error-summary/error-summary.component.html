@@ -5,7 +5,7 @@
     aria-label="Form errors"
   >
     <h2>Form errors:</h2>
-    <ul aria-label="Form errors">
+    <ul>
       @for (error of errors; track error.fieldId) {
         <li>
           <a [href]="'#' + error.fieldId" (click)="focusField($event, error.fieldId)">{{ error.label }} {{ error.message }}</a>

@@ -1,15 +1,16 @@
 @if (errors.length > 0) {
-  <div
+  <nav
     #summaryBox
     class="error-summary"
+    aria-label="Form errors"
   >
-    <h2 id="error-summary-heading">Form errors:</h2>
-    <ul role="list" aria-labelledby="error-summary-heading">
+    <h2>Form errors:</h2>
+    <ul aria-label="Form errors">
       @for (error of errors; track error.fieldId) {
         <li>
           <a [href]="'#' + error.fieldId" (click)="focusField($event, error.fieldId)" aria-roledescription="list item, link">{{ error.label }} {{ error.message }}</a>
         </li>
       }
     </ul>
-  </div>
+  </nav>
 }

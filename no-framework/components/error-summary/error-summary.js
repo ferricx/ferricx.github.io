@@ -105,10 +105,10 @@ class ErrorSummary extends HTMLElement {
     }
 
     const heading = document.createElement("h2");
-    heading.id = "error-summary-heading";
     heading.textContent = "Form errors:";
 
     const list = document.createElement("ul");
+    list.setAttribute("aria-label", "Form errors");
 
     for (const error of errors) {
       const li = document.createElement("li");
@@ -126,8 +126,6 @@ class ErrorSummary extends HTMLElement {
     }
 
     container.innerHTML = "";
-    container.setAttribute("role", "region");
-    container.setAttribute("aria-labelledby", "error-summary-heading");
     container.appendChild(heading);
     container.appendChild(list);
     container.hidden = false;
@@ -153,7 +151,7 @@ class ErrorSummary extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
       <style id="component-styles"></style>
-      <div id="summary-container" tabindex="-1" hidden></div>
+      <nav id="summary-container" aria-label="Form errors" tabindex="-1" hidden></nav>
     `;
   }
 

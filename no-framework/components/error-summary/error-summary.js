@@ -152,7 +152,7 @@ class ErrorSummary extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
       <style id="component-styles"></style>
-      <nav id="summary-container" aria-label="Form errors" tabindex="-1" hidden></nav>
+      <nav id="summary-container" aria-labelledby="error-summary-heading" tabindex="-1" hidden></nav>
     `;
   }
 

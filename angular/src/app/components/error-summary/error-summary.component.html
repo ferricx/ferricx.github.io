@@ -5,12 +5,12 @@
     tabindex="-1"
   >
     <h2 id="error-summary-heading">Form errors:</h2>
-    <ul role="list" aria-label="Form Errors">
+    <ol role="list" aria-labelledby="error-summary-heading">
       @for (error of errors; track error.fieldId) {
         <li role="listitem">
           <a [href]="'#' + error.fieldId" (click)="focusField($event, error.fieldId)">{{ error.label }} {{ error.message }}</a>
         </li>
       }
-    </ul>
+    </ol>
   </div>
 }

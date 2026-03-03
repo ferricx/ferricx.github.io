@@ -51,13 +51,39 @@
   </section>
 
   <section id="panel-page-2" role="tabpanel" aria-labelledby="tab-page-2" [hidden]="activeTabIndex !== 1">
-    <h2 id="user-info-heading">User Info</h2>
-    <form novalidate aria-labelledby="user-info-heading">
+    <h2 id="step-2-heading">Spouse Information</h2>
+    <p>If you are not married, you may skip this step.</p>
+    <form novalidate aria-labelledby="step-2-heading">
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
-      <app-form-group field-id="first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required></app-form-group>
-      <app-form-group field-id="last-name" name="lastName" label="Last name" autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." required></app-form-group>
-      <app-form-group field-id="date-of-birth" name="dateOfBirth" label="Date of birth" hint="MM/DD/YYYY" autocomplete="bday" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" format-message="Use MM/DD/YYYY format." required></app-form-group>
+      <details>
+        <summary>Spouse Information</summary>
+        <app-form-group field-id="spouse-first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required>
+          <ng-template #tip>This is a helpful tip. With some extra text to test width layout. <a href="https://example.com">Learn more</a></ng-template>
+        </app-form-group>
+        <app-form-group field-id="spouse-last-name" name="lastName" label="Last name" autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." required>
+          <ng-template #tip>This is a helpful tip.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="spouse-date-of-birth" name="dateOfBirth" label="Date of birth" hint="MM/DD/YYYY" autocomplete="bday" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" format-message="Use MM/DD/YYYY format." required>
+          <ng-template #tip>This is a helpful tip. <a href="https://example.com">Learn more</a></ng-template>
+        </app-form-group>
+        <app-form-group field-id="spouse-social-security-number" name="socialSecurityNumber" label="Social Security number" autocomplete="off" inputmode="numeric" pattern="\d{9}" maxlength="9" format-message="Use 9 digits only." hint="Enter 9 digits, numbers only." required>
+          <ng-template #tip>This is a helpful tip.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="spouse-email" name="email" label="Email" type="email" autocomplete="email" required>
+          <ng-template #tip>This is a helpful tip. <a href="https://example.com">Learn more</a></ng-template>
+        </app-form-group>
+        <app-form-group field-id="spouse-phone" name="phone" label="Phone number" type="tel" autocomplete="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{7,20}" format-message="Phone number must be 7 to 20 characters and can include digits, spaces, parentheses, plus, and hyphens." required>
+          <ng-template #tip>This is a helpful tip.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="spouse-address" name="address" label="Address" autocomplete="street-address" required>
+          <ng-template #tip>This is a helpful tip. <a href="https://example.com">Learn more</a></ng-template>
+        </app-form-group>
+      </details>
+      <div class="form-actions">
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+      </div>
     </form>
   </section>
 

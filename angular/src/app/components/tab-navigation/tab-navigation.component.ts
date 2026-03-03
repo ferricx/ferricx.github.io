@@ -16,8 +16,8 @@ export class TabNavigationComponent {
   protected activeTabIndex = 0;
 
   protected readonly tabs = [
-    { id: 'page-1', label: 'Registration' },
-    { id: 'page-2', label: 'User Info' },
+    { id: 'page-1', label: 'Step 1' },
+    { id: 'page-2', label: 'Step 2' },
     { id: 'page-3', label: 'Page 3' },
     { id: 'page-4', label: 'Page 4' }
   ];

@@ -109,7 +109,7 @@ class ErrorSummary extends HTMLElement {
     heading.textContent = "Form errors:";
 
     const list = document.createElement("ul");
-    list.setAttribute("aria-describedby", "error-summary-heading");
+    list.setAttribute("aria-labelledby", "error-summary-heading");
 
     for (const error of errors) {
       const li = document.createElement("li");

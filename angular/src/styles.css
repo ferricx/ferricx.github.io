@@ -6,3 +6,52 @@ body {
 	justify-items: center;
 	align-items: start;
 }
+
+::view-transition-group(tab-panel) {
+	animation: none;
+	overflow: clip;
+}
+
+::view-transition-old(tab-panel) {
+	animation: 200ms ease-out both tab-slide-out-left;
+}
+
+::view-transition-new(tab-panel) {
+	animation: 200ms ease-out both tab-slide-in-right;
+}
+
+[data-tab-direction="backward"]::view-transition-old(tab-panel) {
+	animation-name: tab-slide-out-right;
+}
+
+[data-tab-direction="backward"]::view-transition-new(tab-panel) {
+	animation-name: tab-slide-in-left;
+}
+
+@keyframes tab-slide-out-left {
+	to {
+		opacity: 0;
+		transform: translateX(-100%);
+	}
+}
+
+@keyframes tab-slide-in-right {
+	from {
+		opacity: 0;
+		transform: translateX(100%);
+	}
+}
+
+@keyframes tab-slide-out-right {
+	to {
+		opacity: 0;
+		transform: translateX(100%);
+	}
+}
+
+@keyframes tab-slide-in-left {
+	from {
+		opacity: 0;
+		transform: translateX(-100%);
+	}
+}

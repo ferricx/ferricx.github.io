@@ -89,21 +89,38 @@ class TabNavigation extends HTMLElement {
   }
 
   activateTab(index, moveFocus) {
-    this.activeIndex = index;
-
-    this.tabs.forEach((tab, tabIndex) => {
-      const isSelected = tabIndex === index;
-      tab.setAttribute("aria-selected", String(isSelected));
-      tab.setAttribute("tabindex", isSelected ? "0" : "-1");
-    });
-
-    this.panels.forEach((panel, panelIndex) => {
-      panel.hidden = panelIndex !== index;
-    });
-
-    if (moveFocus) {
-      this.tabs[index].focus();
+    if (index === this.activeIndex) {
+      if (moveFocus) this.tabs[index].focus();
+      return;
     }
+
+    this.shadowRoot.host.dataset.tabDirection = index > this.activeIndex ? "forward" : "backward";
+    document.documentElement.dataset.tabDirection = this.shadowRoot.host.dataset.tabDirection;
+
+    const update = () => {
+      this.activeIndex = index;
+
+      this.tabs.forEach((tab, tabIndex) => {
+        const isSelected = tabIndex === index;
+        tab.setAttribute("aria-selected", String(isSelected));
+        tab.setAttribute("tabindex", isSelected ? "0" : "-1");
+      });
+
+      this.panels.forEach((panel, panelIndex) => {
+        panel.hidden = panelIndex !== index;
+      });
+
+      if (moveFocus) {
+        this.tabs[index].focus();
+      }
+    };
+
+    if (!document.startViewTransition) {
+      update();
+      return;
+    }
+
+    document.startViewTransition(update);
   }
 
   render() {

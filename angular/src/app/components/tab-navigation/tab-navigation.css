@@ -76,6 +76,10 @@
   box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
 }
 
+[role=tabpanel]:not([hidden]) {
+  view-transition-name: tab-panel;
+}
+
 .form-actions {
   display: flex;
   gap: 0.5rem;

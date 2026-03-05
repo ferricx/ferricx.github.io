@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { FormGroupComponent } from '../form-group/form-group.component';
 import { ErrorSummaryComponent } from '../error-summary/error-summary.component';
 
@@ -13,7 +13,10 @@ export class TabNavigationComponent {
   @ViewChildren('tabButton')
   private readonly tabButtons!: QueryList<ElementRef<HTMLButtonElement>>;
 
+  private readonly cdr = inject(ChangeDetectorRef);
+
   protected activeTabIndex = 0;
+  private tabDirection: 'forward' | 'backward' = 'forward';
 
   protected readonly tabs = [
     { id: 'page-1', label: 'Step 1' },
@@ -23,13 +26,30 @@ export class TabNavigationComponent {
   ];
 
   protected activateTab(index: number, moveFocus: boolean): void {
-    this.activeTabIndex = index;
-
-    if (!moveFocus) {
+    if (index === this.activeTabIndex) {
+      if (moveFocus) {
+        this.tabButtons.get(index)?.nativeElement.focus();
+      }
       return;
     }
 
-    this.tabButtons.get(index)?.nativeElement.focus();
+    this.tabDirection = index > this.activeTabIndex ? 'forward' : 'backward';
+    document.documentElement.dataset['tabDirection'] = this.tabDirection;
+
+    const update = () => {
+      this.activeTabIndex = index;
+      this.cdr.detectChanges();
+      if (moveFocus) {
+        this.tabButtons.get(index)?.nativeElement.focus();
+      }
+    };
+
+    if (!document.startViewTransition) {
+      update();
+      return;
+    }
+
+    document.startViewTransition(update);
   }
 
   protected handleTabKeydown(event: KeyboardEvent, index: number): void {

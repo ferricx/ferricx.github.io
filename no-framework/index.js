@@ -7,21 +7,41 @@ const root = document.querySelector(".tab-navigation");
 if (root) {
   const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
   const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
+  let activeIndex = 0;
 
   const activateTab = (index, moveFocus) => {
-    tabs.forEach((tab, tabIndex) => {
-      const isSelected = tabIndex === index;
-      tab.setAttribute("aria-selected", String(isSelected));
-      tab.setAttribute("tabindex", isSelected ? "0" : "-1");
-    });
-
-    panels.forEach((panel, panelIndex) => {
-      panel.hidden = panelIndex !== index;
-    });
-
-    if (moveFocus) {
-      tabs[index].focus();
+    if (index === activeIndex) {
+      if (moveFocus) tabs[index].focus();
+      return;
     }
+
+    root.dataset.tabDirection = index > activeIndex ? "forward" : "backward";
+    document.documentElement.dataset.tabDirection = root.dataset.tabDirection;
+
+    const update = () => {
+      activeIndex = index;
+
+      tabs.forEach((tab, tabIndex) => {
+        const isSelected = tabIndex === index;
+        tab.setAttribute("aria-selected", String(isSelected));
+        tab.setAttribute("tabindex", isSelected ? "0" : "-1");
+      });
+
+      panels.forEach((panel, panelIndex) => {
+        panel.hidden = panelIndex !== index;
+      });
+
+      if (moveFocus) {
+        tabs[index].focus();
+      }
+    };
+
+    if (!document.startViewTransition) {
+      update();
+      return;
+    }
+
+    document.startViewTransition(update);
   };
 
   const handleKeydown = (event, index) => {

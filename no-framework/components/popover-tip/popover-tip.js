@@ -15,6 +15,7 @@ class PopoverTip extends HTMLElement {
     this.boundHandleTriggerFocusIn = () => this.handleTriggerFocusIn();
     this.boundHandleFocusOut = (event) => this.handleFocusOut(event);
     this.boundHandleTriggerPointerDown = () => this.handleTriggerPointerDown();
+    this.boundHandleTriggerKeyDown = (event) => this.handleTriggerKeyDown(event);
     this.boundHandleContentTransitionEnd = (event) => this.handleContentTransitionEnd(event);
     this.boundHandleLayoutChange = () => {
       this.requestPositionDetection();
@@ -76,6 +77,7 @@ class PopoverTip extends HTMLElement {
       this.triggerElement.addEventListener("focusin", this.boundHandleTriggerFocusIn);
       this.triggerElement.addEventListener("focusout", this.boundHandleFocusOut);
       this.triggerElement.addEventListener("pointerdown", this.boundHandleTriggerPointerDown);
+      this.triggerElement.addEventListener("keydown", this.boundHandleTriggerKeyDown);
     }
 
     if (this.panelElement) {
@@ -92,6 +94,7 @@ class PopoverTip extends HTMLElement {
       this.triggerElement.removeEventListener("focusin", this.boundHandleTriggerFocusIn);
       this.triggerElement.removeEventListener("focusout", this.boundHandleFocusOut);
       this.triggerElement.removeEventListener("pointerdown", this.boundHandleTriggerPointerDown);
+      this.triggerElement.removeEventListener("keydown", this.boundHandleTriggerKeyDown);
     }
 
     if (this.panelElement) {
@@ -156,6 +159,12 @@ class PopoverTip extends HTMLElement {
 
   isPointerOverTriggerOrPanel(clientX, clientY) {
     return this.isPointInsideElement(this.triggerElement, clientX, clientY) || this.isPointInsideElement(this.panelElement, clientX, clientY);
+  }
+
+  handleTriggerKeyDown(event) {
+    if (event.key === " " || event.key === "Enter") {
+      event.preventDefault();
+    }
   }
 
   handleTriggerPointerDown() {

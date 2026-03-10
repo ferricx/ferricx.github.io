@@ -84,6 +84,12 @@ export class PopoverTipComponent {
     this.openPopoverPanel();
   }
 
+  protected suppressKeyboardToggle(event: KeyboardEvent): void {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
+
   protected scheduleClose(): void {
     this.clearCloseTimer();
     this.startCloseTimer();

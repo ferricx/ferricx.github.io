@@ -14,6 +14,7 @@
     (mouseenter)="openByHover()"
     (mouseleave)="handleHoverLeave($event)"
     (focusin)="openByFocus()"
+    (keydown)="suppressKeyboardToggle($event)"
   >
     <span aria-hidden="true">{{ buttonLabel }}</span>
   </button>

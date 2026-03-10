@@ -19,10 +19,8 @@ export class TabNavigationComponent {
   private tabDirection: 'forward' | 'backward' = 'forward';
 
   protected readonly tabs = [
-    { id: 'page-1', label: 'Step 1' },
-    { id: 'page-2', label: 'Step 2' },
-    { id: 'page-3', label: 'Page 3' },
-    { id: 'page-4', label: 'Page 4' }
+    { id: 'personal', label: 'Personal' },
+    { id: 'contact', label: 'Contact' }
   ];
 
   protected activateTab(index: number, moveFocus: boolean): void {

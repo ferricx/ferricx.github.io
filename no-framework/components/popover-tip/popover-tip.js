@@ -655,7 +655,7 @@ class PopoverTip extends HTMLElement {
 
     triggerElement.id = triggerId;
     triggerElement.setAttribute("aria-controls", popoverId);
-    triggerElement.setAttribute("aria-details", popoverId);
+    triggerElement.setAttribute("aria-describedby", popoverId);
     triggerElement.setAttribute("popovertarget", popoverId);
 
     panelElement.id = popoverId;

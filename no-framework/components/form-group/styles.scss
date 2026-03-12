@@ -41,7 +41,7 @@ input {
   color: var(--tab-text, #0f172a);
   background: var(--tab-surface, #ffffff);
 
-  &[aria-invalid="true"] {
+  &:user-invalid {
     border-color: var(--tab-error, #dc2626);
     outline: 2px solid var(--tab-error-soft, #fee2e2);
     outline-offset: 0;

@@ -28,7 +28,6 @@
   [attr.maxlength]="maxlength"
   [required]="required"
   [attr.aria-describedby]="errorId"
-  [attr.aria-invalid]="errorMessage ? 'true' : 'false'"
   (invalid)="onInvalid($event)"
   (input)="onInput()"
   (blur)="onBlur()"

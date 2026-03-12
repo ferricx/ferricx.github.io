@@ -117,7 +117,6 @@ class FormGroup extends HTMLElement {
 
   showError(message) {
     this.errorElement.textContent = message;
-    this.inputElement.setAttribute("aria-invalid", String(message.length > 0));
   }
 
   async applyStyles() {

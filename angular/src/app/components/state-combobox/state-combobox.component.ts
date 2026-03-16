@@ -113,9 +113,12 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
   private formElement: HTMLFormElement | null = null;
   private selectedValue = '';
 
+  protected readonly anchorName: string;
+
   constructor(private readonly host: ElementRef<HTMLElement>) {
     const id = instanceCounter++;
     this.listboxId = `state-listbox-${id}`;
+    this.anchorName = `--state-combobox-${id}`;
   }
 
   protected get errorId(): string {

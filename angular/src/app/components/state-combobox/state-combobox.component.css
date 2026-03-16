@@ -67,7 +67,7 @@ input:focus {
 
 .listbox-popover {
   inset: unset;
-  position-area: block-end span-inline-end;
+  position-area: block-end span-all;
   margin: 0;
   margin-top: 0.25rem;
   padding: 0.25rem 0;
@@ -79,6 +79,7 @@ input:focus {
   overflow-y: auto;
   overscroll-behavior: contain;
   width: anchor-size(width);
+  position-try-fallbacks: flip-block;
 }
 
 .listbox-option {

@@ -148,6 +148,15 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  protected onClick(): void {
+    if (this.isOpen) {
+      this.closeListbox();
+    } else {
+      this.filterStates(this.inputValue);
+      this.openListbox();
+    }
+  }
+
   protected onInput(): void {
     const value = this.comboInput.nativeElement.value;
     this.inputValue = value;

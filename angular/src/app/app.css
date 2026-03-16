@@ -67,6 +67,7 @@ nav[aria-label="Main"] a.active {
 
 main {
 	width: min(90vw, 48rem);
+	view-transition-name: main-content;
 }
 
 .tab-navigation {

@@ -12,6 +12,10 @@
 	--tab-shadow: 0 10px 30px color-mix(in srgb, var(--tab-text, #0f172a) 8%, transparent);
 }
 
+@view-transition {
+	navigation: auto;
+}
+
 body {
 	margin: 0;
 	font-family: 'Source Sans 3', sans-serif;
@@ -22,6 +26,22 @@ body {
 	background-color: var(--tab-surface-muted, #f8fafc);
 	color: var(--tab-text, #0f172a);
 	transition: background-color 200ms ease, color 200ms ease;
+}
+
+::view-transition-old(main-content) {
+	animation: 150ms ease-out both fade-out;
+}
+
+::view-transition-new(main-content) {
+	animation: 150ms ease-in both fade-in;
+}
+
+@keyframes fade-out {
+	to { opacity: 0; }
+}
+
+@keyframes fade-in {
+	from { opacity: 0; }
 }
 
 ::view-transition-group(tab-panel) {

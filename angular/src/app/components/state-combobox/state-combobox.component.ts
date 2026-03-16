@@ -152,7 +152,9 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
     if (this.isOpen) {
       this.closeListbox();
     } else {
-      this.filterStates(this.inputValue);
+      this.filteredStates = [...US_STATES];
+      this.activeIndex = -1;
+      this.activeDescendantId = null;
       this.openListbox();
     }
   }

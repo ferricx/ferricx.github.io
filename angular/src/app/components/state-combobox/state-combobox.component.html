@@ -22,14 +22,15 @@
     type="text"
     role="combobox"
     autocomplete="off"
+    readonly
     [attr.aria-expanded]="isOpen"
     [attr.aria-controls]="listboxId"
     [attr.aria-activedescendant]="activeDescendantId"
-    aria-autocomplete="list"
+    aria-autocomplete="none"
     [attr.aria-describedby]="errorId"
     [attr.aria-required]="required || null"
     placeholder="Choose state"
-    (input)="onInput()"
+    [value]="displayValue"
     (keydown)="onKeydown($event)"
     (blur)="onBlur()"
     (click)="onClick()"
@@ -47,20 +48,18 @@
     [style.position-anchor]="anchorName"
     popover="manual"
   >
-    @for (state of filteredStates; track state.abbreviation; let i = $index) {
+    @for (state of states; track state.abbreviation; let i = $index) {
       <div
         [id]="optionId(i)"
         role="option"
         class="listbox-option"
         [class.active]="activeDescendantId === optionId(i)"
-        [attr.aria-selected]="activeDescendantId === optionId(i)"
+        [attr.aria-selected]="selectedIndex === i"
         (pointerenter)="onOptionPointerEnter(i)"
-        (click)="onOptionClick(state)"
+        (click)="onOptionClick(i)"
       >
         {{ state.name }} <span class="option-abbr">({{ state.abbreviation }})</span>
       </div>
-    } @empty {
-      <div class="listbox-no-results">No matching states</div>
     }
   </div>
 </div>

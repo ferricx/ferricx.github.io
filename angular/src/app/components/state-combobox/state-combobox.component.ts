@@ -104,16 +104,16 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
   private readonly listboxPanel!: ElementRef<HTMLElement>;
 
   protected readonly listboxId: string;
+  protected readonly anchorName: string;
+  protected readonly states = US_STATES;
   protected errorMessage = '';
-  protected filteredStates = [...US_STATES];
   protected activeDescendantId: string | null = null;
-  protected inputValue = '';
+  protected selectedIndex = -1;
 
   private activeIndex = -1;
   private formElement: HTMLFormElement | null = null;
-  private selectedValue = '';
-
-  protected readonly anchorName: string;
+  private typeaheadBuffer = '';
+  private typeaheadTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(private readonly host: ElementRef<HTMLElement>) {
     const id = instanceCounter++;
@@ -123,6 +123,12 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
 
   protected get errorId(): string {
     return `${this.fieldId}-error`;
+  }
+
+  protected get displayValue(): string {
+    if (this.selectedIndex < 0) return '';
+    const s = US_STATES[this.selectedIndex];
+    return `${s.name} (${s.abbreviation})`;
   }
 
   protected optionId(index: number): string {
@@ -152,88 +158,78 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
     if (this.isOpen) {
       this.closeListbox();
     } else {
-      this.filteredStates = [...US_STATES];
-      this.activeIndex = -1;
-      this.activeDescendantId = null;
+      this.activeIndex = this.selectedIndex;
+      this.activeDescendantId = this.activeIndex >= 0 ? this.optionId(this.activeIndex) : null;
       this.openListbox();
-    }
-  }
-
-  protected onInput(): void {
-    const value = this.comboInput.nativeElement.value;
-    this.inputValue = value;
-    this.selectedValue = '';
-    this.filterStates(value);
-    this.activeIndex = -1;
-    this.activeDescendantId = null;
-
-    if (this.filteredStates.length > 0) {
-      this.openListbox();
-    } else {
-      this.closeListbox();
-    }
-
-    if (this.errorMessage) {
-      this.errorMessage = '';
+      if (this.activeIndex >= 0) {
+        this.scrollActiveIntoView();
+      }
     }
   }
 
   protected onKeydown(event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault();
-        if (!this.isOpen) {
-          this.filterStates(this.inputValue);
-          this.openListbox();
-        }
-        this.moveActive(1);
-        break;
+    const key = event.key;
 
-      case 'ArrowUp':
-        event.preventDefault();
-        if (!this.isOpen) {
-          this.filterStates(this.inputValue);
-          this.openListbox();
-        }
-        this.moveActive(-1);
-        break;
+    if (key === 'ArrowDown' || key === 'ArrowUp') {
+      event.preventDefault();
+      if (!this.isOpen) {
+        this.activeIndex = this.selectedIndex;
+        this.activeDescendantId = this.activeIndex >= 0 ? this.optionId(this.activeIndex) : null;
+        this.openListbox();
+      }
+      this.moveActive(key === 'ArrowDown' ? 1 : -1);
+      return;
+    }
 
-      case 'Enter':
-        if (this.isOpen && this.activeIndex >= 0) {
-          event.preventDefault();
-          this.selectOption(this.filteredStates[this.activeIndex]);
-        }
-        break;
-
-      case 'Escape':
-        if (this.isOpen) {
-          event.preventDefault();
-          this.closeListbox();
-        }
-        break;
-
-      case 'Home':
-        if (this.isOpen && this.filteredStates.length > 0) {
-          event.preventDefault();
-          this.activeIndex = 0;
-          this.activeDescendantId = this.optionId(0);
+    if (key === 'Enter' || key === ' ') {
+      event.preventDefault();
+      if (this.isOpen && this.activeIndex >= 0) {
+        this.selectOption(this.activeIndex);
+      } else if (!this.isOpen) {
+        this.activeIndex = this.selectedIndex;
+        this.activeDescendantId = this.activeIndex >= 0 ? this.optionId(this.activeIndex) : null;
+        this.openListbox();
+        if (this.activeIndex >= 0) {
           this.scrollActiveIntoView();
         }
-        break;
+      }
+      return;
+    }
 
-      case 'End':
-        if (this.isOpen && this.filteredStates.length > 0) {
-          event.preventDefault();
-          this.activeIndex = this.filteredStates.length - 1;
-          this.activeDescendantId = this.optionId(this.activeIndex);
-          this.scrollActiveIntoView();
-        }
-        break;
+    if (key === 'Escape') {
+      if (this.isOpen) {
+        event.preventDefault();
+        this.closeListbox();
+      }
+      return;
+    }
+
+    if (key === 'Home') {
+      event.preventDefault();
+      if (!this.isOpen) this.openListbox();
+      this.activeIndex = 0;
+      this.activeDescendantId = this.optionId(0);
+      this.scrollActiveIntoView();
+      return;
+    }
+
+    if (key === 'End') {
+      event.preventDefault();
+      if (!this.isOpen) this.openListbox();
+      this.activeIndex = US_STATES.length - 1;
+      this.activeDescendantId = this.optionId(this.activeIndex);
+      this.scrollActiveIntoView();
+      return;
+    }
+
+    // Typeahead: printable single characters
+    if (key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
+      event.preventDefault();
+      this.handleTypeahead(key);
     }
   }
 
   protected onBlur(): void {
-    // Delay to allow click on listbox option to fire first
     setTimeout(() => {
       if (this.isOpen) {
         this.closeListbox();
@@ -242,8 +238,8 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
     }, 150);
   }
 
-  protected onOptionClick(state: { abbreviation: string; name: string }): void {
-    this.selectOption(state);
+  protected onOptionClick(index: number): void {
+    this.selectOption(index);
     this.comboInput.nativeElement.focus();
   }
 
@@ -252,38 +248,47 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
     this.activeDescendantId = this.optionId(index);
   }
 
-  private selectOption(state: { abbreviation: string; name: string }): void {
-    this.inputValue = `${state.name} (${state.abbreviation})`;
-    this.selectedValue = state.abbreviation;
-    this.comboInput.nativeElement.value = this.inputValue;
+  private selectOption(index: number): void {
+    this.selectedIndex = index;
+    this.activeIndex = index;
+    this.activeDescendantId = this.optionId(index);
     this.closeListbox();
     this.errorMessage = '';
   }
 
-  private filterStates(query: string): void {
-    const q = query.toLowerCase().trim();
-    if (!q) {
-      this.filteredStates = [...US_STATES];
-      return;
+  private handleTypeahead(char: string): void {
+    if (this.typeaheadTimer) {
+      clearTimeout(this.typeaheadTimer);
     }
-    this.filteredStates = US_STATES.filter(
-      (s) =>
-        s.name.toLowerCase().includes(q) ||
-        s.abbreviation.toLowerCase().includes(q)
+
+    this.typeaheadBuffer += char.toLowerCase();
+
+    this.typeaheadTimer = setTimeout(() => {
+      this.typeaheadBuffer = '';
+      this.typeaheadTimer = null;
+    }, 500);
+
+    const matchIndex = US_STATES.findIndex((s) =>
+      s.name.toLowerCase().startsWith(this.typeaheadBuffer)
     );
+
+    if (matchIndex >= 0) {
+      if (!this.isOpen) {
+        this.openListbox();
+      }
+      this.activeIndex = matchIndex;
+      this.activeDescendantId = this.optionId(matchIndex);
+      this.scrollActiveIntoView();
+    }
   }
 
   private moveActive(direction: 1 | -1): void {
-    if (this.filteredStates.length === 0) return;
-
     if (this.activeIndex === -1) {
-      this.activeIndex = direction === 1 ? 0 : this.filteredStates.length - 1;
+      this.activeIndex = direction === 1 ? 0 : US_STATES.length - 1;
     } else {
       this.activeIndex =
-        (this.activeIndex + direction + this.filteredStates.length) %
-        this.filteredStates.length;
+        (this.activeIndex + direction + US_STATES.length) % US_STATES.length;
     }
-
     this.activeDescendantId = this.optionId(this.activeIndex);
     this.scrollActiveIntoView();
   }
@@ -314,23 +319,8 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
   }
 
   private validate(): boolean {
-    if (this.required && !this.selectedValue) {
-      const raw = this.comboInput.nativeElement.value.trim();
-      if (raw) {
-        // Try to match a typed value to a state
-        const match = US_STATES.find(
-          (s) =>
-            s.abbreviation.toLowerCase() === raw.toLowerCase() ||
-            s.name.toLowerCase() === raw.toLowerCase()
-        );
-        if (match) {
-          this.selectOption(match);
-          return true;
-        }
-        this.errorMessage = 'Select a valid state.';
-      } else {
-        this.errorMessage = 'Enter state.';
-      }
+    if (this.required && this.selectedIndex < 0) {
+      this.errorMessage = 'Select a state.';
       return false;
     }
     this.errorMessage = '';
@@ -344,12 +334,9 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
   };
 
   private readonly handleReset = (): void => {
-    this.inputValue = '';
-    this.selectedValue = '';
-    this.errorMessage = '';
-    this.filteredStates = [...US_STATES];
+    this.selectedIndex = -1;
     this.activeIndex = -1;
     this.activeDescendantId = null;
-    this.comboInput.nativeElement.value = '';
+    this.errorMessage = '';
   };
 }

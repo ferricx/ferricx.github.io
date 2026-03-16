@@ -62,7 +62,7 @@
         <ng-template #tip>This is a helpful tip.</ng-template>
       </app-form-group>
       <app-state-combobox field-id="reg-state" name="state" label="State" required>
-        <ng-template #tip>This is a helpful tip.</ng-template>
+        <ng-template #tip>This is a custom listbox built with the Popover API that behaves like a native select element. You can click to open, use arrow keys to navigate, and type to jump to a matching state.</ng-template>
       </app-state-combobox>
       <app-form-group field-id="reg-zip" name="zip" label="ZIP code" autocomplete="postal-code" inputmode="numeric" pattern="\d{5}(-\d{4})?" maxlength="10" format-message="Use 5-digit or 9-digit ZIP code." required>
         <ng-template #tip>This is a helpful tip.</ng-template>

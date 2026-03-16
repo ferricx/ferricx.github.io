@@ -75,7 +75,7 @@ input:focus {
   border-radius: 0.5rem;
   background: var(--tab-surface, #ffffff);
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
-  max-height: 14rem;
+  max-height: min(14rem, 40dvh);
   overflow-y: auto;
   overscroll-behavior: contain;
   width: anchor-size(width);

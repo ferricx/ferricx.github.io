@@ -257,29 +257,54 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
   }
 
   private handleTypeahead(char: string): void {
+    const lowerChar = char.toLowerCase();
+
     if (this.typeaheadTimer) {
       clearTimeout(this.typeaheadTimer);
     }
-
-    this.typeaheadBuffer += char.toLowerCase();
 
     this.typeaheadTimer = setTimeout(() => {
       this.typeaheadBuffer = '';
       this.typeaheadTimer = null;
     }, 500);
 
+    // Same character repeated: cycle through matches starting with that letter
+    if (this.typeaheadBuffer.length === 1 && this.typeaheadBuffer === lowerChar) {
+      const matchingIndices: number[] = [];
+      for (let i = 0; i < US_STATES.length; i++) {
+        if (US_STATES[i].name.toLowerCase().startsWith(lowerChar)) {
+          matchingIndices.push(i);
+        }
+      }
+
+      if (matchingIndices.length > 0) {
+        const currentPos = matchingIndices.indexOf(this.activeIndex);
+        const nextPos = (currentPos + 1) % matchingIndices.length;
+        this.setActiveAndOpen(matchingIndices[nextPos]);
+      }
+      // Keep buffer as single char for continued cycling
+      return;
+    }
+
+    // Different character: append to buffer and search
+    this.typeaheadBuffer += lowerChar;
+
     const matchIndex = US_STATES.findIndex((s) =>
       s.name.toLowerCase().startsWith(this.typeaheadBuffer)
     );
 
     if (matchIndex >= 0) {
-      if (!this.isOpen) {
-        this.openListbox();
-      }
-      this.activeIndex = matchIndex;
-      this.activeDescendantId = this.optionId(matchIndex);
-      this.scrollActiveIntoView();
+      this.setActiveAndOpen(matchIndex);
     }
+  }
+
+  private setActiveAndOpen(index: number): void {
+    if (!this.isOpen) {
+      this.openListbox();
+    }
+    this.activeIndex = index;
+    this.activeDescendantId = this.optionId(index);
+    this.scrollActiveIntoView();
   }
 
   private moveActive(direction: 1 | -1): void {

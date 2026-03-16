@@ -52,6 +52,7 @@ export class ThemeService {
 
     const root = document.documentElement;
     root.removeAttribute('data-theme');
+    root.style.removeProperty('color-scheme');
     const props = [
       '--tab-surface', '--tab-surface-muted', '--tab-input-bg', '--tab-border',
       '--tab-text', '--tab-text-muted', '--tab-accent',
@@ -69,6 +70,7 @@ export class ThemeService {
 
     const root = document.documentElement;
     root.setAttribute('data-theme', this.mode);
+    root.style.setProperty('color-scheme', this.mode);
     root.style.setProperty('--tab-surface', hexFromArgb(s.surface));
     root.style.setProperty('--tab-surface-muted', hexFromArgb(s.surfaceVariant));
     root.style.setProperty('--tab-input-bg', this.mode === 'light' ? '#ffffff' : hexFromArgb(s.surfaceVariant));

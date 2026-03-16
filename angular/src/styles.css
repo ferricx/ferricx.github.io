@@ -19,6 +19,9 @@ body {
 	display: grid;
 	justify-items: center;
 	align-items: start;
+	background-color: var(--tab-surface-muted, #f8fafc);
+	color: var(--tab-text, #0f172a);
+	transition: background-color 200ms ease, color 200ms ease;
 }
 
 ::view-transition-group(tab-panel) {

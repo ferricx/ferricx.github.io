@@ -1,5 +1,19 @@
 :host {
 	display: block;
+	color: var(--tab-text, #0f172a);
+}
+
+header {
+	transition: color 200ms ease;
+}
+
+footer {
+	color: var(--tab-text-muted, #334155);
+	transition: color 200ms ease;
+}
+
+footer a {
+	color: var(--tab-accent, #2563eb);
 }
 
 .header-content {
@@ -57,18 +71,9 @@ main {
 }
 
 .tab-navigation {
-	--tab-surface: #ffffff;
-	--tab-surface-muted: #f8fafc;
-	--tab-border: #e2e8f0;
-	--tab-text: #0f172a;
-	--tab-text-muted: #334155;
-	--tab-accent: #2563eb;
-	--tab-accent-soft: #dbeafe;
-	--tab-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 	display: block;
 	max-width: 48rem;
 	color: var(--tab-text);
-	font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 .tab-navigation [role=tablist] {
@@ -78,7 +83,7 @@ main {
 	padding: 0.5rem;
 	border: 1px solid var(--tab-border);
 	border-radius: 0.875rem;
-	background: linear-gradient(180deg, #ffffff 0%, var(--tab-surface-muted) 100%);
+	background: linear-gradient(180deg, var(--tab-surface, #ffffff) 0%, var(--tab-surface-muted) 100%);
 	box-shadow: var(--tab-shadow);
 }
 

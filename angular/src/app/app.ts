@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { TabNavigationComponent } from './components/tab-navigation/tab-navigation.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { PopoverTipComponent } from './components/popover-tip/popover-tip.component';
 
 @Component({
   selector: 'app-root',
-  imports: [TabNavigationComponent, PopoverTipComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, PopoverTipComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

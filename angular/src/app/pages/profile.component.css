@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  max-width: 48rem;
+  padding: 1rem 1.125rem;
+  border: 1px solid var(--tab-border, #e2e8f0);
+  border-radius: 0.875rem;
+  background: var(--tab-surface, #ffffff);
+  color: var(--tab-text, #0f172a);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+}
+
+.required-legend {
+  font-size: 0.875rem;
+  color: var(--tab-text-muted, #334155);
+  margin: 0 0 1rem;
+}
+
+.required-legend .required-indicator {
+  color: #dc2626;
+  vertical-align: super;
+  font-size: 0.75em;
+  font-weight: 700;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}

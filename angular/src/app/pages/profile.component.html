@@ -1,0 +1,21 @@
+<h2 id="profile-heading">User Profile</h2>
+<form novalidate aria-labelledby="profile-heading">
+  <app-error-summary></app-error-summary>
+  <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
+  <app-form-group field-id="profile-username" name="username" label="Username" autocomplete="username" pattern="[A-Za-z0-9_]{3,20}" format-message="Username must be 3–20 characters using letters, numbers, or underscores." required>
+    <ng-template #tip>Choose a unique username for your account.</ng-template>
+  </app-form-group>
+  <app-form-group field-id="profile-display-name" name="displayName" label="Display name" autocomplete="name" pattern=".{2,50}" format-message="Display name must be 2–50 characters." required>
+    <ng-template #tip>This is the name others will see.</ng-template>
+  </app-form-group>
+  <app-form-group field-id="profile-bio" name="bio" label="Bio" pattern=".{0,200}" maxlength="200" format-message="Bio must be 200 characters or fewer.">
+    <ng-template #tip>A short description about yourself.</ng-template>
+  </app-form-group>
+  <app-form-group field-id="profile-website" name="website" label="Website" type="url" autocomplete="url" pattern="https?://.*" format-message="Enter a valid URL starting with http:// or https://.">
+    <ng-template #tip>Your personal or professional website.</ng-template>
+  </app-form-group>
+  <div class="form-actions">
+    <button type="reset">Reset</button>
+    <button type="submit">Submit</button>
+  </div>
+</form>

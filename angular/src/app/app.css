@@ -2,6 +2,56 @@
 	display: block;
 }
 
+.header-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+nav[aria-label="Main"] {
+	display: flex;
+	gap: 1rem;
+	margin-top: 0.5rem;
+}
+
+nav[aria-label="Main"] a {
+	text-decoration: none;
+	font-weight: 600;
+	color: var(--tab-text-muted, #334155);
+	padding: 0.25rem 0;
+	border-bottom: 2px solid transparent;
+}
+
+nav[aria-label="Main"] a:hover {
+	color: var(--tab-accent, #2563eb);
+}
+
+nav[aria-label="Main"] a.active {
+	color: var(--tab-accent, #2563eb);
+	border-bottom-color: var(--tab-accent, #2563eb);
+}
+
+.profile-link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	color: var(--tab-text-muted, #334155);
+	transition: color 180ms ease, background-color 180ms ease;
+}
+
+.profile-link:hover {
+	color: var(--tab-accent, #2563eb);
+	background-color: var(--tab-accent-soft, #dbeafe);
+}
+
+.profile-link.active {
+	color: var(--tab-accent, #2563eb);
+	background-color: var(--tab-accent-soft, #dbeafe);
+}
+
 main {
 	width: min(90vw, 48rem);
 }

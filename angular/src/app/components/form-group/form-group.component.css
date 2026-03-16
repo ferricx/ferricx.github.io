@@ -53,6 +53,11 @@ input {
   background: var(--tab-surface, #ffffff);
 }
 
+input:focus-visible {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: 2px;
+}
+
 input:user-invalid {
   border-color: var(--tab-error, #dc2626);
   outline: 2px solid var(--tab-error-soft, #fee2e2);

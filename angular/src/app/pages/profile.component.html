@@ -19,3 +19,19 @@
     <button type="submit">Submit</button>
   </div>
 </form>
+
+<section class="theme-section" aria-labelledby="theme-heading">
+  <h2 id="theme-heading">Theme</h2>
+  <p>Pick a color to generate a site-wide theme using Material Design.</p>
+  <div class="theme-controls">
+    <label for="theme-color">Theme color</label>
+    <input
+      id="theme-color"
+      type="color"
+      [value]="sourceColor"
+      (input)="onColorChange($event)"
+    />
+    <span class="color-hex">{{ sourceColor }}</span>
+    <button type="button" class="reset-theme" (click)="resetTheme()">Reset to default</button>
+  </div>
+</section>

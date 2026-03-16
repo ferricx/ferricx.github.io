@@ -8,3 +8,75 @@
   color: var(--tab-text, #0f172a);
   box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
 }
+
+.theme-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--tab-border, #e2e8f0);
+}
+
+.theme-section p {
+  color: var(--tab-text-muted, #334155);
+  font-size: 0.875rem;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.theme-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.theme-controls label {
+  font-weight: 600;
+  color: var(--tab-text, #0f172a);
+}
+
+.theme-controls input[type="color"] {
+  appearance: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid var(--tab-border, #e2e8f0);
+  border-radius: 0.5rem;
+  padding: 0.125rem;
+  cursor: pointer;
+  background: none;
+}
+
+.theme-controls input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.theme-controls input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.theme-controls input[type="color"]::-moz-color-swatch {
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.color-hex {
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: var(--tab-text-muted, #334155);
+}
+
+.reset-theme {
+  appearance: none;
+  border: 1px solid var(--tab-border, #e2e8f0);
+  border-radius: 0.5rem;
+  background: var(--tab-surface, #ffffff);
+  color: var(--tab-text-muted, #334155);
+  font: inherit;
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+  cursor: pointer;
+}
+
+.reset-theme:hover {
+  background: var(--tab-accent-soft, #dbeafe);
+  color: var(--tab-accent, #2563eb);
+}

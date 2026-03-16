@@ -99,3 +99,41 @@ body {
 	gap: 0.5rem;
 	margin-top: 0.5rem;
 }
+
+.form-actions button {
+	appearance: none;
+	border: 1px solid var(--tab-border, #94a3b8);
+	border-radius: 0.5rem;
+	font: inherit;
+	font-weight: 600;
+	padding: 0.5rem 1.25rem;
+	cursor: pointer;
+	transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.form-actions button:focus-visible {
+	outline: 2px solid var(--tab-accent, #2563eb);
+	outline-offset: 2px;
+}
+
+.form-actions button[type="submit"] {
+	background: var(--tab-accent, #2563eb);
+	color: #ffffff;
+	border-color: var(--tab-accent, #2563eb);
+}
+
+.form-actions button[type="submit"]:hover {
+	box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+	filter: brightness(1.1);
+}
+
+.form-actions button[type="reset"] {
+	background: var(--tab-surface, #ffffff);
+	color: var(--tab-text-muted, #334155);
+}
+
+.form-actions button[type="reset"]:hover {
+	background: var(--tab-accent-soft, #dbeafe);
+	color: var(--tab-accent, #2563eb);
+	border-color: var(--tab-accent, #2563eb);
+}

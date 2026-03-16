@@ -61,9 +61,9 @@
       <app-form-group field-id="reg-city" name="city" label="City" autocomplete="address-level2" required>
         <ng-template #tip>This is a helpful tip.</ng-template>
       </app-form-group>
-      <app-form-group field-id="reg-state" name="state" label="State" autocomplete="address-level1" pattern="[A-Za-z]{2}" maxlength="2" format-message="Use 2-letter state abbreviation." required>
+      <app-state-combobox field-id="reg-state" name="state" label="State" required>
         <ng-template #tip>This is a helpful tip.</ng-template>
-      </app-form-group>
+      </app-state-combobox>
       <app-form-group field-id="reg-zip" name="zip" label="ZIP code" autocomplete="postal-code" inputmode="numeric" pattern="\d{5}(-\d{4})?" maxlength="10" format-message="Use 5-digit or 9-digit ZIP code." required>
         <ng-template #tip>This is a helpful tip.</ng-template>
       </app-form-group>

@@ -1,11 +1,12 @@
 import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { FormGroupComponent } from '../form-group/form-group.component';
 import { ErrorSummaryComponent } from '../error-summary/error-summary.component';
+import { StateComboboxComponent } from '../state-combobox/state-combobox.component';
 
 @Component({
   selector: 'app-tab-navigation',
   standalone: true,
-  imports: [FormGroupComponent, ErrorSummaryComponent],
+  imports: [FormGroupComponent, ErrorSummaryComponent, StateComboboxComponent],
   templateUrl: './tab-navigation.component.html',
   styleUrl: './tab-navigation.css'
 })

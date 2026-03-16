@@ -9,7 +9,7 @@
 	--tab-accent-soft: #dbeafe;
 	--tab-error: #dc2626;
 	--tab-error-soft: #fee2e2;
-	--tab-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+	--tab-shadow: 0 10px 30px color-mix(in srgb, var(--tab-text, #0f172a) 8%, transparent);
 }
 
 body {
@@ -127,7 +127,7 @@ body {
 }
 
 .form-actions button[type="submit"]:hover {
-	box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+	box-shadow: 0 4px 12px color-mix(in srgb, var(--tab-accent, #2563eb) 35%, transparent);
 	filter: brightness(1.1);
 }
 

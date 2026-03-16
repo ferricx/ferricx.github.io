@@ -74,7 +74,7 @@ input:focus {
   border: 1px solid var(--tab-border, #e2e8f0);
   border-radius: 0.5rem;
   background: var(--tab-surface, #ffffff);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--tab-text, #0f172a) 12%, transparent);
   max-height: min(14rem, 40dvh);
   overflow-y: auto;
   overscroll-behavior: contain;

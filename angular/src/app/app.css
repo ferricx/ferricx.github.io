@@ -63,7 +63,6 @@ nav[aria-label="Main"] a.active {
 
 .profile-link.active {
 	color: var(--tab-accent, #2563eb);
-	background-color: var(--tab-accent-soft, #dbeafe);
 }
 
 main {
@@ -115,7 +114,7 @@ main {
 	background: var(--tab-accent);
 	color: #ffffff;
 	border-color: transparent;
-	box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+	box-shadow: 0 8px 20px color-mix(in srgb, var(--tab-accent) 35%, transparent);
 	transform: translateY(-1px);
 }
 
@@ -126,5 +125,5 @@ main {
 	border-radius: 0.875rem;
 	background: var(--tab-surface);
 	color: var(--tab-text);
-	box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+	box-shadow: 0 4px 18px color-mix(in srgb, var(--tab-text, #0f172a) 6%, transparent);
 }

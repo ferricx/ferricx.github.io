@@ -12,8 +12,7 @@
   padding: 0.5rem;
   border: 1px solid var(--tab-border);
   border-radius: 0.875rem;
-  background: linear-gradient(180deg, var(--tab-surface, #ffffff) 0%, var(--tab-surface-muted) 100%);
-  box-shadow: var(--tab-shadow);
+  background: var(--tab-surface-muted);
 }
 
 [role=tab] {
@@ -41,8 +40,6 @@
   background: var(--tab-accent);
   color: #ffffff;
   border-color: transparent;
-  box-shadow: 0 8px 20px color-mix(in srgb, var(--tab-accent) 35%, transparent);
-  transform: translateY(-1px);
 }
 
 [role=tabpanel] {
@@ -52,7 +49,6 @@
   border-radius: 0.875rem;
   background: var(--tab-surface);
   color: var(--tab-text);
-  box-shadow: 0 4px 18px color-mix(in srgb, var(--tab-text, #0f172a) 6%, transparent);
 }
 
 [role=tabpanel]:not([hidden]) {

@@ -32,6 +32,18 @@
       (input)="onColorChange($event)"
     />
     <span class="color-hex">{{ sourceColor }}</span>
+  </div>
+  <div class="theme-controls mode-toggle">
+    <label for="theme-mode">Dark mode</label>
+    <input
+      id="theme-mode"
+      type="checkbox"
+      role="switch"
+      [checked]="isDark"
+      (change)="onModeToggle($event)"
+    />
+  </div>
+  <div class="theme-controls">
     <button type="button" class="reset-theme" (click)="resetTheme()">Reset to default</button>
   </div>
 </section>

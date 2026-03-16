@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
-import { ThemeService } from '../services/theme.service';
+import { ThemeService, ThemeMode } from '../services/theme.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,9 +17,18 @@ export class ProfileComponent {
     return this.theme.getSourceColor();
   }
 
+  get isDark(): boolean {
+    return this.theme.getMode() === 'dark';
+  }
+
   onColorChange(event: Event): void {
     const hex = (event.target as HTMLInputElement).value;
     this.theme.applyTheme(hex);
+  }
+
+  onModeToggle(event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.theme.setMode(checked ? 'dark' : 'light');
   }
 
   resetTheme(): void {

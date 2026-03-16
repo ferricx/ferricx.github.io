@@ -50,7 +50,7 @@ input {
   border-radius: 0.5rem;
   font: inherit;
   color: var(--tab-text, #0f172a);
-  background: var(--tab-surface, #ffffff);
+  background: var(--tab-input-bg, #ffffff);
 }
 
 input:focus-visible {

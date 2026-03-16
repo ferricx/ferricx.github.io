@@ -1,3 +1,16 @@
+:root {
+	--tab-surface: #ffffff;
+	--tab-surface-muted: #f8fafc;
+	--tab-border: #94a3b8;
+	--tab-text: #0f172a;
+	--tab-text-muted: #334155;
+	--tab-accent: #2563eb;
+	--tab-accent-soft: #dbeafe;
+	--tab-error: #dc2626;
+	--tab-error-soft: #fee2e2;
+	--tab-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
 body {
 	margin: 0;
 	font-family: 'Source Sans 3', sans-serif;

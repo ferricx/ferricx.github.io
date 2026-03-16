@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && cp ../angular-app/browser/index.html ../angular-app/browser/404.html",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

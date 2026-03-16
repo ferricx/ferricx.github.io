@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, NavigationEnd, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import { PopoverTipComponent } from './components/popover-tip/popover-tip.component';
 import { ThemeService } from './services/theme.service';
 
@@ -11,4 +12,15 @@ import { ThemeService } from './services/theme.service';
 })
 export class App {
   private readonly theme = inject(ThemeService);
+
+  constructor() {
+    const router = inject(Router);
+    router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe(() => {
+        if (document.startViewTransition) {
+          document.startViewTransition();
+        }
+      });
+  }
 }

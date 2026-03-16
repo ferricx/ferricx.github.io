@@ -22,7 +22,7 @@
           "options": {
             "outputPath": "../angular-app",
             "browser": "src/main.ts",
-            "baseHref": "./",
+            "baseHref": "/angular-app/browser/",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {

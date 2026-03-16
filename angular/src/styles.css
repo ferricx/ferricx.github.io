@@ -12,10 +12,6 @@
 	--tab-shadow: 0 10px 30px color-mix(in srgb, var(--tab-text, #0f172a) 8%, transparent);
 }
 
-@view-transition {
-	navigation: auto;
-}
-
 body {
 	margin: 0;
 	font-family: 'Source Sans 3', sans-serif;

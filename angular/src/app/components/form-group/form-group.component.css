@@ -75,5 +75,10 @@ input:user-invalid {
   color: var(--tab-error, #dc2626);
   font-size: 0.875rem;
   line-height: 1.4;
+  visibility: hidden;
+}
+
+input:user-invalid + .form-error {
+  visibility: visible;
 }
 

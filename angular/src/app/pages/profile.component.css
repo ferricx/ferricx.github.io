@@ -74,9 +74,13 @@
   font-size: 0.875rem;
   padding: 0.375rem 0.75rem;
   cursor: pointer;
+  transition: filter 180ms ease;
 }
 
 .reset-theme:hover {
-  background: var(--tab-accent-soft, #dbeafe);
-  color: var(--tab-accent, #2563eb);
+  filter: brightness(0.95);
+}
+
+:root[data-theme="dark"] .reset-theme:hover {
+  filter: brightness(1.15);
 }

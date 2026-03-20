@@ -9,7 +9,9 @@
         </app-popover-tip>
       </p>
       <nav aria-label="Main">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Registration</a>
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+        <a routerLink="/registration" routerLinkActive="active">Registration 1</a>
+        <a routerLink="/registration-2" routerLinkActive="active">Registration 2</a>
         <a routerLink="/profile" routerLinkActive="active">Profile</a>
       </nav>
     </div>
@@ -21,7 +23,7 @@
     </a>
   </div>
 </header>
-<main id="main-content">
+<main id="main-content" [attr.data-direction]="direction">
   <router-outlet></router-outlet>
 </main>
 <footer>

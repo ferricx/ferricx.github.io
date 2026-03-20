@@ -1,0 +1,123 @@
+:host {
+  display: block;
+  max-width: 48rem;
+  padding: 1rem 1.125rem;
+  border: 1px solid var(--tab-border, #e2e8f0);
+  border-radius: 0.875rem;
+  background: var(--tab-surface, #ffffff);
+  color: var(--tab-text, #0f172a);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--tab-text, #0f172a) 6%, transparent);
+}
+
+.loading {
+  color: var(--tab-text-muted, #334155);
+  font-style: italic;
+}
+
+.error {
+  color: var(--tab-error, #dc2626);
+  font-weight: 600;
+}
+
+/* Current weather */
+.current-weather {
+  margin-bottom: 1.5rem;
+}
+
+.current-main {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.weather-icon-large {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.temperature {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.condition {
+  margin: 0.125rem 0;
+  color: var(--tab-text-muted, #334155);
+  font-size: 1.05rem;
+}
+
+.wind {
+  margin: 0.125rem 0;
+  color: var(--tab-text-muted, #334155);
+  font-size: 0.875rem;
+}
+
+/* Forecast */
+.forecast {
+  border-top: 1px solid var(--tab-border, #e2e8f0);
+  padding-top: 1rem;
+}
+
+.forecast-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: grid;
+  gap: 0;
+}
+
+.forecast-day {
+  display: grid;
+  grid-template-columns: 7rem 2.5rem 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--tab-border, #e2e8f0);
+}
+
+.forecast-day:last-child {
+  border-bottom: none;
+}
+
+.day-name {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.day-icon {
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.day-condition {
+  color: var(--tab-text-muted, #334155);
+  font-size: 0.8125rem;
+}
+
+.day-temps {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.temp-high {
+  font-weight: 700;
+}
+
+.temp-low {
+  color: var(--tab-text-muted, #334155);
+}
+
+.attribution {
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  color: var(--tab-text-muted, #334155);
+  text-align: right;
+}
+
+.attribution a {
+  color: var(--tab-accent, #2563eb);
+}

@@ -1,58 +1,28 @@
 :host {
   display: block;
   max-width: 48rem;
-  color: var(--tab-text);
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-
-[role=tablist] {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  border: 1px solid var(--tab-border);
-  border-radius: 0.875rem;
-  background: var(--tab-surface-muted);
-}
-
-[role=tab] {
-  appearance: none;
-  border: 1px solid transparent;
-  border-radius: 0.625rem;
-  background: transparent;
-  color: var(--tab-text-muted);
-  font: inherit;
-  font-weight: 600;
-  line-height: 1;
-  padding: 0.7rem 1rem;
-  cursor: pointer;
-  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
-}
-[role=tab]:hover {
-  background: var(--tab-accent-soft);
-  color: var(--tab-accent);
-}
-[role=tab]:focus-visible {
-  outline: 2px solid var(--tab-accent);
-  outline-offset: 2px;
-}
-[role=tab][aria-selected=true] {
-  background: var(--tab-accent);
-  color: #ffffff;
-  border-color: transparent;
-}
-
-[role=tabpanel] {
-  margin-top: 0.9rem;
   padding: 1rem 1.125rem;
   border: 1px solid var(--tab-border);
   border-radius: 0.875rem;
   background: var(--tab-surface);
   color: var(--tab-text);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--tab-text, #0f172a) 6%, transparent);
 }
 
-[role=tabpanel]:not([hidden]) {
-  view-transition-name: tab-panel;
+section {
+  margin: 0 0 1.5rem;
+}
+
+section h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--tab-text);
+  margin: 0 0 0.75rem;
+}
+
+section + section {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--tab-border);
 }
 
 /* Details / Summary */

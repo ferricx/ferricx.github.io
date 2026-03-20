@@ -3,6 +3,10 @@ import { Router, NavigationEnd, RouterLink, RouterLinkActive, RouterOutlet } fro
 import { filter } from 'rxjs';
 import { PopoverTipComponent } from './components/popover-tip/popover-tip.component';
 import { ThemeService } from './services/theme.service';
+import { routes } from './app.routes';
+
+const routeOrder: Record<string, number> = {};
+routes.forEach((r, i) => routeOrder['/' + (r.path ?? '')] = i);
 
 @Component({
   selector: 'app-root',
@@ -12,15 +16,18 @@ import { ThemeService } from './services/theme.service';
 })
 export class App {
   private readonly theme = inject(ThemeService);
+  direction = 'forward';
 
   constructor() {
     const router = inject(Router);
+    let prevIndex = routeOrder[router.url] ?? 0;
+
     router.events
-      .pipe(filter((e) => e instanceof NavigationEnd))
-      .subscribe(() => {
-        if (document.startViewTransition) {
-          document.startViewTransition();
-        }
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe((e) => {
+        const nextIndex = routeOrder[e.urlAfterRedirects] ?? 0;
+        this.direction = nextIndex >= prevIndex ? 'forward' : 'backward';
+        prevIndex = nextIndex;
       });
   }
 }

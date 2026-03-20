@@ -29,6 +29,7 @@
   [required]="required"
   [attr.aria-describedby]="errorId"
   (invalid)="onInvalid($event)"
+  (blur)="onBlur()"
 />
 
 <div [id]="errorId" class="form-error">{{ errorMessage }}</div>

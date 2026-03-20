@@ -80,6 +80,17 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
     this.showError(this.getValidationMessage());
   }
 
+  protected onBlur(): void {
+    const input = this.fieldInput.nativeElement;
+    this.applyCustomValidation();
+
+    if (!input.validity.valid) {
+      this.showError(this.getValidationMessage());
+    } else {
+      this.showError('');
+    }
+  }
+
   private readonly handleSubmit = (event: Event): void => {
     const input = this.fieldInput.nativeElement;
 

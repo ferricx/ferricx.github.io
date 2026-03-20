@@ -9,7 +9,7 @@
     font-weight: 900;
     font-size: 1.0626rem;
     line-height: 1.1;
-    color: var(--popover-trigger-color, hsl(145, 74%, 30%));
+    color: var(--tab-accent, #2563eb);
     border: none;
 
     span {
@@ -19,7 +19,7 @@
         width: 1.5rem;
         height: 1.5rem;
         border-radius: 99rem;
-        border: 1.5px solid var(--popover-trigger-color, hsl(145, 74%, 30%));
+        border: 1.5px solid var(--tab-accent, #2563eb);
     }
 }
 
@@ -54,9 +54,9 @@
 }
 
 .popover {
-    --popover-bg: #fff;
-    --popover-color: #333;
-    --popover-border-color: #555;
+    --popover-bg: var(--tab-surface, #ffffff);
+    --popover-color: var(--tab-text, #0f172a);
+    --popover-border-color: var(--tab-border, #94a3b8);
     --popover-offset: 0.5rem;
     --popover-viewport-padding: 0.5rem;
     --popover-max-width: 15.75rem;

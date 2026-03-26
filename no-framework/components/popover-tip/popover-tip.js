@@ -676,6 +676,24 @@ class PopoverTip extends HTMLElement {
     }
 
     this.appendChild(fragment);
+
+    this.detectInteractiveContent();
+  }
+
+  detectInteractiveContent() {
+    if (!this.panelElement) {
+      return;
+    }
+
+    const popoverBody = this.querySelector('.popover-body') || this.querySelector('.popover-content');
+
+    if (!popoverBody) {
+      return;
+    }
+
+    const interactiveSelector = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const role = popoverBody.querySelector(interactiveSelector) ? 'dialog' : 'tooltip';
+    this.panelElement.setAttribute('role', role);
   }
 }
 

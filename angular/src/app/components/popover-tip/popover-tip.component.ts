@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, ViewChild, numberAttribute } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild, numberAttribute } from '@angular/core';
 
 let popoverIdCounter = 0;
 
@@ -8,7 +8,7 @@ let popoverIdCounter = 0;
   templateUrl: './popover-tip.component.html',
   styleUrl: './popover-tip.component.scss'
 })
-export class PopoverTipComponent {
+export class PopoverTipComponent implements AfterViewInit {
   @Input()
   buttonLabel = '?';
 
@@ -20,6 +20,7 @@ export class PopoverTipComponent {
 
   protected isOpen = false;
   protected positionClass = '';
+  protected popoverRole: 'tooltip' | 'dialog' = 'tooltip';
   protected readonly popoverId = `popover-tip-${popoverIdCounter++}`;
 
   @ViewChild('popoverPanel', { static: true })
@@ -32,6 +33,15 @@ export class PopoverTipComponent {
   private openedByClick = false;
 
   constructor(private readonly host: ElementRef<HTMLElement>) {}
+
+  ngAfterViewInit(): void {
+    const popoverBody = this.popoverPanel.nativeElement.querySelector('.popover-body');
+
+    if (popoverBody) {
+      const interactiveSelector = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+      this.popoverRole = popoverBody.querySelector(interactiveSelector) ? 'dialog' : 'tooltip';
+    }
+  }
 
   protected handlePopoverToggle(): void {
     this.isOpen = this.isPopoverOpen();

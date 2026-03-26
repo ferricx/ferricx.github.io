@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, ElementRef, Input, OnDestroy, TemplateRef, ViewChild, booleanAttribute, numberAttribute } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, ElementRef, Input, OnDestroy, TemplateRef, ViewChild, booleanAttribute, numberAttribute, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
 
@@ -49,7 +49,7 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
   @ViewChild('fieldInput', { static: true })
   private readonly fieldInput!: ElementRef<HTMLInputElement>;
 
-  protected errorMessage = '';
+  protected errorMessage = signal('');
 
   private formElement: HTMLFormElement | null = null;
 
@@ -148,7 +148,7 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
   }
 
   private showError(message: string): void {
-    this.errorMessage = message;
+    this.errorMessage.set(message);
   }
 
   constructor(private readonly hostElement: ElementRef<HTMLElement>) {}

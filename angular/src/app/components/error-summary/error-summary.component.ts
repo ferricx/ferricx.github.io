@@ -5,6 +5,7 @@ import {
   Input,
   OnDestroy,
   ViewChild,
+  signal,
 } from '@angular/core';
 
 export interface FieldError {
@@ -26,7 +27,7 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
   @ViewChild('summaryBox')
   private summaryBox?: ElementRef<HTMLDivElement>;
 
-  protected errors: FieldError[] = [];
+  protected errors = signal<FieldError[]>([]);
 
   private formElement: HTMLFormElement | null = null;
 
@@ -63,7 +64,7 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
     const form = event.target as HTMLFormElement;
 
     if (form.checkValidity()) {
-      this.errors = [];
+      this.errors.set([]);
       return;
     }
 
@@ -73,11 +74,11 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
       form.querySelectorAll<HTMLInputElement>(':invalid')
     );
 
-    this.errors = invalidInputs.map((input) => ({
+    this.errors.set(invalidInputs.map((input) => ({
       fieldId: input.id,
       label: this.findLabel(input),
       message: this.getErrorMessage(input),
-    }));
+    })));
 
     // Focus the first error link on the next tick (after render)
     requestAnimationFrame(() => {
@@ -87,7 +88,7 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
   };
 
   private readonly handleReset = (): void => {
-    this.errors = [];
+    this.errors.set([]);
   };
 
   private getErrorMessage(input: HTMLInputElement): string {

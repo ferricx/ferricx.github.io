@@ -1,0 +1,108 @@
+<div class="page-header">
+  <h2>Registrations</h2>
+  <button type="button" class="open-dialog-btn" (click)="openDialog()" [attr.aria-describedby]="'reg-count'">+ New Registration</button>
+</div>
+<span id="reg-count" hidden>{{ registrations().length }} registrations in table</span>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>City</th>
+      <th>State</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (reg of registrations(); track $index) {
+      <tr>
+        <td>{{ reg.firstName }} {{ reg.lastName }}</td>
+        <td>{{ reg.email }}</td>
+        <td>{{ reg.phone }}</td>
+        <td>{{ reg.city }}</td>
+        <td>{{ reg.state }}</td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="5" class="empty-message">No registrations yet. Click "+ New Registration" to add one.</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<dialog #regDialog (click)="$event.target === dialog()?.nativeElement && closeDialog()">
+  <div class="dialog-content">
+    <div class="dialog-header">
+      <h2>New Registration</h2>
+      <button type="button" class="close-btn" aria-label="Close" (click)="closeDialog()">&times;</button>
+    </div>
+
+    <form #regForm class="registration-form" novalidate (submit)="$event.preventDefault()">
+      <app-error-summary></app-error-summary>
+      <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
+
+      <section>
+        <h3>Personal Information</h3>
+        <app-form-group field-id="dlg-first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required>
+          <ng-template #tip>Enter your legal first name.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="dlg-last-name" name="lastName" label="Last name" autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." required>
+          <ng-template #tip>Enter your legal last name.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="dlg-date-of-birth" name="dateOfBirth" label="Date of birth" hint="MM/DD/YYYY" autocomplete="bday" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" format-message="Use MM/DD/YYYY format." required>
+          <ng-template #tip>Enter your date of birth.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="dlg-ssn" name="socialSecurityNumber" label="Social Security number" autocomplete="off" inputmode="numeric" pattern="\d{9}" maxlength="9" format-message="Use 9 digits only." hint="Enter 9 digits, numbers only." required>
+          <ng-template #tip>Your SSN is required for identity verification.</ng-template>
+        </app-form-group>
+      </section>
+
+      <section>
+        <h3>Contact Information</h3>
+        <app-form-group field-id="dlg-email" name="email" label="Email" type="email" autocomplete="email" required>
+          <ng-template #tip>We'll use this to contact you.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="dlg-phone" name="phone" label="Phone number" type="tel" autocomplete="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{7,20}" format-message="Phone number must be 7 to 20 characters." required>
+          <ng-template #tip>Include area code.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="dlg-street" name="street" label="Street address" autocomplete="address-line1" required>
+          <ng-template #tip>Your primary street address.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="dlg-street2" name="street2" label="Street address line 2" autocomplete="address-line2">
+          <ng-template #tip>Apartment, suite, unit, building, floor, etc.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="dlg-city" name="city" label="City" autocomplete="address-level2" required>
+          <ng-template #tip>Enter your city.</ng-template>
+        </app-form-group>
+        <app-state-combobox field-id="dlg-state" name="state" label="State" required>
+          <ng-template #tip>Select your state.</ng-template>
+        </app-state-combobox>
+        <app-form-group field-id="dlg-zip" name="zip" label="ZIP code" autocomplete="postal-code" inputmode="numeric" pattern="\d{5}(-\d{4})?" maxlength="10" format-message="Use 5-digit or 9-digit ZIP code." required>
+          <ng-template #tip>Enter your ZIP code.</ng-template>
+        </app-form-group>
+      </section>
+
+      <section>
+        <h3>Payment Information</h3>
+        <app-form-group field-id="dlg-card-name" name="cardName" label="Name on card" autocomplete="cc-name" pattern=".{2,50}" format-message="Name must be 2–50 characters." required>
+          <ng-template #tip>Enter the name exactly as it appears on your card.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="dlg-card-number" name="cardNumber" label="Card number" autocomplete="cc-number" inputmode="numeric" pattern="\d{13,19}" maxlength="19" format-message="Card number must be 13–19 digits." required>
+          <ng-template #tip>Enter your card number without spaces or dashes.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="dlg-card-expiry" name="cardExpiry" label="Expiration date" hint="MM/YY" autocomplete="cc-exp" inputmode="numeric" pattern="(0[1-9]|1[0-2])/\d{2}" maxlength="5" format-message="Use MM/YY format." required>
+          <ng-template #tip>The expiration date on the front of your card.</ng-template>
+        </app-form-group>
+        <app-form-group field-id="dlg-card-cvv" name="cardCvv" label="Security code (CVV)" autocomplete="cc-csc" inputmode="numeric" pattern="\d{3,4}" maxlength="4" format-message="CVV must be 3 or 4 digits." required>
+          <ng-template #tip>The 3 or 4 digit code on the back of your card.</ng-template>
+        </app-form-group>
+      </section>
+
+      <div class="form-actions">
+        <button type="reset">Reset</button>
+        <button type="button" (click)="submitForm()">Submit</button>
+      </div>
+    </form>
+  </div>
+</dialog>

@@ -78,6 +78,10 @@ input:user-invalid {
   visibility: hidden;
 }
 
+.form-error.visible {
+  visibility: visible;
+}
+
 input:user-invalid + .form-error {
   visibility: visible;
 }

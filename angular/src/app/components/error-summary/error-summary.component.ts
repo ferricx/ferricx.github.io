@@ -1,7 +1,9 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   ViewChild,
   signal,
 } from '@angular/core';
@@ -18,7 +20,7 @@ export interface FieldError {
   templateUrl: './error-summary.component.html',
   styleUrl: './error-summary.component.css',
 })
-export class ErrorSummaryComponent {
+export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
   @Input()
   formId = '';
 
@@ -28,6 +30,26 @@ export class ErrorSummaryComponent {
   protected errors = signal<FieldError[]>([]);
 
   private formElement: HTMLFormElement | null = null;
+
+  private readonly handleInvalid = (): void => {
+    this.updateErrors();
+  };
+
+  private readonly handleInput = (): void => {
+    this.updateErrors();
+  };
+
+  private readonly handleReset = (): void => {
+    this.errors.set([]);
+  };
+
+  private readonly handleSubmit = (): void => {
+    this.updateErrors();
+
+    if (this.errors().length > 0) {
+      queueMicrotask(() => this.summaryBox?.nativeElement.focus());
+    }
+  };
 
   constructor(private readonly hostElement: ElementRef<HTMLElement>) {}
 
@@ -80,5 +102,51 @@ export class ErrorSummaryComponent {
     }
 
     return this.hostElement.nativeElement.closest('form');
+  }
+
+  private updateErrors(): void {
+    const form = this.formElement;
+    if (!form) {
+      this.errors.set([]);
+      return;
+    }
+
+    const inputs = Array.from(form.querySelectorAll<HTMLInputElement>('input'));
+    const nextErrors = inputs
+      .filter((input) => !input.validity.valid)
+      .map((input) => ({
+        fieldId: input.id,
+        label: this.findLabel(input),
+        message: this.getErrorMessage(input),
+      }))
+      .filter((error) => error.fieldId.length > 0);
+
+    this.errors.set(nextErrors);
+  }
+
+  ngAfterViewInit(): void {
+    this.formElement = this.resolveForm();
+
+    if (!this.formElement) {
+      return;
+    }
+
+    this.formElement.addEventListener('invalid', this.handleInvalid, true);
+    this.formElement.addEventListener('input', this.handleInput, true);
+    this.formElement.addEventListener('change', this.handleInput, true);
+    this.formElement.addEventListener('reset', this.handleReset);
+    this.formElement.addEventListener('submit', this.handleSubmit);
+  }
+
+  ngOnDestroy(): void {
+    if (!this.formElement) {
+      return;
+    }
+
+    this.formElement.removeEventListener('invalid', this.handleInvalid, true);
+    this.formElement.removeEventListener('input', this.handleInput, true);
+    this.formElement.removeEventListener('change', this.handleInput, true);
+    this.formElement.removeEventListener('reset', this.handleReset);
+    this.formElement.removeEventListener('submit', this.handleSubmit);
   }
 }

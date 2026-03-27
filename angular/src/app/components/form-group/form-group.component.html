@@ -33,4 +33,4 @@
   (blur)="nativeValidation ? null : onBlur()"
 />
 
-<div [id]="errorId" class="form-error">{{ errorMessage() }}</div>
+<div [id]="errorId" class="form-error" [class.visible]="!!errorMessage()">{{ errorMessage() }}</div>

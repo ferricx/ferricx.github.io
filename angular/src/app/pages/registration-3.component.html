@@ -41,7 +41,7 @@
       <button type="button" class="close-btn" aria-label="Close" (click)="closeDialog()">&times;</button>
     </div>
 
-    <form #regForm class="registration-form" novalidate (submit)="submitForm($event)">
+    <form #regForm class="registration-form" novalidate (submit)="submitForm($event)" (keydown.enter)="regForm.requestSubmit()">
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
 

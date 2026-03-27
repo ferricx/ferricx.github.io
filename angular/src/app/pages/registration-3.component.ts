@@ -1,4 +1,4 @@
-import { Component, ElementRef, signal, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, signal, viewChild } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 
@@ -18,31 +18,18 @@ export interface Registration {
   templateUrl: './registration-3.component.html',
   styleUrl: './registration-3.component.css'
 })
-export class Registration3Component {
+export class Registration3Component implements AfterViewInit, OnDestroy {
   readonly openBtn = viewChild<ElementRef<HTMLButtonElement>>('openBtn');
   readonly dialog = viewChild<ElementRef<HTMLDialogElement>>('regDialog');
   readonly form = viewChild<ElementRef<HTMLFormElement>>('regForm');
   readonly registrations = signal<Registration[]>([]);
 
-  openDialog() {
-    this.dialog()?.nativeElement.showModal();
-  }
+  private readonly handleSubmit = (event: Event) => {
+    event.preventDefault();
 
-  closeDialog() {
-    this.dialog()?.nativeElement.close();
-    this.openBtn()?.nativeElement.focus();
-  }
-
-  onDialogClose() {
-    this.openBtn()?.nativeElement.focus();
-
-    const dialog = this.dialog()?.nativeElement;
     const form = this.form()?.nativeElement;
-    if (!dialog || !form) return;
-
-    if (dialog.returnValue !== 'submit') {
-      return;
-    }
+    const dialog = this.dialog()?.nativeElement;
+    if (!form || !dialog) return;
 
     const data = new FormData(form);
     const ssn = (data.get('socialSecurityNumber') as string) || '';
@@ -60,6 +47,24 @@ export class Registration3Component {
     ]);
 
     form.reset();
-    this.closeDialog();
+    dialog.close();
+    this.openBtn()?.nativeElement.focus();
+  };
+
+  ngAfterViewInit(): void {
+    this.form()?.nativeElement.addEventListener('submit', this.handleSubmit);
+  }
+
+  ngOnDestroy(): void {
+    this.form()?.nativeElement.removeEventListener('submit', this.handleSubmit);
+  }
+
+  openDialog() {
+    this.dialog()?.nativeElement.showModal();
+  }
+
+  closeDialog() {
+    this.dialog()?.nativeElement.close();
+    this.openBtn()?.nativeElement.focus();
   }
 }

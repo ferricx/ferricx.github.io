@@ -19,6 +19,7 @@ export interface Registration {
   styleUrl: './registration-3.component.css'
 })
 export class Registration3Component {
+  readonly openBtn = viewChild<ElementRef<HTMLButtonElement>>('openBtn');
   readonly dialog = viewChild<ElementRef<HTMLDialogElement>>('regDialog');
   readonly form = viewChild<ElementRef<HTMLFormElement>>('regForm');
   readonly registrations = signal<Registration[]>([]);
@@ -29,6 +30,7 @@ export class Registration3Component {
 
   closeDialog() {
     this.dialog()?.nativeElement.close();
+    this.openBtn()?.nativeElement.focus();
   }
 
   submitForm() {

@@ -67,6 +67,7 @@ export class FormGroupComponent {
       return;
     }
 
+    event.preventDefault();
     this.showError(this.getValidationMessage());
   }
 

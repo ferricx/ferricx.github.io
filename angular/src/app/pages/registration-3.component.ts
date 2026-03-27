@@ -28,11 +28,6 @@ export class Registration3Component {
     this.submitDialogForm(form);
   }
 
-  onSubmitClick(event: Event, form: HTMLFormElement): void {
-    event.preventDefault();
-    this.submitDialogForm(form);
-  }
-
   private submitDialogForm(form: HTMLFormElement): void {
     if (!form.checkValidity()) {
       const firstInvalid = form.querySelector<HTMLElement>(':invalid');

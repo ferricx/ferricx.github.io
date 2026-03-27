@@ -4,6 +4,7 @@
 </div>
 <span id="reg-count" hidden>{{ registrations().length }} dependents in table</span>
 
+<div class="table-wrap" tabindex="0" role="region" aria-label="Dependents">
 <table>
   <caption>Dependents</caption>
   <thead>
@@ -31,6 +32,7 @@
     }
   </tbody>
 </table>
+</div>
 
 <dialog #regDialog (click)="$event.target === dialog()?.nativeElement && closeDialog()">
   <div class="dialog-content">
@@ -55,7 +57,7 @@
           <ng-template #tip>Enter your date of birth.</ng-template>
         </app-form-group>
         <app-form-group field-id="dlg-ssn" name="socialSecurityNumber" label="Social Security number" autocomplete="off" inputmode="numeric" pattern="\d{9}" maxlength="9" format-message="Use 9 digits only." hint="Enter 9 digits, numbers only." required>
-          <ng-template #tip>Your SSN is required for identity verification.</ng-template>
+          <ng-template #tip>Don't have a Social Security number or don't know yours? <a href="https://www.ssa.gov/" target="_blank" rel="noopener">Contact the Social Security Administration</a>.</ng-template>
         </app-form-group>
       </section>
 

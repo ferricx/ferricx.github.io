@@ -14,16 +14,13 @@
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <app-form-group field-id="reg2-first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required>
-        <ng-template #tip>This is a helpful tip. With some extra text to test width layout. <span class="sr-only">Press tab to access the example link.</span> <a href="https://example.com">go to example page</a></ng-template>
       </app-form-group>
       <app-form-group field-id="reg2-last-name" name="lastName" label="Last name" autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." required>
-        <ng-template #tip>This is a helpful tip.</ng-template>
       </app-form-group>
       <app-form-group field-id="reg2-date-of-birth" name="dateOfBirth" label="Date of birth" hint="MM/DD/YYYY" autocomplete="bday" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" format-message="Use MM/DD/YYYY format." required>
-        <ng-template #tip>This is a helpful tip. <span class="sr-only">Press tab to access the example link.</span> <a href="https://example.com">go to example page</a></ng-template>
       </app-form-group>
       <app-form-group field-id="reg2-social-security-number" name="socialSecurityNumber" label="Social Security number" autocomplete="off" inputmode="numeric" pattern="\d{9}" maxlength="9" format-message="Use 9 digits only." hint="Enter 9 digits, numbers only." required>
-        <ng-template #tip>This is a helpful tip.</ng-template>
+        <ng-template #tip>Don't have a Social Security number or don't know yours? <a href="https://www.ssa.gov/" target="_blank" rel="noopener">Contact the Social Security Administration</a>.</ng-template>
       </app-form-group>
       <div class="form-actions">
         <span></span>
@@ -38,25 +35,20 @@
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <app-form-group field-id="reg2-email" name="email" label="Email" type="email" autocomplete="email" required>
-        <ng-template #tip>This is a helpful tip. <span class="sr-only">Press tab to access the example link.</span> <a href="https://example.com">go to example page</a></ng-template>
       </app-form-group>
       <app-form-group field-id="reg2-phone" name="phone" label="Phone number" type="tel" autocomplete="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{7,20}" format-message="Phone number must be 7 to 20 characters and can include digits, spaces, parentheses, plus, and hyphens." required>
-        <ng-template #tip>This is a helpful tip.</ng-template>
       </app-form-group>
       <app-form-group field-id="reg2-street" name="street" label="Street address" autocomplete="address-line1" required>
-        <ng-template #tip>This is a helpful tip. <span class="sr-only">Press tab to access the example link.</span> <a href="https://example.com">go to example page</a></ng-template>
       </app-form-group>
       <app-form-group field-id="reg2-street2" name="street2" label="Street address line 2" autocomplete="address-line2">
         <ng-template #tip>Apartment, suite, unit, building, floor, etc.</ng-template>
       </app-form-group>
       <app-form-group field-id="reg2-city" name="city" label="City" autocomplete="address-level2" required>
-        <ng-template #tip>This is a helpful tip.</ng-template>
       </app-form-group>
       <app-state-combobox field-id="reg2-state" name="state" label="State" required>
         <ng-template #tip>This is a custom listbox built with the Popover API that behaves like a native select element. You can click to open, use arrow keys to navigate, and type to jump to a matching state.</ng-template>
       </app-state-combobox>
       <app-form-group field-id="reg2-zip" name="zip" label="ZIP code" autocomplete="postal-code" inputmode="numeric" pattern="\d{5}(-\d{4})?" maxlength="10" format-message="Use 5-digit or 9-digit ZIP code." required>
-        <ng-template #tip>This is a helpful tip.</ng-template>
       </app-form-group>
       <div class="form-actions">
         <button type="button" (click)="goToStep(0)">Back</button>

@@ -10,7 +10,7 @@
 
   <div class="step-panel" [hidden]="activeStep !== 0">
     <h2>Personal Information</h2>
-    <form ngNoForm novalidate (submit)="onStepSubmit($event, 1)">
+    <form novalidate (submit)="onStepSubmit($event, 1)">
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <app-form-group field-id="reg2-first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." required>
@@ -31,7 +31,7 @@
 
   <div class="step-panel" [hidden]="activeStep !== 1">
     <h2>Contact Information</h2>
-    <form ngNoForm novalidate (submit)="onStepSubmit($event, 2)">
+    <form novalidate (submit)="onStepSubmit($event, 2)">
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <app-form-group field-id="reg2-email" name="email" label="Email" type="email" autocomplete="email" required>
@@ -59,7 +59,7 @@
 
   <div class="step-panel" [hidden]="activeStep !== 2">
     <h2>Payment Information</h2>
-    <form ngNoForm novalidate (submit)="onStepSubmit($event, 3)">
+    <form novalidate (submit)="onStepSubmit($event, 3)">
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <app-form-group field-id="reg2-card-name" name="cardName" label="Name on card" autocomplete="cc-name" pattern=".{2,50}" format-message="Name must be 2–50 characters." required>

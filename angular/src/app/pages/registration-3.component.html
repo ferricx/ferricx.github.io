@@ -1,10 +1,11 @@
 <div class="page-header">
   <h2>Registrations</h2>
-  <button #openBtn type="button" class="open-dialog-btn" (click)="openDialog()" [attr.aria-describedby]="'reg-count'">+ New Registration</button>
+  <button #openBtn type="button" class="open-dialog-btn" (click)="openDialog()" [attr.aria-describedby]="'reg-count'">+ Add Dependent</button>
 </div>
-<span id="reg-count" hidden>{{ registrations().length }} registrations in table</span>
+<span id="reg-count" hidden>{{ registrations().length }} dependents in table</span>
 
 <table>
+  <caption>Dependents</caption>
   <thead>
     <tr>
       <th>Name</th>
@@ -25,7 +26,7 @@
       </tr>
     } @empty {
       <tr>
-        <td colspan="5" class="empty-message">No registrations yet. Click "+ New Registration" to add one.</td>
+        <td colspan="5" class="empty-message">No dependents yet. Click "+ Add Dependent" to add one.</td>
       </tr>
     }
   </tbody>

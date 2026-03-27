@@ -38,10 +38,7 @@ export class Registration3Component {
     const form = this.form()?.nativeElement;
     if (!form) return;
 
-    if (!form.checkValidity()) {
-      form.requestSubmit();
-      return;
-    }
+    if (!form.checkValidity()) return;
 
     const data = new FormData(form);
     const ssn = data.get('socialSecurityNumber') as string;

@@ -123,6 +123,13 @@ dialog::backdrop {
   margin: 0;
 }
 
+.build-marker {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tab-text-muted, #334155);
+  margin-left: 0.5rem;
+}
+
 .close-btn {
   appearance: none;
   border: none;

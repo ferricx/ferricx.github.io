@@ -162,3 +162,27 @@ dialog::backdrop {
   padding-top: 1.5rem;
   border-top: 1px solid var(--tab-border);
 }
+
+.error-summary {
+  border: 2px solid var(--tab-error, #dc2626);
+  background: var(--tab-error-soft, #fee2e2);
+  color: var(--tab-text, #0f172a);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.error-summary h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.error-summary ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.error-summary a {
+  color: inherit;
+  text-decoration: underline;
+}

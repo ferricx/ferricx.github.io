@@ -1,6 +1,6 @@
 <div class="page-header">
   <h2>Registrations</h2>
-  <button #openBtn type="button" class="open-dialog-btn" (click)="openDialog()" [attr.aria-describedby]="'reg-count'">+ Add Dependent</button>
+  <button #openBtn type="button" class="open-dialog-btn" (click)="openDialog()" aria-haspopup="dialog" [attr.aria-describedby]="'reg-count'">+ Add Dependent</button>
 </div>
 <span id="reg-count" hidden>{{ registrations().length }} dependents in table</span>
 
@@ -41,7 +41,7 @@
       <button type="button" class="close-btn" aria-label="Close" (click)="closeDialog()">&times;</button>
     </div>
 
-    <form #regForm class="registration-form" novalidate (submit)="$event.preventDefault()">
+    <form #regForm class="registration-form" novalidate (submit)="submitForm($event)">
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
 
@@ -68,7 +68,7 @@
 
       <div class="form-actions">
         <button type="reset">Reset</button>
-        <button type="button" (click)="submitForm()">Submit</button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   </div>

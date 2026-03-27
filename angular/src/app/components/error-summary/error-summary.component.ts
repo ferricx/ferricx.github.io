@@ -1,9 +1,7 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
-  OnDestroy,
   ViewChild,
   signal,
 } from '@angular/core';
@@ -20,7 +18,7 @@ export interface FieldError {
   templateUrl: './error-summary.component.html',
   styleUrl: './error-summary.component.css',
 })
-export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
+export class ErrorSummaryComponent {
   @Input()
   formId = '';
 
@@ -33,22 +31,6 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
 
   constructor(private readonly hostElement: ElementRef<HTMLElement>) {}
 
-  ngAfterViewInit(): void {
-    this.formElement = this.resolveForm();
-
-    if (this.formElement) {
-      this.formElement.addEventListener('submit', this.handleSubmit);
-      this.formElement.addEventListener('reset', this.handleReset);
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.formElement) {
-      this.formElement.removeEventListener('submit', this.handleSubmit);
-      this.formElement.removeEventListener('reset', this.handleReset);
-    }
-  }
-
   protected focusField(event: Event, fieldId: string): void {
     event.preventDefault();
 
@@ -59,37 +41,6 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
       target.focus();
     }
   }
-
-  private readonly handleSubmit = (event: Event): void => {
-    const form = event.target as HTMLFormElement;
-
-    if (form.checkValidity()) {
-      this.errors.set([]);
-      return;
-    }
-
-    event.preventDefault();
-
-    const invalidInputs = Array.from(
-      form.querySelectorAll<HTMLInputElement>(':invalid')
-    );
-
-    this.errors.set(invalidInputs.map((input) => ({
-      fieldId: input.id,
-      label: this.findLabel(input),
-      message: this.getErrorMessage(input),
-    })));
-
-    // Focus the first error link on the next tick (after render)
-    requestAnimationFrame(() => {
-      const firstLink = this.summaryBox?.nativeElement.querySelector('a');
-      firstLink?.focus();
-    });
-  };
-
-  private readonly handleReset = (): void => {
-    this.errors.set([]);
-  };
 
   private getErrorMessage(input: HTMLInputElement): string {
     const { validity } = input;

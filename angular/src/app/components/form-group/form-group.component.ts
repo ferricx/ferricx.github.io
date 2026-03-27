@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, ElementRef, Input, OnDestroy, TemplateRef, ViewChild, booleanAttribute, numberAttribute, signal } from '@angular/core';
+import { Component, ContentChild, ElementRef, Input, TemplateRef, ViewChild, booleanAttribute, numberAttribute, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
 
@@ -9,7 +9,7 @@ import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
   templateUrl: './form-group.component.html',
   styleUrl: './form-group.component.css'
 })
-export class FormGroupComponent implements AfterViewInit, OnDestroy {
+export class FormGroupComponent {
   @Input({ alias: 'field-id' })
   fieldId = 'field';
 
@@ -43,6 +43,9 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
   @Input({ transform: booleanAttribute })
   required = false;
 
+  @Input({ alias: 'native-validation', transform: booleanAttribute })
+  nativeValidation = false;
+
   @ContentChild('tip')
   tipContent!: TemplateRef<unknown>;
 
@@ -50,8 +53,6 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
   private readonly fieldInput!: ElementRef<HTMLInputElement>;
 
   protected errorMessage = signal('');
-
-  private formElement: HTMLFormElement | null = null;
 
   protected get errorId(): string {
     return `${this.fieldId}-error`;
@@ -61,26 +62,20 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
     return `${this.fieldId}-hint`;
   }
 
-  ngAfterViewInit(): void {
-    this.formElement = this.hostElement.nativeElement.closest('form');
-
-    if (this.formElement) {
-      this.formElement.addEventListener('submit', this.handleSubmit);
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.formElement) {
-      this.formElement.removeEventListener('submit', this.handleSubmit);
-    }
-  }
-
   protected onInvalid(event: Event): void {
-    event.preventDefault();
+    if (this.nativeValidation) {
+      return;
+    }
+
     this.showError(this.getValidationMessage());
   }
 
   protected onBlur(): void {
+    if (this.nativeValidation) {
+      this.showError('');
+      return;
+    }
+
     const input = this.fieldInput.nativeElement;
     this.applyCustomValidation();
 
@@ -90,20 +85,6 @@ export class FormGroupComponent implements AfterViewInit, OnDestroy {
       this.showError('');
     }
   }
-
-  private readonly handleSubmit = (event: Event): void => {
-    const input = this.fieldInput.nativeElement;
-
-    this.applyCustomValidation();
-
-    if (input.checkValidity()) {
-      this.showError('');
-      return;
-    }
-
-    event.preventDefault();
-    this.showError(this.getValidationMessage());
-  };
 
   private applyCustomValidation(): void {
     const input = this.fieldInput.nativeElement;

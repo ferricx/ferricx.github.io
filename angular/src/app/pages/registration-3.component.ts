@@ -33,12 +33,15 @@ export class Registration3Component {
     this.openBtn()?.nativeElement.focus();
   }
 
-  submitForm(event: Event) {
-    event.preventDefault();
+  submitForm(event: SubmitEvent) {
     const form = this.form()?.nativeElement;
     if (!form) return;
 
-    if (!form.checkValidity()) return;
+    if (!form.checkValidity()) {
+      return;
+    }
+
+    event.preventDefault();
 
     const data = new FormData(form);
     const ssn = data.get('socialSecurityNumber') as string;

@@ -142,14 +142,12 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.formElement = this.host.nativeElement.closest('form');
     if (this.formElement) {
-      this.formElement.addEventListener('submit', this.handleSubmit);
       this.formElement.addEventListener('reset', this.handleReset);
     }
   }
 
   ngOnDestroy(): void {
     if (this.formElement) {
-      this.formElement.removeEventListener('submit', this.handleSubmit);
       this.formElement.removeEventListener('reset', this.handleReset);
     }
   }
@@ -351,12 +349,6 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
     this.errorMessage = '';
     return true;
   }
-
-  private readonly handleSubmit = (event: Event): void => {
-    if (!this.validate()) {
-      event.preventDefault();
-    }
-  };
 
   private readonly handleReset = (): void => {
     this.selectedIndex = -1;

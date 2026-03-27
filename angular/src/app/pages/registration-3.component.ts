@@ -25,6 +25,18 @@ export class Registration3Component {
 
   onSubmit(event: Event, form: HTMLFormElement): void {
     event.preventDefault();
+
+    if (!form.checkValidity()) {
+      const invalidInputs = Array.from(form.querySelectorAll<HTMLInputElement>('input:invalid'));
+
+      for (const input of invalidInputs) {
+        input.dispatchEvent(new Event('invalid', { cancelable: true }));
+      }
+
+      invalidInputs[0]?.focus();
+      return;
+    }
+
     this.submitDialogForm(form);
   }
 

@@ -26,6 +26,7 @@
   [attr.inputmode]="inputmode"
   [attr.pattern]="pattern"
   [attr.maxlength]="maxlength"
+  [attr.required]="required ? '' : null"
   [required]="required"
   [attr.aria-describedby]="errorId"
   (invalid)="onInvalid($event)"

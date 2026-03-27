@@ -28,6 +28,7 @@
     [attr.aria-activedescendant]="activeDescendantId"
     aria-autocomplete="none"
     [attr.aria-describedby]="errorId"
+    [attr.required]="required ? '' : null"
     [attr.aria-required]="required || null"
     placeholder="Choose state"
     [value]="displayValue"

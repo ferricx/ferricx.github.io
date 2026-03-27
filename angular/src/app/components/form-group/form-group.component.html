@@ -29,8 +29,8 @@
   [attr.required]="required ? '' : null"
   [required]="required"
   [attr.aria-describedby]="errorId"
-  (invalid)="onInvalid($event)"
-  (blur)="onBlur()"
+  (invalid)="nativeValidation ? null : onInvalid($event)"
+  (blur)="nativeValidation ? null : onBlur()"
 />
 
 <div [id]="errorId" class="form-error">{{ errorMessage() }}</div>

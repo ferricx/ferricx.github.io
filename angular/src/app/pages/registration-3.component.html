@@ -34,14 +34,14 @@
 </table>
 </div>
 
-<dialog #regDialog (click)="$event.target === dialog()?.nativeElement && closeDialog()">
+<dialog #regDialog (click)="$event.target === dialog()?.nativeElement && closeDialog()" (close)="onDialogClose()">
   <div class="dialog-content">
     <div class="dialog-header">
       <h2>New Registration</h2>
       <button type="button" class="close-btn" aria-label="Close" (click)="closeDialog()">&times;</button>
     </div>
 
-    <form #regForm class="registration-form" (submit)="submitForm($event)">
+    <form #regForm class="registration-form" ngNoForm method="dialog">
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
 
@@ -68,7 +68,7 @@
 
       <div class="form-actions">
         <button type="reset">Reset</button>
-        <button type="submit">Submit</button>
+        <button type="submit" value="submit">Submit</button>
       </div>
     </form>
   </div>

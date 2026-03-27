@@ -33,18 +33,19 @@ export class Registration3Component {
     this.openBtn()?.nativeElement.focus();
   }
 
-  submitForm(event: SubmitEvent) {
-    const form = this.form()?.nativeElement;
-    if (!form) return;
+  onDialogClose() {
+    this.openBtn()?.nativeElement.focus();
 
-    if (!form.checkValidity()) {
+    const dialog = this.dialog()?.nativeElement;
+    const form = this.form()?.nativeElement;
+    if (!dialog || !form) return;
+
+    if (dialog.returnValue !== 'submit') {
       return;
     }
 
-    event.preventDefault();
-
     const data = new FormData(form);
-    const ssn = data.get('socialSecurityNumber') as string;
+    const ssn = (data.get('socialSecurityNumber') as string) || '';
 
     this.registrations.update(list => [
       ...list,

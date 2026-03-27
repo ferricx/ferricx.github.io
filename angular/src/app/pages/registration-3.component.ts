@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, signal, viewChild } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 
@@ -18,19 +18,17 @@ export interface Registration {
   templateUrl: './registration-3.component.html',
   styleUrl: './registration-3.component.css'
 })
-export class Registration3Component implements AfterViewInit, OnDestroy {
+export class Registration3Component {
   readonly openBtn = viewChild<ElementRef<HTMLButtonElement>>('openBtn');
   readonly dialog = viewChild<ElementRef<HTMLDialogElement>>('regDialog');
   readonly form = viewChild<ElementRef<HTMLFormElement>>('regForm');
   readonly registrations = signal<Registration[]>([]);
 
-  private readonly handleSubmit = (event: Event) => {
+  onSubmit(event: Event): void {
     event.preventDefault();
 
-    const form = this.form()?.nativeElement;
-    const dialog = this.dialog()?.nativeElement;
-    if (!form || !dialog) return;
-
+    const form = this.form()!.nativeElement;
+    const dialog = this.dialog()!.nativeElement;
     const data = new FormData(form);
     const ssn = (data.get('socialSecurityNumber') as string) || '';
 
@@ -49,14 +47,6 @@ export class Registration3Component implements AfterViewInit, OnDestroy {
     form.reset();
     dialog.close();
     this.openBtn()?.nativeElement.focus();
-  };
-
-  ngAfterViewInit(): void {
-    this.form()?.nativeElement.addEventListener('submit', this.handleSubmit);
-  }
-
-  ngOnDestroy(): void {
-    this.form()?.nativeElement.removeEventListener('submit', this.handleSubmit);
   }
 
   openDialog() {

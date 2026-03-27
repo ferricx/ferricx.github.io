@@ -29,11 +29,6 @@ export class Registration3Component {
   }
 
   private submitDialogForm(form: HTMLFormElement): void {
-    if (!form.checkValidity()) {
-      const firstInvalid = form.querySelector<HTMLElement>(':invalid');
-      firstInvalid?.focus();
-      return;
-    }
 
     const dialog = form.closest('dialog');
     if (!(dialog instanceof HTMLDialogElement)) {

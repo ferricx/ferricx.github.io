@@ -23,12 +23,23 @@ export class Registration3Component {
   readonly dialog = viewChild<ElementRef<HTMLDialogElement>>('regDialog');
   readonly registrations = signal<Registration[]>([]);
 
-  onSubmit(event: Event): void {
+  onSubmit(event: Event, form: HTMLFormElement): void {
     event.preventDefault();
+    this.submitDialogForm(form);
+  }
 
-    const form = event.currentTarget as HTMLFormElement | null;
-    const dialog = form?.closest('dialog');
-    if (!form || !(dialog instanceof HTMLDialogElement)) {
+  onSubmitClick(event: Event, form: HTMLFormElement): void {
+    event.preventDefault();
+    this.submitDialogForm(form);
+  }
+
+  private submitDialogForm(form: HTMLFormElement): void {
+    if (!form.reportValidity()) {
+      return;
+    }
+
+    const dialog = form.closest('dialog');
+    if (!(dialog instanceof HTMLDialogElement)) {
       return;
     }
 

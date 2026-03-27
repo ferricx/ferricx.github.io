@@ -41,7 +41,7 @@
       <button type="button" class="close-btn" aria-label="Close" (click)="closeDialog()">&times;</button>
     </div>
 
-    <form #regForm class="registration-form" ngNoForm (submit)="onSubmit($event)">
+    <form #regForm class="registration-form" ngNoForm (submit)="onSubmit($event, regForm)">
       <app-error-summary></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
 
@@ -68,7 +68,7 @@
 
       <div class="form-actions">
         <button type="reset">Reset</button>
-        <button type="submit">Submit</button>
+        <button type="submit" (click)="onSubmitClick($event, regForm)">Submit</button>
       </div>
     </form>
   </div>

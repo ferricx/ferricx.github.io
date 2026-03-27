@@ -21,14 +21,17 @@ export interface Registration {
 export class Registration3Component {
   readonly openBtn = viewChild<ElementRef<HTMLButtonElement>>('openBtn');
   readonly dialog = viewChild<ElementRef<HTMLDialogElement>>('regDialog');
-  readonly form = viewChild<ElementRef<HTMLFormElement>>('regForm');
   readonly registrations = signal<Registration[]>([]);
 
   onSubmit(event: Event): void {
     event.preventDefault();
 
-    const form = this.form()!.nativeElement;
-    const dialog = this.dialog()!.nativeElement;
+    const form = event.currentTarget as HTMLFormElement | null;
+    const dialog = form?.closest('dialog');
+    if (!form || !(dialog instanceof HTMLDialogElement)) {
+      return;
+    }
+
     const data = new FormData(form);
     const ssn = (data.get('socialSecurityNumber') as string) || '';
 

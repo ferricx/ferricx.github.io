@@ -14,17 +14,6 @@ section {
   margin: 0 0 1.5rem;
 }
 
-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  gap: 1.25rem 1.5rem;
-}
-
-section > app-form-group,
-section > app-state-combobox {
-  min-width: 0;
-}
-
 section h2 {
   font-size: 1.25rem;
   font-weight: 700;

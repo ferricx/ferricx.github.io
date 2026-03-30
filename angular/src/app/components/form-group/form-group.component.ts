@@ -10,6 +10,7 @@ import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
   styleUrl: './form-group.component.css'
 })
 export class FormGroupComponent {
+    private dirty = false;
   @Input({ alias: 'field-id' })
   fieldId = 'field';
 
@@ -69,9 +70,13 @@ export class FormGroupComponent {
     if (this.nativeValidation) {
       return;
     }
-
     event.preventDefault();
-    this.showError(this.getValidationMessage());
+    // Only show error if user has interacted
+    if (this.dirty) {
+      this.showError(this.getValidationMessage());
+    } else {
+      this.showError('');
+    }
   }
 
   protected onBlur(): void {
@@ -79,15 +84,17 @@ export class FormGroupComponent {
       this.showError('');
       return;
     }
-
     const input = this.fieldInput.nativeElement;
     this.applyCustomValidation();
-
-    if (!input.validity.valid) {
+    // Only show error if user has interacted
+    if (this.dirty && !input.validity.valid) {
       this.showError(this.getValidationMessage());
     } else {
       this.showError('');
     }
+  }
+  protected onInput(): void {
+    this.dirty = true;
   }
 
   private applyCustomValidation(): void {

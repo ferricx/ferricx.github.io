@@ -3,25 +3,25 @@
     <span class="label-main">{{ label }}</span>
     @if (hint) {
       <span class="label-hint">{{ hint }}</span>
-    }
-    @if (required) {
-      <span class="required-indicator" aria-hidden="true">*</span>
-      <span class="sr-only"> (required)</span>
-    }
-  </label>
-
-  @if (tipContent) {
-    <app-popover-tip [ariaLabel]="'Show tip for ' + label">
-      <ng-container [ngTemplateOutlet]="tipContent"></ng-container>
-    </app-popover-tip>
-  }
-</div>
-
-<input
-  #fieldInput
-  [id]="fieldId"
-  [name]="name"
-  [type]="type"
+    <input
+      #fieldInput
+      [id]="fieldId"
+      [name]="name"
+      [type]="type"
+      [attr.autocomplete]="autocomplete || null"
+      [attr.inputmode]="inputmode || null"
+      [attr.maxlength]="maxlength || null"
+      [required]="required"
+      [pattern]="pattern || null"
+      [autofocus]="autofocus"
+      [attr.aria-describedby]="hint ? hintId : null"
+      [attr.aria-invalid]="errorMessage() ? 'true' : null"
+      [attr.aria-errormessage]="errorMessage() ? errorId : null"
+      (invalid)="onInvalid($event)"
+      (blur)="onBlur()"
+      (input)="onInput()"
+      [attr.native-validation]="nativeValidation ? '' : null"
+      />
   [attr.autocomplete]="autocomplete || null"
   [attr.inputmode]="inputmode"
   [attr.pattern]="pattern"

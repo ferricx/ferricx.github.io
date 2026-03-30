@@ -47,7 +47,14 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
     this.updateErrors();
 
     if (this.errors().length > 0) {
-      queueMicrotask(() => this.summaryBox?.nativeElement.focus());
+      queueMicrotask(() => {
+        const firstLink = this.summaryBox?.nativeElement.querySelector<HTMLElement>('ul li:first-child a');
+        if (firstLink) {
+          firstLink.focus();
+        } else {
+          this.summaryBox?.nativeElement.focus();
+        }
+      });
     }
   };
 

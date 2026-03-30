@@ -173,7 +173,7 @@ dialog {
   color: var(--tab-text, #0f172a);
 }
 
-dialog::backdrop {
+dialog[open]::backdrop {
   background: rgba(0, 0, 0, 0.5);
 }
 

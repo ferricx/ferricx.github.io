@@ -32,6 +32,10 @@
 	animation: slide-from-left 250ms ease-out;
 }
 
+html:has(dialog[open]) {
+	overflow: hidden;
+}
+
 body {
 	margin: 0;
 	font-family: 'Source Sans 3', sans-serif;

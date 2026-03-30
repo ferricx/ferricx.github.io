@@ -11,6 +11,15 @@ import { ThemeService, ThemeMode } from '../services/theme.service';
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent {
+  onProfileSubmit(event: Event): void {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    // TODO: handle valid form submission
+  }
   private readonly theme = inject(ThemeService);
 
   get sourceColor(): string {

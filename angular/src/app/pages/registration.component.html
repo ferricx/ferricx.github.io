@@ -1,4 +1,4 @@
-<form id="registration-form" class="registration-form">
+<form id="registration-form" class="registration-form" novalidate (submit)="onRegistrationSubmit($event)">
   <app-error-summary formId="registration-form"></app-error-summary>
   <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
 

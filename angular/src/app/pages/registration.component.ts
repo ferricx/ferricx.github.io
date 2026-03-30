@@ -10,4 +10,14 @@ import { StateComboboxComponent } from '../components/state-combobox/state-combo
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css'
 })
-export class RegistrationComponent {}
+export class RegistrationComponent {
+  onRegistrationSubmit(event: Event): void {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    // TODO: handle valid form submission
+  }
+}

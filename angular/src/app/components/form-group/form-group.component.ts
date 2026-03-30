@@ -11,6 +11,10 @@ import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
 })
 export class FormGroupComponent {
     private dirty = false;
+    // Mark the field as dirty from outside (e.g., after submit)
+    public markDirty() {
+      this.dirty = true;
+    }
   @Input({ alias: 'field-id' })
   fieldId = 'field';
 

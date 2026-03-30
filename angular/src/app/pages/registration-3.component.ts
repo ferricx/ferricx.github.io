@@ -52,6 +52,13 @@ export class Registration3Component {
     const allInputs = Array.from(form.querySelectorAll<HTMLInputElement>('input'));
     for (const input of allInputs) {
       input.dispatchEvent(new Event('invalid', { cancelable: true }));
+      if (!input.validity.valid) {
+        // Mark the parent form-group as dirty so errors persist
+        const formGroup = input.closest('app-form-group') as any;
+        if (formGroup && typeof formGroup.markDirty === 'function') {
+          formGroup.markDirty();
+        }
+      }
     }
 
     const invalidInputs = allInputs.filter(input => !input.validity.valid);

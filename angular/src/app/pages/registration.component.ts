@@ -19,6 +19,13 @@ export class RegistrationComponent {
       const inputs = Array.from(form.querySelectorAll('input'));
       for (const input of inputs) {
         input.dispatchEvent(new Event('invalid', { cancelable: true }));
+        if (!input.validity.valid) {
+          // Mark the parent form-group as dirty so errors persist
+          const formGroup = input.closest('app-form-group') as any;
+          if (formGroup && typeof formGroup.markDirty === 'function') {
+            formGroup.markDirty();
+          }
+        }
       }
       form.reportValidity();
       return;

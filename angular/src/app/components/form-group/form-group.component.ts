@@ -82,8 +82,8 @@ export class FormGroupComponent {
     }
     const input = this.fieldInput.nativeElement;
     this.applyCustomValidation();
-    // Only show error if user has interacted
-    if (this.dirty && !input.validity.valid) {
+    // Always show error if invalid on blur
+    if (!input.validity.valid) {
       this.showError(this.getValidationMessage());
     } else {
       this.showError('');
@@ -95,21 +95,24 @@ export class FormGroupComponent {
 
   private applyCustomValidation(): void {
     const input = this.fieldInput.nativeElement;
-    input.setCustomValidity('');
-
-    if (!this.pattern || input.value.length === 0) {
+    // Only set a custom error for pattern mismatch, do not clear if required/type errors exist
+    if (this.pattern && input.value.length > 0) {
+      try {
+        const regex = new RegExp(`^(?:${this.pattern})$`);
+        if (!regex.test(input.value)) {
+          input.setCustomValidity(this.formatMessage || 'Use the required format.');
+          return;
+        }
+      } catch {
+        // If regex is invalid, do not set custom error
+      }
+    }
+    // If required or type errors exist, do not clear custom validity
+    if (input.validity.valueMissing || input.validity.typeMismatch) {
       return;
     }
-
-    try {
-      const regex = new RegExp(`^(?:${this.pattern})$`);
-
-      if (!regex.test(input.value)) {
-        input.setCustomValidity(this.formatMessage || 'Use the required format.');
-      }
-    } catch {
-      input.setCustomValidity('');
-    }
+    // Otherwise, clear custom validity
+    input.setCustomValidity('');
   }
 
   private getValidationMessage(): string {

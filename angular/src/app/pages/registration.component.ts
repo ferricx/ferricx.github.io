@@ -15,6 +15,11 @@ export class RegistrationComponent {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     if (!form.checkValidity()) {
+      // Trigger invalid event on all inputs to show inline errors
+      const inputs = Array.from(form.querySelectorAll('input'));
+      for (const input of inputs) {
+        input.dispatchEvent(new Event('invalid', { cancelable: true }));
+      }
       form.reportValidity();
       return;
     }

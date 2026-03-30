@@ -48,7 +48,13 @@ export class Registration3Component {
   }
 
   private processForm(form: HTMLFormElement): void {
-    const invalidInputs = Array.from(form.querySelectorAll<HTMLInputElement>('input:invalid'));
+    // Trigger invalid event on all inputs to show inline errors
+    const allInputs = Array.from(form.querySelectorAll<HTMLInputElement>('input'));
+    for (const input of allInputs) {
+      input.dispatchEvent(new Event('invalid', { cancelable: true }));
+    }
+
+    const invalidInputs = allInputs.filter(input => !input.validity.valid);
 
     if (invalidInputs.length > 0) {
       const nextErrors = invalidInputs
@@ -68,10 +74,6 @@ export class Registration3Component {
         .filter((item) => item.fieldId.length > 0);
 
       this.errors.set(nextErrors);
-
-      for (const input of invalidInputs) {
-        input.dispatchEvent(new Event('invalid', { cancelable: true }));
-      }
 
       // Focus the first link in the error summary
       requestAnimationFrame(() => {

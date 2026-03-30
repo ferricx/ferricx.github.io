@@ -267,3 +267,9 @@ dialog::backdrop {
   color: inherit;
   text-decoration: underline;
 }
+
+.error-summary a:focus {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: 2px;
+  border-radius: 2px;
+}

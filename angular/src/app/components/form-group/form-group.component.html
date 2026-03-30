@@ -28,6 +28,7 @@
   [attr.maxlength]="maxlength"
   [attr.required]="required ? '' : null"
   [required]="required"
+  [attr.autofocus]="autofocus ? '' : null"
   [attr.aria-describedby]="errorId"
   (invalid)="nativeValidation ? null : onInvalid($event)"
   (blur)="nativeValidation ? null : onBlur()"

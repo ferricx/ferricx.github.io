@@ -43,6 +43,9 @@ export class FormGroupComponent {
   @Input({ transform: booleanAttribute })
   required = false;
 
+  @Input({ transform: booleanAttribute })
+  autofocus = false;
+
   @Input({ alias: 'native-validation', transform: booleanAttribute })
   nativeValidation = false;
 

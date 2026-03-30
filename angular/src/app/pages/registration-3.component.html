@@ -4,40 +4,73 @@
 </div>
 <span id="reg-count" hidden>{{ registrations().length }} dependents in table</span>
 
-<div class="table-wrap" tabindex="0" role="region" aria-label="Dependents">
-<table>
-  <caption>Dependents</caption>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Date of Birth</th>
-      <th>SSN</th>
-      <th>Phone</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (reg of registrations(); track $index) {
+<form #dependentsForm id="dependents-form" class="dependents-form" ngNoForm novalidate (submit)="onSubmitDependents($event)">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Dependents">
+  <table>
+    <caption>Dependents</caption>
+    <thead>
       <tr>
-        <td>{{ reg.firstName }} {{ reg.lastName }}</td>
-        <td>{{ reg.dateOfBirth }}</td>
-        <td>{{ reg.maskedSSN }}</td>
-        <td>{{ reg.phone }}</td>
-        <td>{{ reg.email }}</td>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date of Birth</th>
+        <th>SSN</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th><span class="visually-hidden">Actions</span></th>
       </tr>
-    } @empty {
-      <tr>
-        <td colspan="5" class="empty-message">No dependents yet. Click "+ Add Dependent" to add one.</td>
-      </tr>
-    }
-  </tbody>
-</table>
-</div>
+    </thead>
+    <tbody>
+      @for (reg of registrations(); track $index) {
+        <tr>
+          <td>
+            <label [attr.for]="'dep-first-name-' + $index" class="visually-hidden">First name for dependent {{ $index + 1 }}</label>
+            <input [id]="'dep-first-name-' + $index" [name]="'dependents[' + $index + '].firstName'" [value]="reg.firstName" type="text" required />
+          </td>
+          <td>
+            <label [attr.for]="'dep-last-name-' + $index" class="visually-hidden">Last name for dependent {{ $index + 1 }}</label>
+            <input [id]="'dep-last-name-' + $index" [name]="'dependents[' + $index + '].lastName'" [value]="reg.lastName" type="text" required />
+          </td>
+          <td>
+            <label [attr.for]="'dep-dob-' + $index" class="visually-hidden">Date of birth for dependent {{ $index + 1 }}</label>
+            <input [id]="'dep-dob-' + $index" [name]="'dependents[' + $index + '].dateOfBirth'" [value]="reg.dateOfBirth" type="text" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" placeholder="MM/DD/YYYY" required />
+          </td>
+          <td>
+            <label [attr.for]="'dep-ssn-' + $index" class="visually-hidden">SSN for dependent {{ $index + 1 }}</label>
+            <input [id]="'dep-ssn-' + $index" [name]="'dependents[' + $index + '].ssn'" [value]="reg.maskedSSN" type="text" readonly tabindex="-1" class="readonly-field" />
+          </td>
+          <td>
+            <label [attr.for]="'dep-phone-' + $index" class="visually-hidden">Phone for dependent {{ $index + 1 }}</label>
+            <input [id]="'dep-phone-' + $index" [name]="'dependents[' + $index + '].phone'" [value]="reg.phone" type="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{7,20}" required />
+          </td>
+          <td>
+            <label [attr.for]="'dep-email-' + $index" class="visually-hidden">Email for dependent {{ $index + 1 }}</label>
+            <input [id]="'dep-email-' + $index" [name]="'dependents[' + $index + '].email'" [value]="reg.email" type="email" required />
+          </td>
+          <td class="action-cell">
+            <button type="button" class="edit-btn" [attr.aria-label]="'Edit dependent ' + reg.firstName + ' ' + reg.lastName" (click)="editDependent($index)">&#9998;</button>
+            <button type="button" class="remove-btn" [attr.aria-label]="'Remove dependent ' + reg.firstName + ' ' + reg.lastName" (click)="removeDependent($index)">&times;</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="7" class="empty-message">No dependents yet. Click "+ Add Dependent" to add one.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  </div>
+
+  @if (registrations().length > 0) {
+    <div class="form-actions dependents-actions">
+      <button type="submit" class="submit-dependents-btn">Submit Dependents</button>
+    </div>
+  }
+</form>
 
 <dialog #regDialog (click)="$event.target === dialog()?.nativeElement && closeDialog()">
   <div class="dialog-content">
     <div class="dialog-header">
-      <h2>New Registration <small class="build-marker">build: 7d42e6f-v2</small></h2>
+      <h2>{{ editingIndex() !== null ? 'Edit' : 'New' }} Registration <small class="build-marker">build: 7d42e6f-v2</small></h2>
       <button type="button" class="close-btn" aria-label="Close" (click)="closeDialog()">&times;</button>
     </div>
 

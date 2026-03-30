@@ -28,6 +28,8 @@ export class Registration3Component {
   readonly dialog = viewChild<ElementRef<HTMLDialogElement>>('regDialog');
   readonly registrations = signal<Registration[]>([]);
   readonly errors = signal<FieldError[]>([]);
+  readonly editingIndex = signal<number | null>(null);
+  private readonly regForm = viewChild<ElementRef<HTMLFormElement>>('regForm');
 
   onSubmit(event: Event, form: HTMLFormElement): void {
     event.preventDefault();
@@ -71,7 +73,12 @@ export class Registration3Component {
         input.dispatchEvent(new Event('invalid', { cancelable: true }));
       }
 
-      invalidInputs[0]?.focus();
+      // Focus the first link in the error summary
+      requestAnimationFrame(() => {
+        const dialog = this.dialog()?.nativeElement;
+        const firstLink = dialog?.querySelector<HTMLElement>('.error-summary ul li:first-child a');
+        firstLink?.focus();
+      });
       return;
     }
 
@@ -89,31 +96,101 @@ export class Registration3Component {
     const data = new FormData(form);
     const ssn = (data.get('socialSecurityNumber') as string) || '';
 
-    this.registrations.update(list => [
-      ...list,
-      {
-        firstName: data.get('firstName') as string,
-        lastName: data.get('lastName') as string,
-        dateOfBirth: data.get('dateOfBirth') as string,
-        maskedSSN: '*****' + ssn.slice(-4),
-        phone: data.get('phone') as string,
-        email: data.get('email') as string,
-      }
-    ]);
+    const entry: Registration = {
+      firstName: data.get('firstName') as string,
+      lastName: data.get('lastName') as string,
+      dateOfBirth: data.get('dateOfBirth') as string,
+      maskedSSN: '*****' + ssn.slice(-4),
+      phone: data.get('phone') as string,
+      email: data.get('email') as string,
+    };
 
+    const idx = this.editingIndex();
+    if (idx !== null) {
+      this.registrations.update(list => list.map((item, i) => i === idx ? entry : item));
+    } else {
+      this.registrations.update(list => [...list, entry]);
+    }
+
+    this.editingIndex.set(null);
     form.reset();
     dialog.close();
     this.openBtn()?.nativeElement.focus();
   }
 
   openDialog() {
+    this.editingIndex.set(null);
     this.errors.set([]);
     this.dialog()?.nativeElement.showModal();
   }
 
   closeDialog() {
+    this.editingIndex.set(null);
     this.errors.set([]);
     this.dialog()?.nativeElement.close();
     this.openBtn()?.nativeElement.focus();
+  }
+
+  editDependent(index: number): void {
+    const reg = this.registrations()[index];
+    if (!reg) return;
+
+    this.editingIndex.set(index);
+    this.errors.set([]);
+    this.dialog()?.nativeElement.showModal();
+
+    // Pre-fill the dialog form after the dialog is open
+    requestAnimationFrame(() => {
+      const form = this.regForm()?.nativeElement;
+      if (!form) return;
+
+      const fields: Record<string, string> = {
+        firstName: reg.firstName,
+        lastName: reg.lastName,
+        dateOfBirth: reg.dateOfBirth,
+        email: reg.email,
+        phone: reg.phone,
+      };
+
+      for (const [name, value] of Object.entries(fields)) {
+        const input = form.querySelector<HTMLInputElement>(`[name="${name}"]`);
+        if (input) input.value = value;
+      }
+    });
+  }
+
+  removeDependent(index: number): void {
+    this.registrations.update(list => list.filter((_, i) => i !== index));
+  }
+
+  onSubmitDependents(event: Event): void {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const invalidInputs = Array.from(form.querySelectorAll<HTMLInputElement>('input:invalid'));
+
+    if (invalidInputs.length > 0) {
+      invalidInputs[0]?.focus();
+      return;
+    }
+
+    const data = new FormData(form);
+    const dependents: Registration[] = [];
+
+    for (let i = 0; data.has(`dependents[${i}].firstName`); i++) {
+      dependents.push({
+        firstName: data.get(`dependents[${i}].firstName`) as string,
+        lastName: data.get(`dependents[${i}].lastName`) as string,
+        dateOfBirth: data.get(`dependents[${i}].dateOfBirth`) as string,
+        maskedSSN: data.get(`dependents[${i}].ssn`) as string,
+        phone: data.get(`dependents[${i}].phone`) as string,
+        email: data.get(`dependents[${i}].email`) as string,
+      });
+    }
+
+    // Replace signal with latest edited values
+    this.registrations.set(dependents);
+
+    // TODO: send dependents to your API here
+    console.log('Submitting dependents:', dependents);
   }
 }

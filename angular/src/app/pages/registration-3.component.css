@@ -88,6 +88,110 @@ tbody tr:hover {
   font-style: italic;
 }
 
+/* Editable table inputs */
+table input {
+  font: inherit;
+  font-size: 0.8125rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--tab-border, #94a3b8);
+  border-radius: 0.375rem;
+  background: var(--tab-surface, #ffffff);
+  color: var(--tab-text, #0f172a);
+  width: 100%;
+  min-width: 5rem;
+  box-sizing: border-box;
+}
+
+table input:focus {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: -1px;
+  border-color: var(--tab-accent, #2563eb);
+}
+
+table input:invalid {
+  border-color: var(--tab-error, #dc2626);
+}
+
+table input.readonly-field {
+  background: var(--tab-surface-muted, #f8fafc);
+  color: var(--tab-text-muted, #334155);
+  cursor: default;
+}
+
+.action-cell {
+  white-space: nowrap;
+}
+
+.edit-btn,
+.remove-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--tab-text-muted, #334155);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.edit-btn:hover {
+  background: var(--tab-accent-soft, #dbeafe);
+  color: var(--tab-accent, #2563eb);
+}
+
+.remove-btn:hover {
+  background: var(--tab-error-soft, #fee2e2);
+  color: var(--tab-error, #dc2626);
+}
+
+.edit-btn:focus-visible,
+.remove-btn:focus-visible {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: 2px;
+}
+
+.dependents-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.submit-dependents-btn {
+  appearance: none;
+  border: 1px solid var(--tab-accent, #2563eb);
+  border-radius: 0.5rem;
+  background: var(--tab-accent, #2563eb);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: filter 180ms ease;
+}
+
+.submit-dependents-btn:hover {
+  filter: brightness(0.85);
+}
+
+.submit-dependents-btn:focus-visible {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Dialog */
 dialog {
   border: none;

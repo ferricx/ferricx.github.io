@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
-import { ThemeService, ThemeMode } from '../services/theme.service';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-profile',

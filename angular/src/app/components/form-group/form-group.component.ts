@@ -1,4 +1,5 @@
-import { Component, ContentChild, ElementRef, Input, TemplateRef, ViewChild, booleanAttribute, numberAttribute, signal } from '@angular/core';
+import { Component, Input, ContentChild, ViewChild, ElementRef, TemplateRef } from '@angular/core';
+import { signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
 
@@ -36,7 +37,7 @@ export class FormGroupComponent {
   @Input()
   inputmode: string | null = null;
 
-  @Input({ transform: numberAttribute })
+  @Input()
   maxlength: number | null = null;
 
   @Input({ alias: 'format-message' })
@@ -45,13 +46,13 @@ export class FormGroupComponent {
   @Input()
   hint = '';
 
-  @Input({ transform: booleanAttribute })
+  @Input()
   required = false;
 
-  @Input({ transform: booleanAttribute })
+  @Input()
   autofocus = false;
 
-  @Input({ alias: 'native-validation', transform: booleanAttribute })
+  @Input({ alias: 'native-validation' })
   nativeValidation = false;
 
   @ContentChild('tip')
@@ -75,8 +76,12 @@ export class FormGroupComponent {
       return;
     }
     event.preventDefault();
-    // Always show error on submit/invalid
-    this.showError(this.getValidationMessage());
+    const input = this.fieldInput.nativeElement;
+    if (!input.validity.valid) {
+      this.showError(this.getValidationMessage());
+    } else {
+      this.showError('');
+    }
   }
 
   protected onBlur(): void {
@@ -140,7 +145,8 @@ export class FormGroupComponent {
       return input.validationMessage;
     }
 
-    return 'Enter a valid value.';
+    // No error if valid
+    return '';
   }
 
   private showError(message: string): void {

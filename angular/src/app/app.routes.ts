@@ -11,5 +11,5 @@ export const routes: Routes = [
   { path: 'registration-2', component: Registration2Component },
   { path: 'registration-3', component: Registration3Component },
   { path: 'profile', component: ProfileComponent },
-  { path: 'registration-native', loadComponent: () => import('./pages/registration-native.component').then(m => m.RegistrationNativeComponent) },
+  // { path: 'registration-native', loadComponent: () => import('./pages/registration-native.component').then(m => m.RegistrationNativeComponent) },
 ];

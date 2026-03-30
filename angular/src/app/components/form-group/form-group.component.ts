@@ -71,12 +71,8 @@ export class FormGroupComponent {
       return;
     }
     event.preventDefault();
-    // Only show error if user has interacted
-    if (this.dirty) {
-      this.showError(this.getValidationMessage());
-    } else {
-      this.showError('');
-    }
+    // Always show error on submit/invalid
+    this.showError(this.getValidationMessage());
   }
 
   protected onBlur(): void {

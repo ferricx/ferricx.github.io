@@ -4,24 +4,25 @@
     @if (hint) {
       <span class="label-hint">{{ hint }}</span>
     }
-    <input
-      #fieldInput
-      [id]="fieldId"
-      [name]="name"
-      [type]="type"
-      [attr.autocomplete]="autocomplete || null"
-      [attr.inputmode]="inputmode || null"
-      [attr.maxlength]="maxlength || null"
-      [required]="required"
-      [pattern]="pattern || null"
-      [autofocus]="autofocus"
-      [attr.aria-describedby]="hint ? hintId : null"
-      [attr.aria-invalid]="errorMessage() ? 'true' : null"
-      [attr.aria-errormessage]="errorMessage() ? errorId : null"
-      (invalid)="onInvalid($event)"
-      (blur)="onBlur()"
-      (input)="onInput()"
-      [attr.native-validation]="nativeValidation ? '' : null"
-    />
-
+  </label>
+  <input
+    #fieldInput
+    [id]="fieldId"
+    [name]="name"
+    [type]="type"
+    [attr.autocomplete]="autocomplete || null"
+    [attr.inputmode]="inputmode || null"
+    [attr.maxlength]="maxlength || null"
+    [required]="required"
+    [pattern]="pattern || null"
+    [autofocus]="autofocus"
+    [attr.aria-describedby]="hint ? hintId : null"
+    [attr.aria-invalid]="errorMessage() ? 'true' : null"
+    [attr.aria-errormessage]="errorMessage() ? errorId : null"
+    (invalid)="onInvalid($event)"
+    (blur)="onBlur()"
+    (input)="onInput()"
+    [attr.native-validation]="nativeValidation ? '' : null"
+  />
+</div>
 <div [id]="errorId" class="form-error" [class.visible]="!!errorMessage()">{{ errorMessage() }}</div>

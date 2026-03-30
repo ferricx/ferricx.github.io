@@ -22,17 +22,6 @@
       (blur)="onBlur()"
       (input)="onInput()"
       [attr.native-validation]="nativeValidation ? '' : null"
-      />
-  [attr.autocomplete]="autocomplete || null"
-  [attr.inputmode]="inputmode"
-  [attr.pattern]="pattern"
-  [attr.maxlength]="maxlength"
-  [attr.required]="required ? '' : null"
-  [required]="required"
-  [attr.autofocus]="autofocus ? '' : null"
-  [attr.aria-describedby]="errorId"
-  (invalid)="nativeValidation ? null : onInvalid($event)"
-  (blur)="nativeValidation ? null : onBlur()"
-/>
+    />
 
 <div [id]="errorId" class="form-error" [class.visible]="!!errorMessage()">{{ errorMessage() }}</div>

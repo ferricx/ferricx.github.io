@@ -82,8 +82,8 @@ export class FormGroupComponent {
     }
     const input = this.fieldInput.nativeElement;
     this.applyCustomValidation();
-    // Always show error if invalid on blur
-    if (!input.validity.valid) {
+    // Only show error if user has interacted (dirty) and invalid
+    if (this.dirty && !input.validity.valid) {
       this.showError(this.getValidationMessage());
     } else {
       this.showError('');

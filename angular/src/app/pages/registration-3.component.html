@@ -1,10 +1,10 @@
-<div class="page-header">
-  <h2>Registrations</h2>
-  <button #openBtn type="button" class="open-dialog-btn" (click)="openDialog()" aria-haspopup="dialog" [attr.aria-describedby]="'reg-count'">+ Add Dependent</button>
-</div>
+<h2 id="registrations-heading">Registrations</h2>
 <span id="reg-count" hidden>{{ registrations().length }} dependents in table</span>
 
-<form #dependentsForm id="dependents-form" class="dependents-form" ngNoForm novalidate (submit)="onSubmitDependents($event)">
+<form #dependentsForm id="dependents-form" class="dependents-form" ngNoForm novalidate aria-labelledby="registrations-heading" (submit)="onSubmitDependents($event)">
+  <div class="page-header">
+    <button #openBtn type="button" class="open-dialog-btn" (click)="openDialog()" aria-haspopup="dialog" [attr.aria-describedby]="'reg-count'">+ Add Dependent</button>
+  </div>
   <div class="table-wrap" tabindex="0" role="region" aria-label="Dependents">
   <table>
     <caption>Dependents</caption>

@@ -88,36 +88,6 @@ tbody tr:hover {
   font-style: italic;
 }
 
-/* Editable table inputs */
-table input {
-  font: inherit;
-  font-size: 0.8125rem;
-  padding: 0.35rem 0.5rem;
-  border: 1px solid var(--tab-border, #94a3b8);
-  border-radius: 0.375rem;
-  background: var(--tab-surface, #ffffff);
-  color: var(--tab-text, #0f172a);
-  width: 100%;
-  min-width: 5rem;
-  box-sizing: border-box;
-}
-
-table input:focus {
-  outline: 2px solid var(--tab-accent, #2563eb);
-  outline-offset: -1px;
-  border-color: var(--tab-accent, #2563eb);
-}
-
-table input:invalid {
-  border-color: var(--tab-error, #dc2626);
-}
-
-table input.readonly-field {
-  background: var(--tab-surface-muted, #f8fafc);
-  color: var(--tab-text-muted, #334155);
-  cursor: default;
-}
-
 .action-cell {
   white-space: nowrap;
 }

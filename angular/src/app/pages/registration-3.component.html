@@ -22,29 +22,23 @@
     <tbody>
       @for (reg of registrations(); track $index) {
         <tr>
-          <td>
-            <label [attr.for]="'dep-first-name-' + $index" class="visually-hidden">First name for dependent {{ $index + 1 }}</label>
-            <input [id]="'dep-first-name-' + $index" [name]="'dependents[' + $index + '].firstName'" [value]="reg.firstName" type="text" required />
+          <td>{{ reg.firstName }}
+            <input type="hidden" [name]="'dependents[' + $index + '].firstName'" [value]="reg.firstName" />
           </td>
-          <td>
-            <label [attr.for]="'dep-last-name-' + $index" class="visually-hidden">Last name for dependent {{ $index + 1 }}</label>
-            <input [id]="'dep-last-name-' + $index" [name]="'dependents[' + $index + '].lastName'" [value]="reg.lastName" type="text" required />
+          <td>{{ reg.lastName }}
+            <input type="hidden" [name]="'dependents[' + $index + '].lastName'" [value]="reg.lastName" />
           </td>
-          <td>
-            <label [attr.for]="'dep-dob-' + $index" class="visually-hidden">Date of birth for dependent {{ $index + 1 }}</label>
-            <input [id]="'dep-dob-' + $index" [name]="'dependents[' + $index + '].dateOfBirth'" [value]="reg.dateOfBirth" type="text" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" maxlength="10" placeholder="MM/DD/YYYY" required />
+          <td>{{ reg.dateOfBirth }}
+            <input type="hidden" [name]="'dependents[' + $index + '].dateOfBirth'" [value]="reg.dateOfBirth" />
           </td>
-          <td>
-            <label [attr.for]="'dep-ssn-' + $index" class="visually-hidden">SSN for dependent {{ $index + 1 }}</label>
-            <input [id]="'dep-ssn-' + $index" [name]="'dependents[' + $index + '].ssn'" [value]="reg.maskedSSN" type="text" readonly tabindex="-1" class="readonly-field" />
+          <td>{{ reg.maskedSSN }}
+            <input type="hidden" [name]="'dependents[' + $index + '].ssn'" [value]="reg.maskedSSN" />
           </td>
-          <td>
-            <label [attr.for]="'dep-phone-' + $index" class="visually-hidden">Phone for dependent {{ $index + 1 }}</label>
-            <input [id]="'dep-phone-' + $index" [name]="'dependents[' + $index + '].phone'" [value]="reg.phone" type="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{7,20}" required />
+          <td>{{ reg.phone }}
+            <input type="hidden" [name]="'dependents[' + $index + '].phone'" [value]="reg.phone" />
           </td>
-          <td>
-            <label [attr.for]="'dep-email-' + $index" class="visually-hidden">Email for dependent {{ $index + 1 }}</label>
-            <input [id]="'dep-email-' + $index" [name]="'dependents[' + $index + '].email'" [value]="reg.email" type="email" required />
+          <td>{{ reg.email }}
+            <input type="hidden" [name]="'dependents[' + $index + '].email'" [value]="reg.email" />
           </td>
           <td class="action-cell">
             <button type="button" class="edit-btn" [attr.aria-label]="'Edit dependent ' + reg.firstName + ' ' + reg.lastName" (click)="editDependent($index)">&#9998;</button>

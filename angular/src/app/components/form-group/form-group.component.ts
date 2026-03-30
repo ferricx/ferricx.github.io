@@ -96,7 +96,8 @@ export class FormGroupComponent {
   private applyCustomValidation(): void {
     const input = this.fieldInput.nativeElement;
     // Only set a custom error for pattern mismatch, do not clear if required/type errors exist
-    if (this.pattern && input.value.length > 0) {
+    // Skip pattern validation for type='email' fields
+    if (this.pattern && input.value.length > 0 && this.type !== 'email') {
       try {
         const regex = new RegExp(`^(?:${this.pattern})$`);
         if (!regex.test(input.value)) {

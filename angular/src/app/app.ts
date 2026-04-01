@@ -30,11 +30,15 @@ export class App {
         prevIndex = nextIndex;
 
         setTimeout(() => {
-          const main = document.querySelector<HTMLElement>('main');
-          if (main) {
-            main.tabIndex = -1;
-            main.focus({ preventScroll: false });
-            main.addEventListener('blur', () => main.removeAttribute('tabindex'), { once: true });
+          const h2 = Array.from(document.querySelectorAll<HTMLElement>('main h2'))
+            .find(el => el.offsetParent !== null);
+          const target = h2?.id
+            ? document.querySelector<HTMLElement>(`[aria-labelledby~="${CSS.escape(h2.id)}"]`)
+            : null;
+          if (target) {
+            target.tabIndex = -1;
+            target.focus({ preventScroll: false });
+            target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
           }
         }, 0);
       });

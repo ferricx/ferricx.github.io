@@ -31,7 +31,7 @@ export class FormGroupComponent {
   @Input()
   type = 'text';
 
-  @Input()
+  @Input({ alias: 'autocomplete' })
   autocomplete = '';
 
   @Input()
@@ -80,6 +80,7 @@ export class FormGroupComponent {
     }
     event.preventDefault();
     this.dirty = true;
+    this.applyCustomValidation();
     const input = this.fieldInput.nativeElement;
     if (!input.validity.valid) {
       this.showError(this.getValidationMessage());

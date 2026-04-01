@@ -9,6 +9,53 @@
   box-shadow: 0 4px 18px color-mix(in srgb, var(--tab-text, #0f172a) 6%, transparent);
 }
 
+.success-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 2rem 1.5rem;
+}
+
+.success-icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--tab-accent, #2563eb);
+}
+
+.success-panel h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.success-panel p {
+  margin: 0;
+  color: var(--tab-text-muted, #334155);
+}
+
+.success-panel button {
+  appearance: none;
+  border: 1px solid var(--tab-border, #94a3b8);
+  border-radius: 0.5rem;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  background: var(--tab-surface, #ffffff);
+  color: var(--tab-text-muted, #334155);
+  margin-top: 0.5rem;
+}
+
+.success-panel button:hover {
+  filter: brightness(0.95);
+}
+
+.success-panel button:focus-visible {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: 2px;
+}
+
 .page-header {
   display: flex;
   justify-content: space-between;

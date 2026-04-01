@@ -29,6 +29,7 @@ export class Registration3Component {
   readonly registrations = signal<Registration[]>([]);
   readonly errors = signal<FieldError[]>([]);
   readonly editingIndex = signal<number | null>(null);
+  readonly submitted = signal(false);
   private readonly regForm = viewChild<ElementRef<HTMLFormElement>>('regForm');
   private readonly formGroups = viewChildren(FormGroupComponent);
 
@@ -211,8 +212,11 @@ export class Registration3Component {
 
     // Replace signal with latest edited values
     this.registrations.set(dependents);
+    this.submitted.set(true);
+  }
 
-    // TODO: send dependents to your API here
-    console.log('Submitting dependents:', dependents);
+  onStartOver(): void {
+    this.registrations.set([]);
+    this.submitted.set(false);
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 import { StateComboboxComponent } from '../components/state-combobox/state-combobox.component';
@@ -11,6 +11,8 @@ import { StateComboboxComponent } from '../components/state-combobox/state-combo
   styleUrl: './registration.component.css'
 })
 export class RegistrationComponent {
+  submitted = signal(false);
+
   onRegistrationSubmit(event: Event): void {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
@@ -30,6 +32,11 @@ export class RegistrationComponent {
       form.reportValidity();
       return;
     }
-    // TODO: handle valid form submission
+    this.submitted.set(true);
+  }
+
+  onStartOver(form: HTMLFormElement): void {
+    form.reset();
+    this.submitted.set(false);
   }
 }

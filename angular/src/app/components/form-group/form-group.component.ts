@@ -107,6 +107,13 @@ export class FormGroupComponent {
   }
   protected onInput(): void {
     this.dirty = true;
+    const input = this.fieldInput.nativeElement;
+    this.applyCustomValidation();
+    if (!input.validity.valid) {
+      this.showError(this.getValidationMessage());
+    } else {
+      this.showError('');
+    }
   }
 
   private applyCustomValidation(): void {

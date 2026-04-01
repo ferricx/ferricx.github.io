@@ -19,7 +19,7 @@
     <h2 id="reg-contact-heading">Contact Information</h2>
     <app-form-group field-id="reg-email" name="email" label="Email" type="email" autocomplete="email" [required]="true">
     </app-form-group>
-    <app-form-group field-id="reg-phone" name="phone" label="Phone number" type="tel" autocomplete="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{7,20}" format-message="Phone number must be 7 to 20 characters and can include digits, spaces, parentheses, plus, and hyphens." [required]="true">
+    <app-form-group field-id="reg-phone" name="phone" label="Phone number" type="tel" autocomplete="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{10,20}" format-message="Phone number must be 10 to 20 characters and can include digits, spaces, parentheses, plus, and hyphens." [required]="true">
     </app-form-group>
     <app-form-group field-id="reg-street" name="street" label="Street address" autocomplete="address-line1" [required]="true">
     </app-form-group>

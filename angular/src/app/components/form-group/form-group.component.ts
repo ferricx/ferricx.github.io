@@ -108,6 +108,9 @@ export class FormGroupComponent {
 
   private applyCustomValidation(): void {
     const input = this.fieldInput.nativeElement;
+    // Clear any previous custom error so the browser can re-evaluate native validity
+    input.setCustomValidity('');
+
     // Only set a custom error for pattern mismatch, do not clear if required/type errors exist
     // Skip pattern validation for type='email' fields
     if (this.pattern && input.value.length > 0 && this.type !== 'email') {
@@ -121,12 +124,6 @@ export class FormGroupComponent {
         // If regex is invalid, do not set custom error
       }
     }
-    // If required or type errors exist, do not clear custom validity
-    if (input.validity.valueMissing || input.validity.typeMismatch) {
-      return;
-    }
-    // Otherwise, clear custom validity
-    input.setCustomValidity('');
   }
 
   private getValidationMessage(): string {

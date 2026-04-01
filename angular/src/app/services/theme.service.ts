@@ -84,7 +84,7 @@ export class ThemeService {
       root.style.setProperty('--tab-border', hsl(h, Math.min(s, 20), 65));
       root.style.setProperty('--tab-text', hsl(h, Math.min(s, 25), 10));
       root.style.setProperty('--tab-text-muted', hsl(h, Math.min(s, 15), 30));
-      root.style.setProperty('--tab-accent', hsl(h, Math.min(s, 90), 45));
+      root.style.setProperty('--tab-accent', hsl(h, Math.min(s, 90), 38));
       root.style.setProperty('--tab-accent-soft', hsl(h, Math.min(s, 70), 92));
       root.style.setProperty('--tab-error', hsl(0, 72, 51));
       root.style.setProperty('--tab-error-soft', hsl(0, 93, 94));

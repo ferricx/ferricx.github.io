@@ -1,12 +1,10 @@
 import { Component, Input, ContentChild, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { signal } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
-import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
 
 @Component({
   selector: 'app-form-group',
   standalone: true,
-  imports: [PopoverTipComponent, NgTemplateOutlet],
+  imports: [],
   templateUrl: './form-group.component.html',
   styleUrl: './form-group.component.css'
 })

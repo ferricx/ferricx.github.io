@@ -1,12 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { FormGroupComponent } from '../components/form-group/form-group.component';
-import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormGroupComponent, ErrorSummaryComponent],
+  imports: [],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })

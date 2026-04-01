@@ -3,15 +3,15 @@
     <label [for]="fieldId">
       <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
     </label>
+    @if (hint) {
+      <span [id]="hintId" class="label-hint">{{ hint }}</span>
+    }
     @if (tipContent) {
       <app-popover-tip [ariaLabel]="'Show tip for ' + label">
         <ng-container [ngTemplateOutlet]="tipContent"></ng-container>
       </app-popover-tip>
     }
   </div>
-  @if (hint) {
-    <span [id]="hintId" class="label-hint">{{ hint }}</span>
-  }
   <input
     #fieldInput
     [id]="fieldId"

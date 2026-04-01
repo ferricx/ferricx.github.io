@@ -28,6 +28,15 @@ export class App {
         const nextIndex = routeOrder[e.urlAfterRedirects] ?? 0;
         this.direction = nextIndex >= prevIndex ? 'forward' : 'backward';
         prevIndex = nextIndex;
+
+        setTimeout(() => {
+          const h2 = Array.from(document.querySelectorAll<HTMLElement>('main h2'))
+            .find(el => el.offsetParent !== null);
+          if (h2) {
+            h2.tabIndex = -1;
+            h2.focus({ preventScroll: false });
+          }
+        }, 0);
       });
   }
 }

@@ -232,7 +232,7 @@ dialog[open]::backdrop {
 }
 
 .registration-form section h3 {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--tab-text);
   margin: 0 0 0.75rem;
@@ -245,30 +245,48 @@ dialog[open]::backdrop {
 
 .error-summary {
   border: 2px solid var(--tab-error, #dc2626);
-  background: var(--tab-error-soft, #fee2e2);
-  color: var(--tab-text, #0f172a);
   border-radius: 0.5rem;
-  padding: 0.75rem 1rem;
+  padding: 1rem 1.25rem;
   margin-bottom: 1rem;
+  background: var(--tab-error-bg, #fef2f2);
+}
+
+.error-summary:focus {
+  outline: 3px solid var(--tab-error, #dc2626);
+  outline-offset: 0;
 }
 
 .error-summary h2 {
   margin: 0 0 0.5rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
+  color: var(--tab-error, #dc2626);
 }
 
 .error-summary ul {
   margin: 0;
-  padding-left: 1.2rem;
+  padding: 0 0 0 1.25rem;
+}
+
+.error-summary li {
+  list-style: none;
+  margin-bottom: 0.25rem;
+}
+
+.error-summary li:last-child {
+  margin-bottom: 0;
 }
 
 .error-summary a {
-  color: inherit;
+  color: var(--tab-error, #dc2626);
   text-decoration: underline;
+  font-weight: 500;
+}
+
+.error-summary a:hover {
+  text-decoration-thickness: 2px;
 }
 
 .error-summary a:focus {
-  outline: 2px solid var(--tab-accent, #2563eb);
+  outline: 2px solid var(--tab-error, #dc2626);
   outline-offset: 2px;
-  border-radius: 2px;
 }

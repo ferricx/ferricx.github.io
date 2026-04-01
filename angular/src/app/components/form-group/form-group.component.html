@@ -2,9 +2,6 @@
   <div class="label-tip-row">
     <label [for]="fieldId">
       <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
-      @if (hint) {
-        <span class="label-hint">{{ hint }}</span>
-      }
     </label>
     @if (tipContent) {
       <app-popover-tip [ariaLabel]="'Show tip for ' + label">
@@ -12,6 +9,9 @@
       </app-popover-tip>
     }
   </div>
+  @if (hint) {
+    <span [id]="hintId" class="label-hint">{{ hint }}</span>
+  }
   <input
     #fieldInput
     [id]="fieldId"

@@ -1,15 +1,17 @@
 <div class="label-row">
-  <label [for]="fieldId">
-    <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
-    @if (hint) {
-      <span class="label-hint">{{ hint }}</span>
+  <div class="label-tip-row">
+    <label [for]="fieldId">
+      <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
+      @if (hint) {
+        <span class="label-hint">{{ hint }}</span>
+      }
+    </label>
+    @if (tipContent) {
+      <app-popover-tip [ariaLabel]="'Show tip for ' + label">
+        <ng-container [ngTemplateOutlet]="tipContent"></ng-container>
+      </app-popover-tip>
     }
-  </label>
-  @if (tipContent) {
-    <app-popover-tip [ariaLabel]="'Show tip for ' + label">
-      <ng-container [ngTemplateOutlet]="tipContent"></ng-container>
-    </app-popover-tip>
-  }
+  </div>
   <input
     #fieldInput
     [id]="fieldId"

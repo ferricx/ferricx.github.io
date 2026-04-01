@@ -88,7 +88,7 @@ input:user-invalid {
   visibility: visible;
 }
 
-input:user-invalid + .form-error {
-  visibility: visible;
+:host:has(input:user-valid) .form-error {
+  visibility: hidden;
 }
 

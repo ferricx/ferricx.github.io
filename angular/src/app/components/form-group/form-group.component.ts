@@ -107,13 +107,30 @@ export class FormGroupComponent {
   }
   protected onInput(): void {
     this.dirty = true;
+    if (!this.errorMessage()) return;
+
     const input = this.fieldInput.nativeElement;
-    this.applyCustomValidation();
-    if (!input.validity.valid) {
+    input.setCustomValidity('');
+
+    if (this.required && !input.value) {
       this.showError(this.getValidationMessage());
-    } else {
-      this.showError('');
+      return;
     }
+
+    if (this.pattern && input.value && this.type !== 'email') {
+      try {
+        const regex = new RegExp(`^(?:${this.pattern})$`);
+        if (!regex.test(input.value)) {
+          input.setCustomValidity(this.formatMessage);
+          this.showError(this.formatMessage);
+          return;
+        }
+      } catch {
+        // invalid regex pattern, skip
+      }
+    }
+
+    this.showError('');
   }
 
   private applyCustomValidation(): void {

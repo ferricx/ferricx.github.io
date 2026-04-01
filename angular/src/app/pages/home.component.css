@@ -60,6 +60,35 @@
   padding-top: 1rem;
 }
 
+.forecast summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+
+.forecast summary::-webkit-details-marker {
+  display: none;
+}
+
+.forecast summary::before {
+  content: '▶';
+  font-size: 0.75em;
+  color: var(--tab-text-muted, #334155);
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.forecast[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.forecast summary h3 {
+  margin: 0;
+}
+
 .forecast-grid {
   list-style: none;
   padding: 0;

@@ -23,8 +23,8 @@
 }
 
 @if (forecast().length) {
-  <section class="forecast" aria-labelledby="forecast-heading">
-    <h3 id="forecast-heading">16-Day Forecast</h3>
+  <details class="forecast">
+    <summary><h3>16-Day Forecast</h3></summary>
     <ul class="forecast-grid" role="list">
       @for (day of forecast(); track day.date) {
         <li class="forecast-day">
@@ -38,7 +38,7 @@
         </li>
       }
     </ul>
-  </section>
+  </details>
 }
 
 <p class="attribution">Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p>

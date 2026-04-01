@@ -30,11 +30,11 @@ export class App {
         prevIndex = nextIndex;
 
         setTimeout(() => {
-          const h2 = Array.from(document.querySelectorAll<HTMLElement>('main h2'))
-            .find(el => el.offsetParent !== null);
-          if (h2) {
-            h2.tabIndex = -1;
-            h2.focus({ preventScroll: false });
+          const main = document.querySelector<HTMLElement>('main');
+          if (main) {
+            main.tabIndex = -1;
+            main.focus({ preventScroll: false });
+            main.addEventListener('blur', () => main.removeAttribute('tabindex'), { once: true });
           }
         }, 0);
       });

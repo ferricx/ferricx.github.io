@@ -9,11 +9,13 @@
         </app-popover-tip>
       </p>
       <nav aria-label="Main">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-        <a routerLink="/registration" routerLinkActive="active">Single Column</a>
-        <a routerLink="/registration-2" routerLinkActive="active">Wizard</a>
-        <a routerLink="/registration-3" routerLinkActive="active">Dialog</a>
-        <a routerLink="/profile" routerLinkActive="active">Profile</a>
+        <ul>
+          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+          <li><a routerLink="/registration" routerLinkActive="active">Single Column</a></li>
+          <li><a routerLink="/registration-2" routerLinkActive="active">Wizard</a></li>
+          <li><a routerLink="/registration-3" routerLinkActive="active">Dialog</a></li>
+          <li><a routerLink="/profile" routerLinkActive="active">Profile</a></li>
+        </ul>
       </nav>
     </div>
     <a routerLink="/profile" routerLinkActive="active" class="profile-link" aria-label="Profile">

@@ -1,6 +1,6 @@
 <div class="label-row">
   <label [for]="fieldId">
-    <span class="label-main">{{ label }}</span>
+    <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
     @if (hint) {
       <span class="label-hint">{{ hint }}</span>
     }

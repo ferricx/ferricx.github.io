@@ -1,4 +1,4 @@
-import { Component, ElementRef, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, signal, viewChild, viewChildren } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 
 export interface Registration {
@@ -30,6 +30,7 @@ export class Registration3Component {
   readonly errors = signal<FieldError[]>([]);
   readonly editingIndex = signal<number | null>(null);
   private readonly regForm = viewChild<ElementRef<HTMLFormElement>>('regForm');
+  private readonly formGroups = viewChildren(FormGroupComponent);
 
   onSubmit(event: Event, form: HTMLFormElement): void {
     event.preventDefault();
@@ -127,15 +128,25 @@ export class Registration3Component {
     this.openBtn()?.nativeElement.focus();
   }
 
+  private resetFormGroups() {
+    for (const fg of this.formGroups()) {
+      fg.reset();
+    }
+  }
+
   openDialog() {
     this.editingIndex.set(null);
     this.errors.set([]);
+    this.resetFormGroups();
+    this.regForm()?.nativeElement.reset();
     this.dialog()?.nativeElement.showModal();
   }
 
   closeDialog() {
     this.editingIndex.set(null);
     this.errors.set([]);
+    this.resetFormGroups();
+    this.regForm()?.nativeElement.reset();
     this.dialog()?.nativeElement.close();
     this.openBtn()?.nativeElement.focus();
   }
@@ -146,6 +157,8 @@ export class Registration3Component {
 
     this.editingIndex.set(index);
     this.errors.set([]);
+    this.resetFormGroups();
+    this.regForm()?.nativeElement.reset();
     this.dialog()?.nativeElement.showModal();
 
     // Pre-fill the dialog form after the dialog is open

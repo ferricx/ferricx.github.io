@@ -27,8 +27,7 @@ label {
   line-height: 1;
 }
 
-.label-row:has(input[required]) .label-main::after {
-  content: ' *';
+.required-indicator {
   color: #dc2626;
   vertical-align: super;
   font-size: 0.75em;

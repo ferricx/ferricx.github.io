@@ -14,6 +14,11 @@ export class FormGroupComponent {
     public markDirty() {
       this.dirty = true;
     }
+
+  public reset() {
+    this.dirty = false;
+    this.errorMessage.set('');
+  }
   @Input({ alias: 'field-id' })
   fieldId = 'field';
 

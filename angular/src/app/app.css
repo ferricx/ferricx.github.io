@@ -45,7 +45,7 @@ nav[aria-label="Main"] a:hover {
 }
 
 nav[aria-label="Main"] a.active {
-	color: var(--tab-accent, #2563eb);
+	color: var(--tab-text, #0f172a);
 	border-bottom-color: var(--tab-accent, #2563eb);
 }
 

@@ -27,6 +27,13 @@ export class Registration2Component {
   protected goToStep(index: number): void {
     if (index < 0 || index >= this.steps.length) return;
     this.activeStep = index;
+    setTimeout(() => {
+      const panels = this.stepperEl.nativeElement.querySelectorAll<HTMLElement>('.step-panel');
+      const panel = panels[index];
+      if (!panel) return;
+      const first = panel.querySelector<HTMLElement>('input:not([type="hidden"]), select');
+      (first ?? panel.querySelector<HTMLElement>('h2'))?.focus();
+    });
   }
 
   protected onStepSubmit(event: Event, nextStep: number): void {

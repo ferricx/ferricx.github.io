@@ -120,7 +120,7 @@
   </div>
 
   <div class="step-panel" [hidden]="activeStep !== 3">
-    <h2>Review Your Information</h2>
+    <h2 tabindex="-1">Review Your Information</h2>
     @for (section of reviewData; track $index; let si = $index) {
       <div class="review-section">
         <h3>{{ steps[si].label }}</h3>

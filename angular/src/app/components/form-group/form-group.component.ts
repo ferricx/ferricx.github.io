@@ -74,6 +74,7 @@ export class FormGroupComponent {
       return;
     }
     event.preventDefault();
+    this.dirty = true;
     const input = this.fieldInput.nativeElement;
     if (!input.validity.valid) {
       this.showError(this.getValidationMessage());

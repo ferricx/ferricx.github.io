@@ -213,6 +213,10 @@ export class Registration3Component {
     // Replace signal with latest edited values
     this.registrations.set(dependents);
     this.submitted.set(true);
+    setTimeout(() => {
+      const h2 = document.querySelector<HTMLElement>('.success-panel h2');
+      h2?.focus();
+    }, 0);
   }
 
   onStartOver(): void {

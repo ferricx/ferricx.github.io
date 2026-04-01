@@ -30,20 +30,25 @@ export class ErrorSummaryComponent implements AfterViewInit, OnDestroy {
   protected errors = signal<FieldError[]>([]);
 
   private formElement: HTMLFormElement | null = null;
+  private submitted = false;
 
   private readonly handleInvalid = (): void => {
     this.updateErrors();
   };
 
   private readonly handleInput = (): void => {
-    this.updateErrors();
+    if (this.submitted) {
+      this.updateErrors();
+    }
   };
 
   private readonly handleReset = (): void => {
+    this.submitted = false;
     this.errors.set([]);
   };
 
   private readonly handleSubmit = (): void => {
+    this.submitted = true;
     this.updateErrors();
 
     if (this.errors().length > 0) {

@@ -70,7 +70,7 @@
 
     <form #regForm id="dlg-registration-form" class="registration-form" ngNoForm novalidate aria-labelledby="dialog-registration-heading" (submit)="onSubmit($event, regForm)">
       @if (errors().length > 0) {
-        <nav class="error-summary" aria-labelledby="error-summary-heading" tabindex="-1">
+        <nav class="error-summary" aria-labelledby="error-summary-heading">
           <h2 id="error-summary-heading">Form errors</h2>
           <ul aria-labelledby="error-summary-heading">
             @for (error of errors(); track error.fieldId) {

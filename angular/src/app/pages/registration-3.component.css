@@ -48,7 +48,9 @@
 }
 
 .success-panel button:hover {
-  filter: brightness(0.95);
+  background: var(--tab-accent-soft, #dbeafe);
+  border-color: var(--tab-accent, #2563eb);
+  color: var(--tab-accent, #2563eb);
 }
 
 .success-panel button:focus-visible {

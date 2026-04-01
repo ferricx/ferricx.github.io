@@ -59,6 +59,10 @@ input {
   background: var(--tab-input-bg, #ffffff);
 }
 
+input:hover {
+  border-color: var(--tab-accent, #2563eb);
+}
+
 input:focus-visible {
   outline: 2px solid var(--tab-accent, #2563eb);
   outline-offset: 2px;

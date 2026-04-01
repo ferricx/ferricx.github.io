@@ -160,9 +160,13 @@ body {
 }
 
 .form-actions button[type="reset"]:hover {
-	filter: brightness(0.95);
+	background: var(--tab-accent-soft, #dbeafe);
+	border-color: var(--tab-accent, #2563eb);
+	color: var(--tab-accent, #2563eb);
 }
 
 :root[data-theme="dark"] .form-actions button[type="reset"]:hover {
-	filter: brightness(1.15);
+	background: color-mix(in srgb, var(--tab-accent, #2563eb) 20%, transparent);
+	border-color: var(--tab-accent, #2563eb);
+	color: var(--tab-accent, #2563eb);
 }

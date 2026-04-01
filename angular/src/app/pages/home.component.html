@@ -1,44 +1,46 @@
-<h2 id="home-heading">Weather</h2>
+<h2 id="home-heading">Accessible Form Patterns</h2>
+<p class="intro">
+  This application is a collection of common web form patterns built with accessibility in mind.
+  Each page demonstrates a different layout approach while sharing a consistent set of accessibility
+  features so that all users — including those relying on keyboard navigation or assistive technologies —
+  can interact with forms effectively.
+</p>
 
-@if (loading()) {
-  <p class="loading">Loading weather data…</p>
-}
+<section class="patterns-section" aria-labelledby="patterns-heading">
+  <h3 id="patterns-heading">Form Patterns</h3>
+  <ul class="pattern-list">
+    <li>
+      <a routerLink="/registration">Single Column</a>
+      <p>A straightforward vertical form layout suitable for focused data-entry tasks such as account registration.</p>
+    </li>
+    <li>
+      <a routerLink="/registration-2">Wizard (Multi-step)</a>
+      <p>Breaks a long form into discrete, labelled steps, reducing cognitive load and letting users track their progress.</p>
+    </li>
+    <li>
+      <a routerLink="/registration-3">Dialog</a>
+      <p>Presents a form inside a modal dialog, keeping the user in context while capturing supplemental information.</p>
+    </li>
+    <li>
+      <a routerLink="/profile">Profile</a>
+      <p>An editable profile page combining theme customisation controls with persistent user settings.</p>
+    </li>
+  </ul>
+</section>
 
-@if (error(); as err) {
-  <p class="error" role="alert">{{ err }}</p>
-}
-
-@if (current(); as weather) {
-  <section class="current-weather" aria-labelledby="current-heading">
-    <h3 id="current-heading">{{ location() }}</h3>
-    <div class="current-main">
-      <span class="weather-icon-large" aria-hidden="true">{{ iconFor(weather.weathercode) }}</span>
-      <div>
-        <p class="temperature">{{ weather.temperature }}°F</p>
-        <p class="condition">{{ descriptionFor(weather.weathercode) }}</p>
-        <p class="wind">Wind: {{ weather.windspeed }} mph</p>
-      </div>
-    </div>
-  </section>
-}
-
-@if (forecast().length) {
-  <details class="forecast">
-    <summary><h3>16-Day Forecast</h3></summary>
-    <ul class="forecast-grid" role="list">
-      @for (day of forecast(); track day.date) {
-        <li class="forecast-day">
-          <span class="day-name">{{ formatDay(day.date) }}</span>
-          <span class="day-icon" aria-hidden="true">{{ iconFor(day.weathercode) }}</span>
-          <span class="day-condition">{{ descriptionFor(day.weathercode) }}</span>
-          <span class="day-temps">
-            <span class="temp-high">{{ day.tempMax }}°</span>
-            <span class="temp-low">{{ day.tempMin }}°</span>
-          </span>
-        </li>
-      }
-    </ul>
-  </details>
-}
-
-<p class="attribution">Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p>
+<section class="a11y-section" aria-labelledby="a11y-heading">
+  <h3 id="a11y-heading">Accessibility Features</h3>
+  <ul class="a11y-list">
+    <li><strong>Skip navigation link</strong> — Lets keyboard users jump directly to the main content, bypassing the repeated header navigation.</li>
+    <li><strong>Semantic landmark regions</strong> — <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, and <code>&lt;footer&gt;</code> give screen-reader users a clear page map.</li>
+    <li><strong>ARIA labels and roles</strong> — Navigation regions, dialogs, alerts, and interactive widgets carry descriptive ARIA attributes so their purpose is announced correctly.</li>
+    <li><strong>Live region error announcements</strong> — Validation errors use <code>role="alert"</code> or <code>aria-live</code> so they are surfaced to assistive technologies without a page reload.</li>
+    <li><strong>Error summary component</strong> — A consolidated error list at the top of each form links directly to each invalid field, following WCAG 3.3.1 guidance.</li>
+    <li><strong>Form group component</strong> — Wraps each field with a visible <code>&lt;label&gt;</code>, an optional hint, and an inline error message wired via <code>aria-describedby</code>.</li>
+    <li><strong>State combobox</strong> — An accessible combobox that supports keyboard navigation, type-ahead filtering, and proper <code>role="combobox"</code> / <code>role="listbox"</code> semantics.</li>
+    <li><strong>Popover tooltip</strong> — Uses the native Popover API with a focusable trigger so supplementary hints are reachable without a mouse.</li>
+    <li><strong>Focus management in dialogs</strong> — Focus is moved into the dialog on open and returned to the trigger element on close.</li>
+    <li><strong>Active route indication</strong> — The current navigation link receives an <code>active</code> class and contrasting style so the user always knows their location.</li>
+    <li><strong>Color contrast and theming</strong> — A CSS custom-property theming system ensures sufficient contrast ratios are maintained across light and dark modes.</li>
+  </ul>
+</section>

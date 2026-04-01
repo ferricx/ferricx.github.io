@@ -1,0 +1,44 @@
+<h2 id="weather-heading">Weather</h2>
+
+@if (loading()) {
+  <p class="loading">Loading weather data…</p>
+}
+
+@if (error(); as err) {
+  <p class="error" role="alert">{{ err }}</p>
+}
+
+@if (current(); as weather) {
+  <section class="current-weather" aria-labelledby="current-heading">
+    <h3 id="current-heading">{{ location() }}</h3>
+    <div class="current-main">
+      <span class="weather-icon-large" aria-hidden="true">{{ iconFor(weather.weathercode) }}</span>
+      <div>
+        <p class="temperature">{{ weather.temperature }}°F</p>
+        <p class="condition">{{ descriptionFor(weather.weathercode) }}</p>
+        <p class="wind">Wind: {{ weather.windspeed }} mph</p>
+      </div>
+    </div>
+  </section>
+}
+
+@if (forecast().length) {
+  <details class="forecast">
+    <summary><h3>16-Day Forecast</h3></summary>
+    <ul class="forecast-grid" role="list">
+      @for (day of forecast(); track day.date) {
+        <li class="forecast-day">
+          <span class="day-name">{{ formatDay(day.date) }}</span>
+          <span class="day-icon" aria-hidden="true">{{ iconFor(day.weathercode) }}</span>
+          <span class="day-condition">{{ descriptionFor(day.weathercode) }}</span>
+          <span class="day-temps">
+            <span class="temp-high">{{ day.tempMax }}°</span>
+            <span class="temp-low">{{ day.tempMin }}°</span>
+          </span>
+        </li>
+      }
+    </ul>
+  </details>
+}
+
+<p class="attribution">Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p>

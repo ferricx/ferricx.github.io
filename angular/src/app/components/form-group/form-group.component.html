@@ -5,6 +5,11 @@
       <span class="label-hint">{{ hint }}</span>
     }
   </label>
+  @if (tipContent) {
+    <app-popover-tip [ariaLabel]="'Show tip for ' + label">
+      <ng-container [ngTemplateOutlet]="tipContent"></ng-container>
+    </app-popover-tip>
+  }
   <input
     #fieldInput
     [id]="fieldId"

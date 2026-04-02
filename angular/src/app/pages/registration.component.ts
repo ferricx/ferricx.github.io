@@ -14,7 +14,7 @@ export class RegistrationComponent implements AfterViewInit {
   submitted = signal(false);
 
   ngAfterViewInit(): void {
-    document.getElementById('reg-heading')?.focus();
+    document.getElementById('registration-form')?.focus();
   }
 
   onRegistrationSubmit(event: Event): void {

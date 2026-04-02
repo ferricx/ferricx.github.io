@@ -10,7 +10,7 @@
   </ol>
 
   <div class="step-panel" [hidden]="activeStep !== 0">
-    <form id="reg2-step1-form" novalidate aria-labelledby="reg2-heading" (submit)="onStepSubmit($event, 1)">
+    <form id="reg2-step1-form" novalidate tabindex="-1" aria-label="Registration" (submit)="onStepSubmit($event, 1)">
       <app-error-summary formId="reg2-step1-form"></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <fieldset>
@@ -30,7 +30,7 @@
   </div>
 
   <div class="step-panel" [hidden]="activeStep !== 1">
-    <form id="reg2-step2-form" novalidate aria-labelledby="reg2-heading" (submit)="onStepSubmit($event, 2)">
+    <form id="reg2-step2-form" novalidate tabindex="-1" aria-label="Registration" (submit)="onStepSubmit($event, 2)">
       <app-error-summary formId="reg2-step2-form"></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <fieldset>
@@ -60,7 +60,7 @@
   </div>
 
   <div class="step-panel" [hidden]="activeStep !== 2">
-    <form id="reg2-step3-form" novalidate aria-labelledby="reg2-heading" (submit)="onStepSubmit($event, 3)">
+    <form id="reg2-step3-form" novalidate tabindex="-1" aria-label="Registration" (submit)="onStepSubmit($event, 3)">
       <app-error-summary formId="reg2-step3-form"></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
       <fieldset>

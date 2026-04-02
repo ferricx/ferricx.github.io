@@ -1,5 +1,5 @@
-<h2 id="reg-heading" tabindex="-1">Registration</h2>
-<form #regForm id="registration-form" class="registration-form" novalidate aria-labelledby="reg-heading" (submit)="onRegistrationSubmit($event)" [hidden]="submitted()">
+<form #regForm id="registration-form" class="registration-form" novalidate tabindex="-1" aria-labelledby="reg-heading" (submit)="onRegistrationSubmit($event)" [hidden]="submitted()">
+  <h2 id="reg-heading">Registration</h2>
   <app-error-summary formId="registration-form"></app-error-summary>
   <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
 

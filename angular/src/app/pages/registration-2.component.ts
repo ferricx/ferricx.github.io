@@ -16,7 +16,7 @@ export class Registration2Component implements AfterViewInit {
   protected activeStep = 0;
 
   ngAfterViewInit(): void {
-    document.getElementById('reg2-heading')?.focus();
+    document.getElementById('reg2-step1-form')?.focus();
   }
 
   protected readonly steps = [

@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, signal } from '@angular/core';
+import { AfterViewInit, Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 import { StateComboboxComponent } from '../components/state-combobox/state-combobox.component';
@@ -11,10 +12,13 @@ import { StateComboboxComponent } from '../components/state-combobox/state-combo
   styleUrl: './registration.component.css'
 })
 export class RegistrationComponent implements AfterViewInit {
+  private readonly router = inject(Router);
   submitted = signal(false);
 
   ngAfterViewInit(): void {
-    document.getElementById('registration-form')?.focus();
+    if ((this.router.lastSuccessfulNavigation()?.id ?? 1) > 1) {
+      document.getElementById('registration-form')?.focus();
+    }
   }
 
   onRegistrationSubmit(event: Event): void {

@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 import { StateComboboxComponent } from '../components/state-combobox/state-combobox.component';
@@ -11,12 +12,15 @@ import { StateComboboxComponent } from '../components/state-combobox/state-combo
   styleUrl: './registration-2.component.css'
 })
 export class Registration2Component implements AfterViewInit {
+  private readonly router = inject(Router);
   @ViewChild('stepperEl') private stepperEl!: ElementRef<HTMLElement>;
 
   protected activeStep = 0;
 
   ngAfterViewInit(): void {
-    document.getElementById('reg2-step1-form')?.focus();
+    if ((this.router.lastSuccessfulNavigation()?.id ?? 1) > 1) {
+      document.getElementById('reg2-step1-form')?.focus();
+    }
   }
 
   protected readonly steps = [

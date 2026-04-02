@@ -4,7 +4,8 @@
       <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
     </label>
     @if (hint) {
-      <span [id]="hintId" class="label-hint" aria-hidden="true">{{ hint }}</span>
+      <span class="label-hint" aria-hidden="true">{{ hint }}</span>
+      <span [id]="hintId" class="sr-only">{{ hint }}</span>
     }
     @if (tipContent) {
       <app-popover-tip [ariaLabel]="'Show tip for ' + label">

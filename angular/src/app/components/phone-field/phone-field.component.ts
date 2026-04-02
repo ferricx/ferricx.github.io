@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, ViewChild, signal } from '@angular/core';
 
 export const PHONE_COUNTRIES: readonly { name: string; dialCode: string }[] = [
-  { name: 'United States', dialCode: '+1' },
   { name: 'Afghanistan', dialCode: '+93' },
   { name: 'Albania', dialCode: '+355' },
   { name: 'Algeria', dialCode: '+213' },
@@ -219,6 +218,7 @@ export const PHONE_COUNTRIES: readonly { name: string; dialCode: string }[] = [
   { name: 'Ukraine', dialCode: '+380' },
   { name: 'United Arab Emirates', dialCode: '+971' },
   { name: 'United Kingdom', dialCode: '+44' },
+  { name: 'United States', dialCode: '+1' },
   { name: 'Uruguay', dialCode: '+598' },
   { name: 'US Virgin Islands', dialCode: '+1340' },
   { name: 'Uzbekistan', dialCode: '+998' },
@@ -248,15 +248,10 @@ export class PhoneFieldComponent {
   @ViewChild('countrySelect') private countrySelect!: ElementRef<HTMLSelectElement>;
 
   protected readonly countries = PHONE_COUNTRIES;
-  protected dialCode = signal('+1');
-  protected localNumber = signal('');
+  protected combinedValue = '+1';
   protected errorMessage = signal('');
 
   private dirty = false;
-
-  protected get combinedValue(): string {
-    return this.dialCode() + this.localNumber();
-  }
 
   protected get errorId(): string {
     return `${this.fieldId}-error`;
@@ -275,8 +270,7 @@ export class PhoneFieldComponent {
   }
 
   reset(): void {
-    this.dialCode.set('+1');
-    this.localNumber.set('');
+    this.combinedValue = '+1';
     this.dirty = false;
     this.errorMessage.set('');
     if (this.numberInput) this.numberInput.nativeElement.value = '';
@@ -286,23 +280,24 @@ export class PhoneFieldComponent {
   setValue(phone: string): void {
     const sorted = [...this.countries].sort((a, b) => b.dialCode.length - a.dialCode.length);
     const match = sorted.find(c => phone.startsWith(c.dialCode));
-    if (match) {
-      this.dialCode.set(match.dialCode);
-      this.localNumber.set(phone.slice(match.dialCode.length));
-    } else {
-      this.localNumber.set(phone);
-    }
-    if (this.numberInput) this.numberInput.nativeElement.value = this.localNumber();
-    if (this.countrySelect) this.countrySelect.nativeElement.value = this.dialCode();
+    const dialCode = match ? match.dialCode : '+1';
+    const localNumber = match ? phone.slice(match.dialCode.length) : phone;
+    this.combinedValue = dialCode + localNumber;
+    if (this.numberInput) this.numberInput.nativeElement.value = localNumber;
+    if (this.countrySelect) this.countrySelect.nativeElement.value = dialCode;
   }
 
   protected onCountryChange(event: Event): void {
-    this.dialCode.set((event.target as HTMLSelectElement).value);
+    const dialCode = (event.target as HTMLSelectElement).value;
+    const localNumber = this.numberInput?.nativeElement.value ?? '';
+    this.combinedValue = dialCode + localNumber;
   }
 
   protected onInput(event: Event): void {
     this.dirty = true;
-    this.localNumber.set((event.target as HTMLInputElement).value);
+    const dialCode = this.countrySelect?.nativeElement.value ?? '+1';
+    const localNumber = (event.target as HTMLInputElement).value;
+    this.combinedValue = dialCode + localNumber;
     if (this.errorMessage()) this.validate();
   }
 

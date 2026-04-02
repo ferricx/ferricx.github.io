@@ -13,7 +13,7 @@
       (change)="onCountryChange($event)"
     >
       @for (country of countries; track country.name) {
-        <option [value]="country.dialCode" [selected]="country.dialCode === dialCode() && $first">
+        <option [value]="country.dialCode" [selected]="country.name === 'United States'">
           {{ country.name }} ({{ country.dialCode }})
         </option>
       }

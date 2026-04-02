@@ -10,18 +10,28 @@
 }
 
 
-section {
+fieldset {
   margin: 0 0 1.5rem;
+  padding: 0;
+  border: none;
+  min-width: 0;
 }
 
-section h2 {
+fieldset legend {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--tab-text);
   margin: 0 0 0.75rem;
+  padding: 0;
+  float: left;
+  width: 100%;
 }
 
-section + section {
+fieldset legend + * {
+  clear: left;
+}
+
+fieldset + fieldset {
   padding-top: 1.5rem;
   border-top: 1px solid var(--tab-border);
 }

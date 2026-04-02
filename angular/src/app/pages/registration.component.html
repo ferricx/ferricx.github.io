@@ -3,8 +3,8 @@
   <app-error-summary formId="registration-form"></app-error-summary>
   <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
 
-  <section aria-labelledby="reg-personal-heading">
-    <h3 id="reg-personal-heading">Personal Information</h3>
+  <fieldset>
+    <legend>Personal Information</legend>
     <app-form-group field-id="reg-first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." [required]="true">
     </app-form-group>
     <app-form-group field-id="reg-last-name" name="lastName" label="Last name" autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." [required]="true">
@@ -14,10 +14,10 @@
     <app-form-group field-id="reg-social-security-number" name="socialSecurityNumber" label="Social Security number" autocomplete="off" inputmode="numeric" pattern="\d{9}" [maxlength]="9" format-message="Use 9 digits only." hint="Enter 9 digits, numbers only." [required]="true">
       <ng-template #tip>Don't have a Social Security number or don't know yours? <a href="https://www.ssa.gov/" target="_blank" rel="noopener">Contact the Social Security Administration.</a></ng-template>
     </app-form-group>
-  </section>
+  </fieldset>
 
-  <section aria-labelledby="reg-contact-heading">
-    <h3 id="reg-contact-heading">Contact Information</h3>
+  <fieldset>
+    <legend>Contact Information</legend>
     <app-form-group field-id="reg-email" name="email" label="Email" type="email" autocomplete="email" [required]="true">
     </app-form-group>
     <app-form-group field-id="reg-phone" name="phone" label="Phone number" type="tel" autocomplete="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{10,20}" format-message="Phone number must be 10 to 20 characters and can include digits, spaces, parentheses, plus, and hyphens." [required]="true">
@@ -34,10 +34,10 @@
     </app-state-combobox>
     <app-form-group field-id="reg-zip" name="zip" label="ZIP code" autocomplete="postal-code" inputmode="numeric" pattern="\d{5}(-\d{4})?" [maxlength]="10" format-message="Use 5-digit or 9-digit ZIP code." [required]="true">
     </app-form-group>
-  </section>
+  </fieldset>
 
-  <section aria-labelledby="reg-payment-heading">
-    <h3 id="reg-payment-heading">Payment Information</h3>
+  <fieldset>
+    <legend>Payment Information</legend>
     <app-form-group field-id="reg-card-name" name="cardName" label="Name on card" autocomplete="cc-name" pattern=".{2,50}" format-message="Name must be 2–50 characters." [required]="true">
       <ng-template #tip>
         Enter the name exactly as it appears on your card.
@@ -91,7 +91,7 @@
         </svg>
       </ng-template>
     </app-form-group>
-  </section>
+  </fieldset>
 
   <div class="form-actions">
     <button type="reset">Reset</button>

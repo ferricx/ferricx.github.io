@@ -98,10 +98,25 @@
   view-transition-name: tab-panel;
 }
 
-.step-panel h2 {
+.step-panel fieldset {
+  margin: 0 0 1.5rem;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.step-panel fieldset legend {
   font-size: 1.25rem;
   font-weight: 700;
+  color: var(--tab-text);
   margin: 0 0 0.75rem;
+  padding: 0;
+  float: left;
+  width: 100%;
+}
+
+.step-panel fieldset legend + * {
+  clear: left;
 }
 
 /* Review step */

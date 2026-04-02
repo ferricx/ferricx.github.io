@@ -10,16 +10,18 @@
   </ol>
 
   <div class="step-panel" [hidden]="activeStep !== 0">
-    <h3 id="reg2-step1-heading">Personal Information</h3>
-    <form id="reg2-step1-form" novalidate aria-labelledby="reg2-step1-heading" (submit)="onStepSubmit($event, 1)">
+    <form id="reg2-step1-form" novalidate aria-labelledby="reg2-heading" (submit)="onStepSubmit($event, 1)">
       <app-error-summary formId="reg2-step1-form"></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
+      <fieldset>
+        <legend>Personal Information</legend>
       <app-form-group field-id="reg2-first-name" name="firstName" label="First name" autocomplete="given-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="First name can include letters, spaces, apostrophes, and hyphens." [required]="true"></app-form-group>
       <app-form-group field-id="reg2-last-name" name="lastName" label="Last name" autocomplete="family-name" pattern="[A-Za-z]+(?:[ '-][A-Za-z]+)*" format-message="Last name can include letters, spaces, apostrophes, and hyphens." [required]="true"></app-form-group>
       <app-form-group field-id="reg2-date-of-birth" name="dateOfBirth" label="Date of birth" hint="MM/DD/YYYY" autocomplete="bday" inputmode="numeric" pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" [maxlength]="10" format-message="Use MM/DD/YYYY format." [required]="true"></app-form-group>
       <app-form-group field-id="reg2-social-security-number" name="socialSecurityNumber" label="Social Security number" autocomplete="off" inputmode="numeric" pattern="\d{9}" [maxlength]="9" format-message="Use 9 digits only." hint="Enter 9 digits, numbers only." [required]="true">
         <ng-template #tip>Don't have a Social Security number or don't know yours? <a href="https://www.ssa.gov/" target="_blank" rel="noopener">Contact the Social Security Administration.</a></ng-template>
       </app-form-group>
+      </fieldset>
       <div class="form-actions">
         <span></span>
         <button type="submit">Next</button>
@@ -28,10 +30,11 @@
   </div>
 
   <div class="step-panel" [hidden]="activeStep !== 1">
-    <h3 id="reg2-step2-heading">Contact Information</h3>
-    <form id="reg2-step2-form" novalidate aria-labelledby="reg2-step2-heading" (submit)="onStepSubmit($event, 2)">
+    <form id="reg2-step2-form" novalidate aria-labelledby="reg2-heading" (submit)="onStepSubmit($event, 2)">
       <app-error-summary formId="reg2-step2-form"></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
+      <fieldset>
+        <legend>Contact Information</legend>
       <app-form-group field-id="reg2-email" name="email" label="Email address" type="email" autocomplete="email" [required]="true">
       </app-form-group>
       <app-form-group field-id="reg2-phone" name="phone" label="Phone number" type="tel" autocomplete="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{10,20}" format-message="Phone number must be 10 to 20 characters and can include digits, spaces, parentheses, plus, and hyphens." [required]="true">
@@ -48,6 +51,7 @@
       </app-state-combobox>
       <app-form-group field-id="reg2-zip" name="zip" label="ZIP code" autocomplete="postal-code" inputmode="numeric" pattern="\d{5}(-\d{4})?" [maxlength]="10" format-message="Use 5-digit or 9-digit ZIP code." [required]="true">
       </app-form-group>
+      </fieldset>
       <div class="form-actions">
         <button type="button" (click)="goToStep(0)">Back</button>
         <button type="submit">Next</button>
@@ -56,10 +60,11 @@
   </div>
 
   <div class="step-panel" [hidden]="activeStep !== 2">
-    <h3 id="reg2-step3-heading">Payment Information</h3>
-    <form id="reg2-step3-form" novalidate aria-labelledby="reg2-step3-heading" (submit)="onStepSubmit($event, 3)">
+    <form id="reg2-step3-form" novalidate aria-labelledby="reg2-heading" (submit)="onStepSubmit($event, 3)">
       <app-error-summary formId="reg2-step3-form"></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
+      <fieldset>
+        <legend>Payment Information</legend>
       <app-form-group field-id="reg2-card-name" name="cardName" label="Name on card" autocomplete="cc-name" pattern=".{2,50}" format-message="Name must be 2–50 characters." [required]="true">
         <ng-template #tip>
           Enter the name exactly as it appears on your card.
@@ -113,6 +118,7 @@
           </svg>
         </ng-template>
       </app-form-group>
+      </fieldset>
       <div class="form-actions">
         <button type="button" (click)="goToStep(1)">Back</button>
         <button type="submit">Next</button>

@@ -37,7 +37,7 @@
         <legend>Contact Information</legend>
       <app-form-group field-id="reg2-email" name="email" label="Email address" type="email" autocomplete="email" [required]="true">
       </app-form-group>
-      <app-form-group field-id="reg2-phone" name="phone" label="Phone number" type="tel" autocomplete="tel" inputmode="tel" pattern="\+?[0-9()\-\s]{10,20}" format-message="Phone number must be 10 to 20 characters and can include digits, spaces, parentheses, plus, and hyphens." [required]="true">
+      <app-form-group field-id="reg2-phone" name="phone" label="Phone number" type="tel" autocomplete="tel" inputmode="tel" pattern="\d{6,14}" [maxlength]="14" format-message="Phone number must be 6 to 14 digits." [required]="true">
       </app-form-group>
         <app-form-group field-id="reg2-street" name="street" label="Street address" autocomplete="address-line1" [required]="true">
       </app-form-group>

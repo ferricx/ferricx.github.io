@@ -128,12 +128,12 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
     return `${this.fieldId}-error`;
   }
 
-  protected get hintId(): string {
-    return `${this.fieldId}-hint`;
-  }
-
   protected get labelId(): string {
     return `${this.fieldId}-label`;
+  }
+
+  protected get hintId(): string {
+    return `${this.fieldId}-hint`;
   }
 
   protected get displayValue(): string {

@@ -76,6 +76,10 @@ export class FormGroupComponent {
     return `${this.fieldId}-hint`;
   }
 
+  protected get labelId(): string {
+    return `${this.fieldId}-label`;
+  }
+
   protected onInvalid(event: Event): void {
     if (this.nativeValidation) {
       return;

@@ -1,6 +1,6 @@
 <div class="label-row">
   <div class="label-tip-row">
-    <label [for]="fieldId">
+    <label [id]="labelId" [for]="fieldId">
       <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
     </label>
     @if (hint) {
@@ -23,6 +23,7 @@
     [required]="required"
     [attr.pattern]="pattern || null"
     [autofocus]="autofocus"
+    [attr.aria-labelledby]="labelId"
     [attr.aria-describedby]="hint && errorMessage() ? hintId + ' ' + errorId : hint ? hintId : errorMessage() ? errorId : null"
     [attr.aria-invalid]="errorMessage() ? 'true' : null"
     (invalid)="onInvalid($event)"

@@ -132,6 +132,10 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
     return `${this.fieldId}-hint`;
   }
 
+  protected get labelId(): string {
+    return `${this.fieldId}-label`;
+  }
+
   protected get displayValue(): string {
     if (this.selectedIndex < 0) return '';
     const s = US_STATES[this.selectedIndex];

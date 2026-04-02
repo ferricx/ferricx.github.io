@@ -1,17 +1,17 @@
 <div class="label-row">
-  <label [for]="fieldId">
-    <span class="label-main">{{ label }}</span>
-    @if (required) {
-      <span class="required-indicator" aria-hidden="true">*</span>
-      <span class="sr-only"> (required)</span>
+  <div class="label-tip-row">
+    <label [for]="fieldId">
+      <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
+    </label>
+    @if (hint) {
+      <span [id]="hintId" class="label-hint">{{ hint }}</span>
     }
-  </label>
-
-  @if (tipContent) {
-    <app-popover-tip [ariaLabel]="'Show tip for ' + label">
-      <ng-container [ngTemplateOutlet]="tipContent"></ng-container>
-    </app-popover-tip>
-  }
+    @if (tipContent) {
+      <app-popover-tip [ariaLabel]="'Show tip for ' + label">
+        <ng-container [ngTemplateOutlet]="tipContent"></ng-container>
+      </app-popover-tip>
+    }
+  </div>
 </div>
 
 <div class="combobox-wrapper" [style.anchor-name]="anchorName">
@@ -27,7 +27,7 @@
     [attr.aria-controls]="listboxId"
     [attr.aria-activedescendant]="activeDescendantId"
     aria-autocomplete="none"
-    [attr.aria-describedby]="errorId"
+    [attr.aria-describedby]="hint && errorMessage ? hintId + ' ' + errorId : hint ? hintId : errorMessage ? errorId : null"
     [attr.required]="required ? '' : null"
     [attr.aria-required]="required || null"
     placeholder="Choose state"

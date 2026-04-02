@@ -32,7 +32,7 @@ export class Registration2Component {
       const panel = panels[index];
       if (!panel) return;
       const first = panel.querySelector<HTMLElement>('input:not([type="hidden"]), select');
-      (first ?? panel.querySelector<HTMLElement>('h2'))?.focus();
+      first?.focus();
     });
   }
 

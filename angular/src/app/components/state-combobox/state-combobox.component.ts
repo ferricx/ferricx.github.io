@@ -91,6 +91,9 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
   @Input()
   label = 'State';
 
+  @Input()
+  hint = '';
+
   @Input({ transform: booleanAttribute })
   required = false;
 
@@ -123,6 +126,10 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
 
   protected get errorId(): string {
     return `${this.fieldId}-error`;
+  }
+
+  protected get hintId(): string {
+    return `${this.fieldId}-hint`;
   }
 
   protected get displayValue(): string {

@@ -32,13 +32,10 @@ export class App {
         setTimeout(() => {
           const h2 = Array.from(document.querySelectorAll<HTMLElement>('main h2'))
             .find(el => el.offsetParent !== null);
-          const target = h2?.id
-            ? document.querySelector<HTMLElement>(`[aria-labelledby~="${CSS.escape(h2.id)}"]`)
-            : null;
-          if (target) {
-            target.tabIndex = -1;
-            target.focus({ preventScroll: false });
-            target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
+          if (h2) {
+            h2.tabIndex = -1;
+            h2.focus({ preventScroll: false });
+            h2.addEventListener('blur', () => h2.removeAttribute('tabindex'), { once: true });
           }
         }, 0);
       });

@@ -79,10 +79,9 @@
 <dialog #regDialog (click)="$event.target === dialog()?.nativeElement && closeDialog()">
   <div class="dialog-content">
     <div class="dialog-header">
+      <h2 id="dialog-registration-heading">{{ editingIndex() !== null ? 'Edit' : 'New' }} Registration</h2>
       <button type="button" class="close-btn" aria-label="Close" (click)="closeDialog()">&times;</button>
     </div>
-
-    <h2 id="dialog-registration-heading">{{ editingIndex() !== null ? 'Edit' : 'New' }} Registration</h2>
     <form #regForm id="dlg-registration-form" class="registration-form" ngNoForm novalidate aria-labelledby="dialog-registration-heading" (submit)="onSubmit($event, regForm)">
       @if (errors().length > 0) {
         <nav class="error-summary" aria-labelledby="error-summary-heading">

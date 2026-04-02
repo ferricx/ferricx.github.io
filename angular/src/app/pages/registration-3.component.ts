@@ -1,5 +1,6 @@
 import { Component, ElementRef, signal, viewChild, viewChildren } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
+import { PhoneFieldComponent } from '../components/phone-field/phone-field.component';
 
 export interface Registration {
   firstName: string;
@@ -19,7 +20,7 @@ interface FieldError {
 @Component({
   selector: 'app-registration-3',
   standalone: true,
-  imports: [FormGroupComponent],
+  imports: [FormGroupComponent, PhoneFieldComponent],
   templateUrl: './registration-3.component.html',
   styleUrl: './registration-3.component.css'
 })
@@ -32,6 +33,7 @@ export class Registration3Component {
   readonly submitted = signal(false);
   private readonly regForm = viewChild<ElementRef<HTMLFormElement>>('regForm');
   private readonly formGroups = viewChildren(FormGroupComponent);
+  private readonly phoneField = viewChild(PhoneFieldComponent);
 
   onSubmit(event: Event, form: HTMLFormElement): void {
     event.preventDefault();
@@ -56,7 +58,7 @@ export class Registration3Component {
       input.dispatchEvent(new Event('invalid', { cancelable: true }));
       if (!input.validity.valid) {
         // Mark the parent form-group as dirty so errors persist
-        const formGroup = input.closest('app-form-group') as any;
+        const formGroup = (input.closest('app-form-group') ?? input.closest('app-phone-field')) as any;
         if (formGroup && typeof formGroup.markDirty === 'function') {
           formGroup.markDirty();
         }
@@ -133,6 +135,7 @@ export class Registration3Component {
     for (const fg of this.formGroups()) {
       fg.reset();
     }
+    this.phoneField()?.reset();
   }
 
   openDialog() {
@@ -172,13 +175,14 @@ export class Registration3Component {
         lastName: reg.lastName,
         dateOfBirth: reg.dateOfBirth,
         email: reg.email,
-        phone: reg.phone,
       };
 
       for (const [name, value] of Object.entries(fields)) {
         const input = form.querySelector<HTMLInputElement>(`[name="${name}"]`);
         if (input) input.value = value;
       }
+
+      this.phoneField()?.setValue(reg.phone);
     });
   }
 

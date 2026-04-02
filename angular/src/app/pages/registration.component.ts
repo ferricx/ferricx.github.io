@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 import { StateComboboxComponent } from '../components/state-combobox/state-combobox.component';
+import { PhoneFieldComponent } from '../components/phone-field/phone-field.component';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [FormGroupComponent, ErrorSummaryComponent, StateComboboxComponent],
+  imports: [FormGroupComponent, ErrorSummaryComponent, StateComboboxComponent, PhoneFieldComponent],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css'
 })
@@ -31,7 +32,7 @@ export class RegistrationComponent implements AfterViewInit {
         input.dispatchEvent(new Event('invalid', { cancelable: true }));
         if (!input.validity.valid) {
           // Mark the parent form-group as dirty so errors persist
-          const formGroup = input.closest('app-form-group') as any;
+          const formGroup = (input.closest('app-form-group') ?? input.closest('app-phone-field')) as any;
           if (formGroup && typeof formGroup.markDirty === 'function') {
             formGroup.markDirty();
           }

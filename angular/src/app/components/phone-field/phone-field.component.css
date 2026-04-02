@@ -1,0 +1,118 @@
+:host {
+  display: block;
+  margin-bottom: 0.875rem;
+}
+
+:host(:last-child) {
+  margin-bottom: 0;
+}
+
+.label-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.label-tip-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  flex-wrap: wrap;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  color: var(--tab-text, #0f172a);
+}
+
+.label-main {
+  line-height: 1;
+}
+
+.required-indicator {
+  color: #dc2626;
+  vertical-align: super;
+  font-size: 0.75em;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.phone-input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  max-width: 24rem;
+}
+
+select {
+  flex-shrink: 0;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--tab-border, #e2e8f0);
+  border-radius: 0.5rem;
+  font: inherit;
+  color: var(--tab-text, #0f172a);
+  background: var(--tab-input-bg, #ffffff);
+  cursor: pointer;
+}
+
+select:hover {
+  border-color: var(--tab-accent, #2563eb);
+}
+
+select:focus-visible {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: 2px;
+}
+
+input[type="tel"] {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--tab-border, #e2e8f0);
+  border-radius: 0.5rem;
+  font: inherit;
+  color: var(--tab-text, #0f172a);
+  background: var(--tab-input-bg, #ffffff);
+}
+
+input[type="tel"]:hover {
+  border-color: var(--tab-accent, #2563eb);
+}
+
+input[type="tel"]:focus-visible {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: 2px;
+}
+
+input[type="tel"]:user-invalid {
+  border-color: var(--tab-error, #dc2626);
+  outline: 2px solid var(--tab-error-soft, #fee2e2);
+  outline-offset: 0;
+}
+
+.form-error {
+  min-height: 1.25rem;
+  margin-top: 0.35rem;
+  color: var(--tab-error, #dc2626);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  visibility: hidden;
+}
+
+.form-error.visible {
+  visibility: visible;
+}

@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 import { StateComboboxComponent } from '../components/state-combobox/state-combobox.component';
+import { PhoneFieldComponent } from '../components/phone-field/phone-field.component';
 
 @Component({
   selector: 'app-registration-2',
   standalone: true,
-  imports: [FormGroupComponent, ErrorSummaryComponent, StateComboboxComponent],
+  imports: [FormGroupComponent, ErrorSummaryComponent, StateComboboxComponent, PhoneFieldComponent],
   templateUrl: './registration-2.component.html',
   styleUrl: './registration-2.component.css'
 })
@@ -66,9 +67,11 @@ export class Registration2Component implements AfterViewInit {
 
     panels.forEach(panel => {
       const fields: { label: string; value: string }[] = [];
-      panel.querySelectorAll<HTMLElement>('app-form-group, app-state-combobox').forEach(comp => {
-        const labelEl = comp.querySelector('label');
-        const input = comp.querySelector<HTMLInputElement | HTMLSelectElement>('input, select');
+      panel.querySelectorAll<HTMLElement>('app-form-group, app-state-combobox, app-phone-field').forEach(comp => {
+        const labelEl = comp.querySelector('label:not(.sr-only)');
+        const input = comp.tagName === 'APP-PHONE-FIELD'
+          ? comp.querySelector<HTMLInputElement>('input[type="hidden"]')
+          : comp.querySelector<HTMLInputElement | HTMLSelectElement>('input, select');
         const label = labelEl?.textContent?.replace(/\s*\*$/, '').trim() ?? '';
         const value = input?.value ?? '';
         if (label) {

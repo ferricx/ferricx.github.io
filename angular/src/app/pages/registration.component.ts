@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { AfterViewInit, Component, signal } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 import { StateComboboxComponent } from '../components/state-combobox/state-combobox.component';
@@ -10,8 +10,12 @@ import { StateComboboxComponent } from '../components/state-combobox/state-combo
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css'
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements AfterViewInit {
   submitted = signal(false);
+
+  ngAfterViewInit(): void {
+    document.getElementById('reg-heading')?.focus();
+  }
 
   onRegistrationSubmit(event: Event): void {
     event.preventDefault();

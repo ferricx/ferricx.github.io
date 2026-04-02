@@ -1,4 +1,5 @@
-<div class="stepper" aria-label="Registration steps" #stepperEl>
+<h2 id="reg2-heading" tabindex="-1">Registration</h2>
+<div class="stepper" aria-label="Registration steps" aria-labelledby="reg2-heading" #stepperEl>
   <ol class="stepper-header">
     @for (step of steps; track step.id; let i = $index) {
       <li [class.active]="activeStep === i" [class.completed]="i < activeStep">
@@ -9,7 +10,7 @@
   </ol>
 
   <div class="step-panel" [hidden]="activeStep !== 0">
-    <h2 id="reg2-step1-heading">Personal Information</h2>
+    <h3 id="reg2-step1-heading">Personal Information</h3>
     <form id="reg2-step1-form" novalidate aria-labelledby="reg2-step1-heading" (submit)="onStepSubmit($event, 1)">
       <app-error-summary formId="reg2-step1-form"></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
@@ -27,7 +28,7 @@
   </div>
 
   <div class="step-panel" [hidden]="activeStep !== 1">
-    <h2 id="reg2-step2-heading">Contact Information</h2>
+    <h3 id="reg2-step2-heading">Contact Information</h3>
     <form id="reg2-step2-form" novalidate aria-labelledby="reg2-step2-heading" (submit)="onStepSubmit($event, 2)">
       <app-error-summary formId="reg2-step2-form"></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
@@ -55,7 +56,7 @@
   </div>
 
   <div class="step-panel" [hidden]="activeStep !== 2">
-    <h2 id="reg2-step3-heading">Payment Information</h2>
+    <h3 id="reg2-step3-heading">Payment Information</h3>
     <form id="reg2-step3-form" novalidate aria-labelledby="reg2-step3-heading" (submit)="onStepSubmit($event, 3)">
       <app-error-summary formId="reg2-step3-form"></app-error-summary>
       <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>

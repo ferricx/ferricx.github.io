@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 import { StateComboboxComponent } from '../components/state-combobox/state-combobox.component';
@@ -10,10 +10,14 @@ import { StateComboboxComponent } from '../components/state-combobox/state-combo
   templateUrl: './registration-2.component.html',
   styleUrl: './registration-2.component.css'
 })
-export class Registration2Component {
+export class Registration2Component implements AfterViewInit {
   @ViewChild('stepperEl') private stepperEl!: ElementRef<HTMLElement>;
 
   protected activeStep = 0;
+
+  ngAfterViewInit(): void {
+    document.getElementById('reg2-heading')?.focus();
+  }
 
   protected readonly steps = [
     { id: 'personal', label: 'Personal' },

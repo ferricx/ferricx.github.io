@@ -72,10 +72,6 @@ export class FormGroupComponent {
     return `${this.fieldId}-error`;
   }
 
-  protected get labelId(): string {
-    return `${this.fieldId}-label`;
-  }
-
   protected get hintId(): string {
     return `${this.fieldId}-hint`;
   }

@@ -1,7 +1,7 @@
 <div class="label-row">
   <div class="label-tip-row">
     <label [for]="fieldId">
-      <span [id]="labelId" class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
+      <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
     </label>
     @if (hint) {
       <span [id]="hintId" class="label-hint">{{ hint }}</span>
@@ -27,8 +27,8 @@
     [attr.aria-controls]="listboxId"
     [attr.aria-activedescendant]="activeDescendantId"
     aria-autocomplete="none"
-    [attr.aria-labelledby]="labelId"
     [attr.aria-describedby]="hint && errorMessage ? hintId + ' ' + errorId : hint ? hintId : errorMessage ? errorId : null"
+    [attr.aria-invalid]="errorMessage ? 'true' : null"
     [attr.required]="required ? '' : null"
     [attr.aria-required]="required || null"
     placeholder="Choose state"

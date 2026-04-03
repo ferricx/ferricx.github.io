@@ -1,39 +1,42 @@
-<div class="label-row">
-  <div class="label-tip-row">
-    <label [for]="numberId">
-      <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
-    </label>
-  </div>
-  <div class="phone-input-row">
-    <label [for]="countrySelectId" class="sr-only">Country code</label>
-    <select
-      #countrySelect
-      [id]="countrySelectId"
-      autocomplete="tel-country-code"
-      (change)="onCountryChange($event)"
-    >
-      @for (country of countries; track country.name) {
-        <option [value]="country.dialCode" [selected]="country.name === 'United States'">
-          {{ country.name }} ({{ country.dialCode }})
-        </option>
-      }
-    </select>
-    <input
-      #numberInput
-      [id]="numberId"
-      type="tel"
-      inputmode="numeric"
-      pattern="\d{6,14}"
-      [attr.maxlength]="14"
-      [required]="required"
-      autocomplete="tel-national"
-      [attr.aria-describedby]="errorMessage() ? errorId : null"
-      [attr.aria-invalid]="errorMessage() ? 'true' : null"
-      (input)="onInput($event)"
-      (blur)="onBlur()"
-      (invalid)="onInvalid($event)"
-    />
+<fieldset class="phone-fieldset">
+  <legend>
+    <span class="label-main">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</span>
+  </legend>
+  <div class="phone-input-col">
+    <div class="phone-field-group">
+      <label [for]="countrySelectId">Country code</label>
+      <select
+        #countrySelect
+        [id]="countrySelectId"
+        autocomplete="tel-country-code"
+        (change)="onCountryChange($event)"
+      >
+        @for (country of countries; track country.name) {
+          <option [value]="country.dialCode" [selected]="country.name === 'United States'">
+            {{ country.name }} ({{ country.dialCode }})
+          </option>
+        }
+      </select>
+    </div>
+    <div class="phone-field-group">
+      <label [for]="numberId">Phone number</label>
+      <input
+        #numberInput
+        [id]="numberId"
+        type="tel"
+        inputmode="numeric"
+        pattern="\d{6,14}"
+        [attr.maxlength]="14"
+        [required]="required"
+        autocomplete="tel-national"
+        [attr.aria-describedby]="errorMessage() ? errorId : null"
+        [attr.aria-invalid]="errorMessage() ? 'true' : null"
+        (input)="onInput($event)"
+        (blur)="onBlur()"
+        (invalid)="onInvalid($event)"
+      />
+    </div>
     <input type="hidden" [name]="name" [value]="combinedValue" />
   </div>
-</div>
+</fieldset>
 <div [id]="errorId" class="form-error" [class.visible]="!!errorMessage()">{{ errorMessage() }}</div>

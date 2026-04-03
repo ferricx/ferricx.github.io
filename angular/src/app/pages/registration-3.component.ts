@@ -31,6 +31,7 @@ export class Registration3Component {
   readonly errors = signal<FieldError[]>([]);
   readonly editingIndex = signal<number | null>(null);
   readonly submitted = signal(false);
+  readonly dependentsError = signal(false);
   private readonly regForm = viewChild<ElementRef<HTMLFormElement>>('regForm');
   private readonly formGroups = viewChildren(FormGroupComponent);
   private readonly phoneField = viewChild(PhoneFieldComponent);
@@ -43,6 +44,11 @@ export class Registration3Component {
   onSubmitButton(event: Event, form: HTMLFormElement): void {
     event.preventDefault();
     this.processForm(form);
+  }
+
+  focusAddDependent(event: Event): void {
+    event.preventDefault();
+    this.openBtn()?.nativeElement.focus();
   }
 
   focusField(event: Event, fieldId: string): void {
@@ -125,6 +131,8 @@ export class Registration3Component {
       this.registrations.update(list => [...list, entry]);
     }
 
+    this.dependentsError.set(false);
+
     this.editingIndex.set(null);
     form.reset();
     dialog.close();
@@ -192,6 +200,15 @@ export class Registration3Component {
 
   onSubmitDependents(event: Event): void {
     event.preventDefault();
+
+    if (this.registrations().length === 0) {
+      this.dependentsError.set(true);
+      requestAnimationFrame(() => {
+        document.querySelector<HTMLElement>('#dependents-error-heading')?.focus();
+      });
+      return;
+    }
+
     const form = event.target as HTMLFormElement;
     const invalidInputs = Array.from(form.querySelectorAll<HTMLInputElement>('input:invalid'));
 

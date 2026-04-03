@@ -4,7 +4,7 @@
 }
 
 .skip-link {
-	position: absolute;
+	position: fixed;
 	top: -100%;
 	left: 0;
 	padding: 0.5rem 1rem;

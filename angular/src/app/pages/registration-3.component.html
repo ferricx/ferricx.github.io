@@ -2,10 +2,20 @@
 <span id="reg-count" hidden>{{ registrations().length }} dependents in table</span>
 
 <h2 id="registrations-heading">Registrations</h2>
-<form #dependentsForm id="dependents-form" class="dependents-form" ngNoForm novalidate aria-labelledby="registrations-heading" (submit)="onSubmitDependents($event)" [hidden]="submitted()">
+<form #dependentsForm id="dependents-form" class="dependents-form" ngNoForm novalidate aria-labelledby="registrations-heading" [attr.aria-describedby]="registrations().length === 0 ? 'no-dependents-msg' : null" (submit)="onSubmitDependents($event)" [hidden]="submitted()">
   <div class="page-header">
-    <button #openBtn type="button" class="open-dialog-btn" (click)="openDialog()" aria-haspopup="dialog" [attr.aria-describedby]="'reg-count'">+ Add Dependent</button>
+    <button #openBtn id="add-dependent-btn" type="button" class="open-dialog-btn" (click)="openDialog()" aria-haspopup="dialog" [attr.aria-describedby]="'reg-count'">+ Add Dependent</button>
   </div>
+  @if (dependentsError()) {
+    <nav class="error-summary" aria-labelledby="dependents-error-heading">
+      <h2 id="dependents-error-heading" tabindex="-1">Form errors</h2>
+      <ul>
+        <li>
+          <a href="#add-dependent-btn" (click)="focusAddDependent($event)">Dependents: add at least one dependent to continue.</a>
+        </li>
+      </ul>
+    </nav>
+  }
   <div class="table-wrap" tabindex="0" role="region" aria-label="Dependents">
   <table>
     <caption>Dependents</caption>
@@ -48,18 +58,16 @@
         </tr>
       } @empty {
         <tr>
-          <td colspan="7" class="empty-message">No dependents yet. Click "+ Add Dependent" to add one.</td>
+          <td id="no-dependents-msg" colspan="7" class="empty-message">No dependents yet. Click "+ Add Dependent" to add one.</td>
         </tr>
       }
     </tbody>
   </table>
   </div>
 
-  @if (registrations().length > 0) {
-    <div class="form-actions dependents-actions">
-      <button type="submit" class="submit-dependents-btn">Submit Dependents</button>
-    </div>
-  }
+  <div class="form-actions dependents-actions">
+    <button type="submit" class="submit-dependents-btn">Submit Dependents</button>
+  </div>
 </form>
 
 </section>

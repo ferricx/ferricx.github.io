@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 
 @Component({
@@ -8,7 +8,12 @@ import { ThemeService } from '../services/theme.service';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
-export class ProfileComponent {
+export class ProfileComponent implements AfterViewInit {
+  @ViewChild('pageHeading') private pageHeading!: ElementRef<HTMLHeadingElement>;
+
+  ngAfterViewInit(): void {
+    this.pageHeading.nativeElement.focus();
+  }
   onProfileSubmit(event: Event): void {
     event.preventDefault();
     const form = event.target as HTMLFormElement;

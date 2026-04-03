@@ -20,8 +20,8 @@
   margin-bottom: 1.75rem;
 }
 
-.patterns-section h3,
-.a11y-section h3 {
+.patterns-section h2,
+.a11y-section h2 {
   margin-bottom: 0.75rem;
   font-size: 1.05rem;
   border-bottom: 1px solid var(--tab-border, #e2e8f0);

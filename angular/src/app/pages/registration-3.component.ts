@@ -1,4 +1,4 @@
-import { Component, ElementRef, signal, viewChild, viewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, signal, viewChild, viewChildren, ViewChild } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { PhoneFieldComponent } from '../components/phone-field/phone-field.component';
 
@@ -24,7 +24,8 @@ interface FieldError {
   templateUrl: './registration-3.component.html',
   styleUrl: './registration-3.component.css'
 })
-export class Registration3Component {
+export class Registration3Component implements AfterViewInit {
+  @ViewChild('pageHeading') private pageHeading!: ElementRef<HTMLHeadingElement>;
   readonly openBtn = viewChild<ElementRef<HTMLButtonElement>>('openBtn');
   readonly dialog = viewChild<ElementRef<HTMLDialogElement>>('regDialog');
   readonly registrations = signal<Registration[]>([]);
@@ -33,6 +34,10 @@ export class Registration3Component {
   readonly submitted = signal(false);
   readonly dependentsError = signal(false);
   private readonly regForm = viewChild<ElementRef<HTMLFormElement>>('regForm');
+
+  ngAfterViewInit(): void {
+    this.pageHeading.nativeElement.focus();
+  }
   private readonly formGroups = viewChildren(FormGroupComponent);
   private readonly phoneField = viewChild(PhoneFieldComponent);
 
@@ -203,9 +208,10 @@ export class Registration3Component {
 
     if (this.registrations().length === 0) {
       this.dependentsError.set(true);
-      requestAnimationFrame(() => {
-        document.querySelector<HTMLElement>('#dependents-error-heading')?.focus();
-      });
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const link = document.querySelector<HTMLElement>('.dependents-form .error-summary a');
+        link?.focus();
+      }));
       return;
     }
 

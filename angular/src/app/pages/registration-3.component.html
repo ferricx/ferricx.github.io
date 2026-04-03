@@ -1,21 +1,21 @@
 <section>
 <span id="reg-count" hidden>{{ registrations().length }} dependents in table</span>
 
-<h2 id="registrations-heading">Registrations</h2>
+@if (dependentsError()) {
+  <nav class="error-summary" aria-labelledby="dependents-error-heading">
+    <h2 id="dependents-error-heading" tabindex="-1">Form errors</h2>
+    <ul>
+      <li>
+        <a href="#add-dependent-btn" (click)="focusAddDependent($event)">Dependents: add at least one dependent to continue.</a>
+      </li>
+    </ul>
+  </nav>
+}
+<h1 id="registrations-heading" tabindex="-1" #pageHeading>Registrations</h1>
 <form #dependentsForm id="dependents-form" class="dependents-form" ngNoForm novalidate aria-labelledby="registrations-heading" [attr.aria-describedby]="registrations().length === 0 ? 'no-dependents-msg' : null" (submit)="onSubmitDependents($event)" [hidden]="submitted()">
   <div class="page-header">
     <button #openBtn id="add-dependent-btn" type="button" class="open-dialog-btn" (click)="openDialog()" aria-haspopup="dialog" [attr.aria-describedby]="'reg-count'">+ Add Dependent</button>
   </div>
-  @if (dependentsError()) {
-    <nav class="error-summary" aria-labelledby="dependents-error-heading">
-      <h2 id="dependents-error-heading" tabindex="-1">Form errors</h2>
-      <ul>
-        <li>
-          <a href="#add-dependent-btn" (click)="focusAddDependent($event)">Dependents: add at least one dependent to continue.</a>
-        </li>
-      </ul>
-    </nav>
-  }
   <div class="table-wrap" tabindex="0" role="region" aria-label="Dependents">
   <table>
     <caption>Dependents</caption>

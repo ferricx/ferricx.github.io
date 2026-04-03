@@ -1,4 +1,4 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, signal, OnInit, ViewChild } from '@angular/core';
 
 interface CurrentWeather {
   temperature: number;
@@ -55,7 +55,9 @@ const weatherIcons: Record<number, string> = {
   templateUrl: './weather.component.html',
   styleUrl: './weather.component.css',
 })
-export class WeatherComponent implements OnInit {
+export class WeatherComponent implements OnInit, AfterViewInit {
+  @ViewChild('pageHeading') pageHeading!: ElementRef<HTMLHeadingElement>;
+
   current = signal<CurrentWeather | null>(null);
   forecast = signal<DailyForecast[]>([]);
   location = signal('Denver, CO');
@@ -64,6 +66,10 @@ export class WeatherComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchWeather();
+  }
+
+  ngAfterViewInit(): void {
+    this.pageHeading.nativeElement.focus();
   }
 
   async fetchWeather(): Promise<void> {

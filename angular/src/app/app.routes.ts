@@ -7,11 +7,11 @@ import { ProfileComponent } from './pages/profile.component';
 import { WeatherComponent } from './pages/weather.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'registration', component: RegistrationComponent },
-  { path: 'registration-2', component: Registration2Component },
-  { path: 'registration-3', component: Registration3Component },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'weather', component: WeatherComponent },
+  { path: '', component: HomeComponent, title: 'Accessible Web Content' },
+  { path: 'registration', component: RegistrationComponent, title: 'Single Column Registration — Accessible Web Content' },
+  { path: 'registration-2', component: Registration2Component, title: 'Wizard Registration — Accessible Web Content' },
+  { path: 'registration-3', component: Registration3Component, title: 'Dialog Registration — Accessible Web Content' },
+  { path: 'profile', component: ProfileComponent, title: 'Profile — Accessible Web Content' },
+  { path: 'weather', component: WeatherComponent, title: 'Weather — Accessible Web Content' },
   // { path: 'registration-native', loadComponent: () => import('./pages/registration-native.component').then(m => m.RegistrationNativeComponent) },
 ];

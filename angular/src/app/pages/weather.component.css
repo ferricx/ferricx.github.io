@@ -85,7 +85,7 @@
   transform: rotate(90deg);
 }
 
-.forecast summary h3 {
+.forecast summary h2 {
   margin: 0;
 }
 

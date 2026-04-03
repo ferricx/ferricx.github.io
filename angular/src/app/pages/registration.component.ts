@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
@@ -14,11 +14,12 @@ import { PhoneFieldComponent } from '../components/phone-field/phone-field.compo
 })
 export class RegistrationComponent implements AfterViewInit {
   private readonly router = inject(Router);
+  @ViewChild('pageHeading') private pageHeading!: ElementRef<HTMLHeadingElement>;
   submitted = signal(false);
 
   ngAfterViewInit(): void {
     if ((this.router.lastSuccessfulNavigation()?.id ?? 1) > 1) {
-      document.getElementById('registration-form')?.focus();
+      this.pageHeading.nativeElement.focus();
     }
   }
 

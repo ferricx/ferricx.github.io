@@ -14,13 +14,14 @@ import { PhoneFieldComponent } from '../components/phone-field/phone-field.compo
 })
 export class Registration2Component implements AfterViewInit {
   private readonly router = inject(Router);
+  @ViewChild('pageHeading') private pageHeading!: ElementRef<HTMLHeadingElement>;
   @ViewChild('stepperEl') private stepperEl!: ElementRef<HTMLElement>;
 
   protected activeStep = 0;
 
   ngAfterViewInit(): void {
     if ((this.router.lastSuccessfulNavigation()?.id ?? 1) > 1) {
-      document.getElementById('reg2-step1-form')?.focus();
+      this.pageHeading.nativeElement.focus();
     }
   }
 

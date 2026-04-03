@@ -1,16 +1,16 @@
-<h2 id="weather-heading">Weather</h2>
+@if (error(); as err) {
+  <p class="error" role="alert">{{ err }}</p>
+}
+
+<h1 id="weather-heading" tabindex="-1" #pageHeading>Weather</h1>
 
 @if (loading()) {
   <p class="loading">Loading weather data…</p>
 }
 
-@if (error(); as err) {
-  <p class="error" role="alert">{{ err }}</p>
-}
-
 @if (current(); as weather) {
   <section class="current-weather" aria-labelledby="current-heading">
-    <h3 id="current-heading">{{ location() }}</h3>
+    <h2 id="current-heading">{{ location() }}</h2>
     <div class="current-main">
       <span class="weather-icon-large" aria-hidden="true">{{ iconFor(weather.weathercode) }}</span>
       <div>
@@ -24,7 +24,7 @@
 
 @if (forecast().length) {
   <details class="forecast">
-    <summary><h3>16-Day Forecast</h3></summary>
+    <summary><h2>16-Day Forecast</h2></summary>
     <ul class="forecast-grid" role="list">
       @for (day of forecast(); track day.date) {
         <li class="forecast-day">

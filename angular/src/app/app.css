@@ -88,6 +88,7 @@ nav[aria-label="Main"] a.active {
 
 main {
 	width: min(90vw, 48rem);
+	margin-inline: auto;
 	overflow: clip;
 }
 

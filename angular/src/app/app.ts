@@ -22,12 +22,19 @@ export class App {
     const router = inject(Router);
     let prevIndex = routeOrder[router.url] ?? 0;
 
+    let isInitialNavigation = true;
+
     router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe((e) => {
         const nextIndex = routeOrder[e.urlAfterRedirects] ?? 0;
         this.direction = nextIndex >= prevIndex ? 'forward' : 'backward';
         prevIndex = nextIndex;
+
+        if (isInitialNavigation) {
+          isInitialNavigation = false;
+          return;
+        }
 
         setTimeout(() => {
           const h2 = Array.from(document.querySelectorAll<HTMLElement>('main h2'))

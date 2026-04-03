@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, NavigationEnd, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
-import { PopoverTipComponent } from './components/popover-tip/popover-tip.component';
 import { ThemeService } from './services/theme.service';
 import { routes } from './app.routes';
 
@@ -10,7 +9,7 @@ routes.forEach((r, i) => routeOrder['/' + (r.path ?? '')] = i);
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, PopoverTipComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

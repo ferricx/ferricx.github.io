@@ -65,6 +65,12 @@
   </table>
   </div>
 
+  <div class="textarea-group">
+    <label for="dependents-description" class="textarea-label">Description</label>
+    <textarea id="dependents-description" name="description" rows="4" aria-describedby="dependents-description-count" (input)="onDescriptionInput($event)"></textarea>
+    <span id="dependents-description-count" class="word-count" aria-live="polite">{{ descriptionWordCount() }} {{ descriptionWordCount() === 1 ? 'word' : 'words' }}</span>
+  </div>
+
   <div class="form-actions dependents-actions">
     <button type="submit" class="submit-dependents-btn">Submit Dependents</button>
   </div>
@@ -125,12 +131,6 @@
         <app-phone-field field-id="dlg-phone" name="phone" label="Phone number" [required]="true">
         </app-phone-field>
       </fieldset>
-
-      <div class="textarea-group">
-        <label for="dlg-description" class="textarea-label">Description</label>
-        <textarea id="dlg-description" name="description" rows="4" aria-describedby="dlg-description-count" (input)="onDescriptionInput($event)"></textarea>
-        <span id="dlg-description-count" class="word-count" aria-live="polite">{{ descriptionWordCount() }} {{ descriptionWordCount() === 1 ? 'word' : 'words' }}</span>
-      </div>
 
       <div class="form-actions">
         <button type="reset">Reset</button>

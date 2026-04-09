@@ -218,11 +218,14 @@ dialog {
   max-width: min(90vw, 36rem);
   max-height: 90vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   background: var(--tab-surface, #ffffff);
   color: var(--tab-text, #0f172a);
+}
+
+dialog[open] {
+  display: flex;
+  flex-direction: column;
 }
 
 dialog[open]::backdrop {

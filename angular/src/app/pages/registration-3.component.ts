@@ -34,6 +34,7 @@ export class Registration3Component implements AfterViewInit {
   readonly submitted = signal(false);
   readonly dependentsError = signal(false);
   readonly descriptionWordCount = signal(0);
+  private descriptionDebounceTimer: ReturnType<typeof setTimeout> | null = null;
   private readonly regForm = viewChild<ElementRef<HTMLFormElement>>('regForm');
 
   ngAfterViewInit(): void {
@@ -153,8 +154,14 @@ export class Registration3Component implements AfterViewInit {
   }
 
   onDescriptionInput(event: Event): void {
-    const text = (event.target as HTMLTextAreaElement).value.trim();
-    this.descriptionWordCount.set(text.length === 0 ? 0 : text.split(/\s+/).length);
+    const length = (event.target as HTMLTextAreaElement).value.length;
+    if (this.descriptionDebounceTimer !== null) {
+      clearTimeout(this.descriptionDebounceTimer);
+    }
+    this.descriptionDebounceTimer = setTimeout(() => {
+      this.descriptionWordCount.set(length);
+      this.descriptionDebounceTimer = null;
+    }, 2000);
   }
 
   openDialog() {

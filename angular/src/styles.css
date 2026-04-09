@@ -1,3 +1,7 @@
+*, *::before, *::after {
+	font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
 	--tab-surface: #ffffff;
 	--tab-surface-muted: #f8fafc;

@@ -33,6 +33,7 @@ export class Registration3Component implements AfterViewInit {
   readonly editingIndex = signal<number | null>(null);
   readonly submitted = signal(false);
   readonly dependentsError = signal(false);
+  readonly descriptionWordCount = signal(0);
   private readonly regForm = viewChild<ElementRef<HTMLFormElement>>('regForm');
 
   ngAfterViewInit(): void {
@@ -151,9 +152,15 @@ export class Registration3Component implements AfterViewInit {
     this.phoneField()?.reset();
   }
 
+  onDescriptionInput(event: Event): void {
+    const text = (event.target as HTMLTextAreaElement).value.trim();
+    this.descriptionWordCount.set(text.length === 0 ? 0 : text.split(/\s+/).length);
+  }
+
   openDialog() {
     this.editingIndex.set(null);
     this.errors.set([]);
+    this.descriptionWordCount.set(0);
     this.resetFormGroups();
     this.regForm()?.nativeElement.reset();
     this.dialog()?.nativeElement.showModal();
@@ -162,6 +169,7 @@ export class Registration3Component implements AfterViewInit {
   closeDialog() {
     this.editingIndex.set(null);
     this.errors.set([]);
+    this.descriptionWordCount.set(0);
     this.resetFormGroups();
     this.regForm()?.nativeElement.reset();
     this.dialog()?.nativeElement.close();

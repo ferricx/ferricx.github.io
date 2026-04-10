@@ -1,4 +1,4 @@
-import { Component, Input, ContentChild, ViewChild, ElementRef, TemplateRef } from '@angular/core';
+import { Component, Input, ContentChild, ViewChild, ElementRef, OnChanges, TemplateRef } from '@angular/core';
 import { signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
@@ -10,7 +10,7 @@ import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
   templateUrl: './form-group.component.html',
   styleUrl: './form-group.component.css'
 })
-export class FormGroupComponent {
+export class FormGroupComponent implements OnChanges {
     private dirty = false;
     // Mark the field as dirty from outside (e.g., after submit)
     public markDirty() {
@@ -39,6 +39,8 @@ export class FormGroupComponent {
   @Input()
   pattern: string | null = null;
 
+  private compiledPattern: RegExp | null = null;
+
   @Input()
   inputmode: string | null = null;
 
@@ -61,9 +63,9 @@ export class FormGroupComponent {
   nativeValidation = false;
 
   @ContentChild('tip')
-  tipContent!: TemplateRef<unknown>;
+  tipContent?: TemplateRef<unknown>;
 
-  @ViewChild('fieldInput', { static: true })
+  @ViewChild('fieldInput')
   private readonly fieldInput!: ElementRef<HTMLInputElement>;
 
   protected errorMessage = signal('');
@@ -74,6 +76,18 @@ export class FormGroupComponent {
 
   protected get hintId(): string {
     return `${this.fieldId}-hint`;
+  }
+
+  ngOnChanges(): void {
+    if (this.pattern) {
+      try {
+        this.compiledPattern = new RegExp(`^(?:${this.pattern})$`);
+      } catch {
+        this.compiledPattern = null;
+      }
+    } else {
+      this.compiledPattern = null;
+    }
   }
 
   protected onInvalid(event: Event): void {
@@ -118,15 +132,10 @@ export class FormGroupComponent {
     }
 
     if (this.pattern && input.value && this.type !== 'email') {
-      try {
-        const regex = new RegExp(`^(?:${this.pattern})$`);
-        if (!regex.test(input.value)) {
+      if (this.compiledPattern && !this.compiledPattern.test(input.value)) {
           input.setCustomValidity(this.formatMessage);
           this.showError(this.formatMessage);
           return;
-        }
-      } catch {
-        // invalid regex pattern, skip
       }
     }
 
@@ -141,14 +150,9 @@ export class FormGroupComponent {
     // Only set a custom error for pattern mismatch, do not clear if required/type errors exist
     // Skip pattern validation for type='email' fields
     if (this.pattern && input.value.length > 0 && this.type !== 'email') {
-      try {
-        const regex = new RegExp(`^(?:${this.pattern})$`);
-        if (!regex.test(input.value)) {
+      if (this.compiledPattern && !this.compiledPattern.test(input.value)) {
           input.setCustomValidity(this.formatMessage || 'Use the required format.');
           return;
-        }
-      } catch {
-        // If regex is invalid, do not set custom error
       }
     }
   }

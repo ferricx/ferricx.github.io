@@ -1,6 +1,6 @@
 <div class="textarea-group">
   <div class="label-row">
-    <label [for]="inputId" class="textarea-label">{{ label }}</label>
+    <label [for]="inputId" class="textarea-label">{{ label }}@if (required) {<span class="required-indicator" aria-hidden="true"> *</span>}</label>
     @if (tipContent) {
       <app-popover-tip [ariaLabel]="'Show tip for ' + label">
         <ng-container [ngTemplateOutlet]="tipContent" />
@@ -12,9 +12,16 @@
     [name]="name"
     [rows]="rows"
     [attr.maxlength]="maxLength"
-    [attr.aria-describedby]="countId"
+    [required]="required"
+    [attr.aria-describedby]="errorMessage() ? countId + ' ' + errorId : countId"
+    [attr.aria-invalid]="errorMessage() ? 'true' : null"
     (input)="onInput($event)"
+    (invalid)="onInvalid($event)"
+    (blur)="onBlur($event)"
   ></textarea>
+  <div [id]="errorId" class="form-error" [class.visible]="!!errorMessage()">
+    {{ label }} {{ errorMessage() }}
+  </div>
   <span [id]="countId" class="char-count" aria-live="polite" aria-atomic="true">
     {{ count() }} {{ count() === 1 ? 'character' : 'characters' }} of {{ maxLength }}
   </span>

@@ -98,7 +98,7 @@ export class StateComboboxComponent implements AfterViewInit, OnDestroy {
   required = false;
 
   @ContentChild('tip')
-  tipContent!: TemplateRef<unknown>;
+  tipContent?: TemplateRef<unknown>;
 
   @ViewChild('comboInput', { static: true })
   private readonly comboInput!: ElementRef<HTMLInputElement>;

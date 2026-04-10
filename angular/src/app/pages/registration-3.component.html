@@ -76,6 +76,18 @@
     </ng-template>
   </app-char-count-textarea>
 
+  <app-char-count-textarea
+    label="Required Description"
+    inputId="dependents-required-description"
+    name="requiredDescription"
+    [rows]="4"
+    required
+  >
+    <ng-template #tip>
+      A required description for this group of dependents. Limited to 500 characters.
+    </ng-template>
+  </app-char-count-textarea>
+
   <div class="form-actions dependents-actions">
     <button type="submit" class="submit-dependents-btn">Submit Dependents</button>
   </div>

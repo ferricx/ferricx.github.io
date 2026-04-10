@@ -64,8 +64,9 @@ export class Registration3Component implements AfterViewInit {
   }
 
   private processForm(form: HTMLFormElement): void {
-    // Trigger invalid event on all inputs to show inline errors
+    // Trigger invalid event on all inputs and textareas to show inline errors
     const allInputs = Array.from(form.querySelectorAll<HTMLInputElement>('input'));
+    const allTextareas = Array.from(form.querySelectorAll<HTMLTextAreaElement>('textarea'));
     for (const input of allInputs) {
       input.dispatchEvent(new Event('invalid', { cancelable: true }));
       if (!input.validity.valid) {
@@ -76,8 +77,18 @@ export class Registration3Component implements AfterViewInit {
         }
       }
     }
+    for (const textarea of allTextareas) {
+      textarea.dispatchEvent(new Event('invalid', { cancelable: true }));
+      if (!textarea.validity.valid) {
+        const charCountField = textarea.closest('app-char-count-textarea') as any;
+        if (charCountField && typeof charCountField.markDirty === 'function') {
+          charCountField.markDirty();
+        }
+      }
+    }
 
     const invalidInputs = allInputs.filter(input => !input.validity.valid);
+    const invalidTextareas = allTextareas.filter(t => !t.validity.valid);
 
     if (invalidInputs.length > 0) {
       const nextErrors = invalidInputs
@@ -104,6 +115,11 @@ export class Registration3Component implements AfterViewInit {
         const firstLink = dialog?.querySelector<HTMLElement>('.error-summary ul li:first-child a');
         firstLink?.focus();
       });
+      return;
+    }
+
+    if (invalidTextareas.length > 0) {
+      invalidTextareas[0].focus();
       return;
     }
 
@@ -218,9 +234,15 @@ export class Registration3Component implements AfterViewInit {
 
     const form = event.target as HTMLFormElement;
     const invalidInputs = Array.from(form.querySelectorAll<HTMLInputElement>('input:invalid'));
+    const invalidTextareas = Array.from(form.querySelectorAll<HTMLTextAreaElement>('textarea:invalid'));
 
     if (invalidInputs.length > 0) {
       invalidInputs[0]?.focus();
+      return;
+    }
+
+    if (invalidTextareas.length > 0) {
+      invalidTextareas[0]?.focus();
       return;
     }
 

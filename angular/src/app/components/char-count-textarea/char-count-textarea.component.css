@@ -23,6 +23,12 @@
   color: var(--tab-text, #0f172a);
 }
 
+.required-indicator {
+  color: #dc2626;
+  vertical-align: super;
+  font-size: 0.75em;
+}
+
 textarea {
   width: 100%;
   box-sizing: border-box;
@@ -40,6 +46,29 @@ textarea:focus {
   outline: 2px solid var(--tab-accent, #2563eb);
   outline-offset: 0;
   border-color: var(--tab-accent, #2563eb);
+}
+
+textarea:user-invalid {
+  border-color: var(--tab-error, #dc2626);
+  outline: 2px solid var(--tab-error-soft, #fee2e2);
+  outline-offset: 0;
+}
+
+.form-error {
+  min-height: 1.25rem;
+  margin-top: 0.35rem;
+  color: var(--tab-error, #dc2626);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  visibility: hidden;
+}
+
+.form-error.visible {
+  visibility: visible;
+}
+
+:host:has(textarea:user-valid) .form-error {
+  visibility: hidden;
 }
 
 .char-count {

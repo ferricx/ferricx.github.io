@@ -54,13 +54,23 @@ textarea:user-invalid {
   outline-offset: 0;
 }
 
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
+  margin-top: 0.35rem;
+}
+
 .form-error {
   min-height: 1.25rem;
-  margin-top: 0.35rem;
   color: var(--tab-error, #dc2626);
   font-size: 0.875rem;
   line-height: 1.4;
   visibility: hidden;
+  flex: 1;
+  min-width: 0;
 }
 
 .form-error.visible {

@@ -19,10 +19,12 @@
     (invalid)="onInvalid($event)"
     (blur)="onBlur($event)"
   ></textarea>
-  <div [id]="errorId" class="form-error" [class.visible]="!!errorMessage()">
-    {{ label }} {{ errorMessage() }}
+  <div class="footer-row">
+    <div [id]="errorId" class="form-error" [class.visible]="!!errorMessage()">
+      {{ label }} {{ errorMessage() }}
+    </div>
+    <span [id]="countId" class="char-count" aria-live="polite" aria-atomic="true">
+      {{ count() }} {{ count() === 1 ? 'character' : 'characters' }} of {{ maxLength }}
+    </span>
   </div>
-  <span [id]="countId" class="char-count" aria-live="polite" aria-atomic="true">
-    {{ count() }} {{ count() === 1 ? 'character' : 'characters' }} of {{ maxLength }}
-  </span>
 </div>

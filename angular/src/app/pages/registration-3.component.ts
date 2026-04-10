@@ -41,6 +41,7 @@ export class Registration3Component implements AfterViewInit {
   }
   private readonly formGroups = viewChildren(FormGroupComponent);
   private readonly phoneField = viewChild(PhoneFieldComponent);
+  private readonly charCountTextareas = viewChildren(CharCountTextareaComponent);
 
   onSubmit(event: Event, form: HTMLFormElement): void {
     event.preventDefault();
@@ -223,6 +224,9 @@ export class Registration3Component implements AfterViewInit {
   onSubmitDependents(event: Event): void {
     event.preventDefault();
 
+    // Always validate all char-count-textareas before any early returns
+    const allTextareasValid = this.charCountTextareas().map(c => c.validate()).every(Boolean);
+
     if (this.registrations().length === 0) {
       this.dependentsError.set(true);
       requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -232,28 +236,12 @@ export class Registration3Component implements AfterViewInit {
       return;
     }
 
+    this.dependentsError.set(false);
+
     const form = event.target as HTMLFormElement;
-    const allTextareas = Array.from(form.querySelectorAll<HTMLTextAreaElement>('textarea'));
-    for (const textarea of allTextareas) {
-      textarea.dispatchEvent(new Event('invalid', { cancelable: true }));
-      if (!textarea.validity.valid) {
-        const charCountField = textarea.closest('app-char-count-textarea') as any;
-        if (charCountField && typeof charCountField.markDirty === 'function') {
-          charCountField.markDirty();
-        }
-      }
-    }
 
-    const invalidInputs = Array.from(form.querySelectorAll<HTMLInputElement>('input:invalid'));
-    const invalidTextareas = allTextareas.filter(t => !t.validity.valid);
-
-    if (invalidInputs.length > 0) {
-      invalidInputs[0]?.focus();
-      return;
-    }
-
-    if (invalidTextareas.length > 0) {
-      invalidTextareas[0]?.focus();
+    if (!allTextareasValid) {
+      form.querySelector<HTMLTextAreaElement>('textarea:invalid')?.focus();
       return;
     }
 

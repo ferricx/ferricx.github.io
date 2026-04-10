@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, OnDestroy, signal, TemplateRef, booleanAttribute } from '@angular/core';
+import { Component, ContentChild, ElementRef, inject, Input, OnDestroy, signal, TemplateRef, booleanAttribute } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
 
@@ -25,6 +25,7 @@ export class CharCountTextareaComponent implements OnDestroy {
   readonly errorMessage = signal('');
   private dirty = false;
   private debounceTimer: ReturnType<typeof setTimeout> | null = null;
+  private readonly host = inject(ElementRef) as ElementRef<HTMLElement>;
 
   get countId(): string {
     return `${this.inputId}-count`;
@@ -36,6 +37,18 @@ export class CharCountTextareaComponent implements OnDestroy {
 
   markDirty(): void {
     this.dirty = true;
+  }
+
+  validate(): boolean {
+    this.dirty = true;
+    const textarea = this.host.nativeElement.querySelector<HTMLTextAreaElement>('textarea');
+    if (!textarea) return true;
+    if (!textarea.validity.valid) {
+      this.errorMessage.set(textarea.validity.valueMissing ? 'is required.' : 'is not valid.');
+      return false;
+    }
+    this.errorMessage.set('');
+    return true;
   }
 
   reset(): void {

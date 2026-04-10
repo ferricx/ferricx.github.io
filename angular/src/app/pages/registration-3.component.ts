@@ -233,8 +233,19 @@ export class Registration3Component implements AfterViewInit {
     }
 
     const form = event.target as HTMLFormElement;
+    const allTextareas = Array.from(form.querySelectorAll<HTMLTextAreaElement>('textarea'));
+    for (const textarea of allTextareas) {
+      textarea.dispatchEvent(new Event('invalid', { cancelable: true }));
+      if (!textarea.validity.valid) {
+        const charCountField = textarea.closest('app-char-count-textarea') as any;
+        if (charCountField && typeof charCountField.markDirty === 'function') {
+          charCountField.markDirty();
+        }
+      }
+    }
+
     const invalidInputs = Array.from(form.querySelectorAll<HTMLInputElement>('input:invalid'));
-    const invalidTextareas = Array.from(form.querySelectorAll<HTMLTextAreaElement>('textarea:invalid'));
+    const invalidTextareas = allTextareas.filter(t => !t.validity.valid);
 
     if (invalidInputs.length > 0) {
       invalidInputs[0]?.focus();

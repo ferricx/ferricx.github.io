@@ -11,9 +11,9 @@
     </ul>
   </nav>
 }
-<h1 id="registrations-heading" tabindex="-1" #pageHeading>Registrations</h1>
 <form #dependentsForm id="dependents-form" class="dependents-form" ngNoForm novalidate aria-labelledby="registrations-heading" [attr.aria-describedby]="registrations().length === 0 ? 'no-dependents-msg' : null" (submit)="onSubmitDependents($event)" [hidden]="submitted()">
   <div class="page-header">
+    <h1 id="registrations-heading" tabindex="-1" #pageHeading>Registrations</h1>
     <button #openBtn id="add-dependent-btn" type="button" class="open-dialog-btn" (click)="openDialog()" aria-haspopup="dialog" [attr.aria-describedby]="'reg-count'">+ Add Dependent</button>
   </div>
   <div class="table-wrap" tabindex="0" role="region" aria-label="Dependents">

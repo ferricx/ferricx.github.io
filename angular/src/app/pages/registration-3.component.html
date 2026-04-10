@@ -65,11 +65,12 @@
   </table>
   </div>
 
-  <div class="textarea-group">
-    <label for="dependents-description" class="textarea-label">Description</label>
-    <textarea id="dependents-description" name="description" rows="4" aria-describedby="dependents-description-count" (input)="onDescriptionInput($event)"></textarea>
-    <span id="dependents-description-count" class="word-count" aria-live="polite" aria-atomic="true">{{ descriptionWordCount() }} {{ descriptionWordCount() === 1 ? 'character' : 'characters' }}</span>
-  </div>
+  <app-char-count-textarea
+    label="Description"
+    inputId="dependents-description"
+    name="description"
+    [rows]="4"
+  />
 
   <div class="form-actions dependents-actions">
     <button type="submit" class="submit-dependents-btn">Submit Dependents</button>

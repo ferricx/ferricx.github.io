@@ -353,42 +353,6 @@ dialog[open]::backdrop {
 }
 
 /* Textarea */
-.textarea-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  margin-bottom: 1.5rem;
-}
-
-.textarea-label {
-  font-weight: 600;
-  color: var(--tab-text, #0f172a);
-}
-
-.textarea-group textarea {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0.5rem 0.625rem;
-  border: 1px solid var(--tab-border, #94a3b8);
-  border-radius: 0.5rem;
-  background: var(--tab-input-bg, #ffffff);
-  color: var(--tab-text, #0f172a);
-  font: inherit;
-  font-size: 1rem;
-  resize: vertical;
-}
-
-.textarea-group textarea:focus {
-  outline: 2px solid var(--tab-accent, #2563eb);
-  outline-offset: 0;
-  border-color: var(--tab-accent, #2563eb);
-}
-
-.word-count {
-  font-size: 0.8125rem;
-  color: var(--tab-text-muted, #334155);
-  text-align: right;
-}
 
 .error-summary a:focus {
   outline: 2px solid var(--tab-error, #dc2626);

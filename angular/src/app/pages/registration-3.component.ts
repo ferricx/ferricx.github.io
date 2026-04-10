@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, signal, viewChild, viewChildren, ViewChild } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { PhoneFieldComponent } from '../components/phone-field/phone-field.component';
+import { CharCountTextareaComponent } from '../components/char-count-textarea/char-count-textarea.component';
 
 export interface Registration {
   firstName: string;
@@ -20,7 +21,7 @@ interface FieldError {
 @Component({
   selector: 'app-registration-3',
   standalone: true,
-  imports: [FormGroupComponent, PhoneFieldComponent],
+  imports: [FormGroupComponent, PhoneFieldComponent, CharCountTextareaComponent],
   templateUrl: './registration-3.component.html',
   styleUrl: './registration-3.component.css'
 })
@@ -33,8 +34,6 @@ export class Registration3Component implements AfterViewInit {
   readonly editingIndex = signal<number | null>(null);
   readonly submitted = signal(false);
   readonly dependentsError = signal(false);
-  readonly descriptionWordCount = signal(0);
-  private descriptionDebounceTimer: ReturnType<typeof setTimeout> | null = null;
   private readonly regForm = viewChild<ElementRef<HTMLFormElement>>('regForm');
 
   ngAfterViewInit(): void {
@@ -153,21 +152,9 @@ export class Registration3Component implements AfterViewInit {
     this.phoneField()?.reset();
   }
 
-  onDescriptionInput(event: Event): void {
-    const length = (event.target as HTMLTextAreaElement).value.length;
-    if (this.descriptionDebounceTimer !== null) {
-      clearTimeout(this.descriptionDebounceTimer);
-    }
-    this.descriptionDebounceTimer = setTimeout(() => {
-      this.descriptionWordCount.set(length);
-      this.descriptionDebounceTimer = null;
-    }, 2000);
-  }
-
   openDialog() {
     this.editingIndex.set(null);
     this.errors.set([]);
-    this.descriptionWordCount.set(0);
     this.resetFormGroups();
     this.regForm()?.nativeElement.reset();
     this.dialog()?.nativeElement.showModal();
@@ -176,7 +163,6 @@ export class Registration3Component implements AfterViewInit {
   closeDialog() {
     this.editingIndex.set(null);
     this.errors.set([]);
-    this.descriptionWordCount.set(0);
     this.resetFormGroups();
     this.regForm()?.nativeElement.reset();
     this.dialog()?.nativeElement.close();

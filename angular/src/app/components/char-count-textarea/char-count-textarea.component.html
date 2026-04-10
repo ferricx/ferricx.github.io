@@ -1,0 +1,13 @@
+<div class="textarea-group">
+  <label [for]="inputId" class="textarea-label">{{ label }}</label>
+  <textarea
+    [id]="inputId"
+    [name]="name"
+    [rows]="rows"
+    [attr.aria-describedby]="countId"
+    (input)="onInput($event)"
+  ></textarea>
+  <span [id]="countId" class="char-count" aria-live="polite" aria-atomic="true">
+    {{ count() }} {{ count() === 1 ? 'character' : 'characters' }}
+  </span>
+</div>

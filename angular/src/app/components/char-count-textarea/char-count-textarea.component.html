@@ -1,13 +1,21 @@
 <div class="textarea-group">
-  <label [for]="inputId" class="textarea-label">{{ label }}</label>
+  <div class="label-row">
+    <label [for]="inputId" class="textarea-label">{{ label }}</label>
+    @if (tipContent) {
+      <app-popover-tip [ariaLabel]="'Show tip for ' + label">
+        <ng-container [ngTemplateOutlet]="tipContent" />
+      </app-popover-tip>
+    }
+  </div>
   <textarea
     [id]="inputId"
     [name]="name"
     [rows]="rows"
+    [attr.maxlength]="maxLength"
     [attr.aria-describedby]="countId"
     (input)="onInput($event)"
   ></textarea>
   <span [id]="countId" class="char-count" aria-live="polite" aria-atomic="true">
-    {{ count() }} {{ count() === 1 ? 'character' : 'characters' }}
+    {{ count() }} {{ count() === 1 ? 'character' : 'characters' }} of {{ maxLength }}
   </span>
 </div>

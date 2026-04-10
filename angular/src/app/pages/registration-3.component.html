@@ -70,7 +70,11 @@
     inputId="dependents-description"
     name="description"
     [rows]="4"
-  />
+  >
+    <ng-template #tip>
+      Optional notes about this group of dependents. Limited to 500 characters.
+    </ng-template>
+  </app-char-count-textarea>
 
   <div class="form-actions dependents-actions">
     <button type="submit" class="submit-dependents-btn">Submit Dependents</button>

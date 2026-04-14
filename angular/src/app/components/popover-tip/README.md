@@ -49,7 +49,9 @@ If the projected content contains any interactive element, the popover's `role` 
 
 ## Used inside another component
 
-`PopoverTipComponent` is used by `FormGroupComponent` and `CharCountTextareaComponent` via a `@ContentChild('tip')` template slot:
+`PopoverTipComponent` is used by `FormGroupComponent` and `CharCountTextareaComponent` via a `@ContentChild('tip')` template slot. The popover button only renders when a `#tip` template is provided.
+
+**Inside `FormGroupComponent`**
 
 ```html
 <app-form-group label="Email" field-id="email">
@@ -57,6 +59,20 @@ If the projected content contains any interactive element, the popover's `role` 
     <strong>Why we need this:</strong> We'll send a confirmation to this address.
   </ng-template>
 </app-form-group>
+```
+
+**Inside `CharCountTextareaComponent`**
+
+```html
+<app-char-count-textarea
+  label="Description"
+  inputId="dependents-description"
+  name="description"
+>
+  <ng-template #tip>
+    <strong>Keep it brief.</strong> Describe the dependent in 500 characters or fewer.
+  </ng-template>
+</app-char-count-textarea>
 ```
 
 ## Accessibility

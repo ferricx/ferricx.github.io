@@ -69,8 +69,15 @@ textarea:user-invalid {
   font-size: 0.875rem;
   line-height: 1.4;
   visibility: hidden;
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
+}
+
+.char-count {
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  color: var(--tab-text-muted, #334155);
+  text-align: right;
 }
 
 .form-error.visible {
@@ -79,10 +86,4 @@ textarea:user-invalid {
 
 :host:has(textarea:user-valid) .form-error {
   visibility: hidden;
-}
-
-.char-count {
-  font-size: 0.8125rem;
-  color: var(--tab-text-muted, #334155);
-  text-align: right;
 }

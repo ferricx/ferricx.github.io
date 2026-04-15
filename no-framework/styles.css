@@ -169,25 +169,25 @@ html[data-tab-direction=backward]::view-transition-new(tab-panels) {
   box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
 }
 
-:root {
-  interpolate-size: allow-keywords;
-}
-
 .tab-navigation details::details-content {
-  height: 0;
+  display: block;
+}
+
+.tab-navigation .details-body {
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
-  transition: height 300ms ease, content-visibility 300ms ease allow-discrete;
+  transition: grid-template-rows 300ms ease;
+}
+.tab-navigation .details-body > * {
+  min-height: 0;
+  overflow: hidden;
 }
 
-.tab-navigation details[open]::details-content {
-  height: auto;
+.tab-navigation details[open] > .details-body {
+  grid-template-rows: 1fr;
 }
 
-@starting-style {
-  .tab-navigation details[open]::details-content {
-    height: 0;
-  }
-}
 .tab-navigation details {
   margin-top: 1rem;
   border: 1px solid var(--tab-border);

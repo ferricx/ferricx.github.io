@@ -2,6 +2,16 @@ import "./components/form-group/form-group.js";
 import "./components/popover-tip/popover-tip.js";
 import "./components/error-summary/error-summary.js";
 
+// Wrap details content for grid-template-rows animation
+document.querySelectorAll(".tab-navigation details").forEach(details => {
+  const children = Array.from(details.children).filter(el => el.tagName.toLowerCase() !== "summary");
+  if (!children.length) return;
+  const wrapper = document.createElement("div");
+  wrapper.className = "details-body";
+  children.forEach(el => wrapper.appendChild(el));
+  details.appendChild(wrapper);
+});
+
 // Accordion: close sibling top-level details when one opens
 document.querySelectorAll('[role="tabpanel"]').forEach(panel => {
   panel.querySelectorAll(':scope > details').forEach(details => {

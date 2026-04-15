@@ -90,7 +90,7 @@ main {
 
 .tab-navigation .details-body {
   overflow: hidden;
-  transition: max-height 300ms ease;
+  transition: max-height 300ms ease, padding-top 300ms ease, padding-bottom 300ms ease;
 }
 
 .tab-navigation details {

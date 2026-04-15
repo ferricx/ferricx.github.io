@@ -21,17 +21,24 @@ document.querySelectorAll(".tab-navigation details").forEach(details => {
       body.style.maxHeight = body.scrollHeight + "px";
       requestAnimationFrame(() => {
         body.style.maxHeight = "0";
+        body.style.paddingTop = "0";
+        body.style.paddingBottom = "0";
       });
       body.addEventListener("transitionend", () => {
         details.removeAttribute("open");
         body.style.maxHeight = "";
+        body.style.paddingTop = "";
+        body.style.paddingBottom = "";
       }, { once: true });
     } else {
       details.setAttribute("open", "");
-      const height = body.scrollHeight + "px";
       body.style.maxHeight = "0";
+      body.style.paddingTop = "0";
+      body.style.paddingBottom = "0";
       requestAnimationFrame(() => {
-        body.style.maxHeight = height;
+        body.style.maxHeight = body.scrollHeight + "px";
+        body.style.paddingTop = "";
+        body.style.paddingBottom = "";
       });
       body.addEventListener("transitionend", () => {
         body.style.maxHeight = "";

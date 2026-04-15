@@ -2,6 +2,44 @@ import "./components/form-group/form-group.js";
 import "./components/popover-tip/popover-tip.js";
 import "./components/error-summary/error-summary.js";
 
+// Animate details open/close
+document.querySelectorAll(".tab-navigation details").forEach(details => {
+  const nonSummary = Array.from(details.children).filter(el => el.tagName.toLowerCase() !== "summary");
+  if (!nonSummary.length) return;
+
+  const body = document.createElement("div");
+  body.className = "details-body";
+  nonSummary.forEach(el => body.appendChild(el));
+  details.appendChild(body);
+
+  const summary = details.querySelector("summary");
+
+  summary.addEventListener("click", e => {
+    e.preventDefault();
+
+    if (details.open) {
+      body.style.maxHeight = body.scrollHeight + "px";
+      requestAnimationFrame(() => {
+        body.style.maxHeight = "0";
+      });
+      body.addEventListener("transitionend", () => {
+        details.removeAttribute("open");
+        body.style.maxHeight = "";
+      }, { once: true });
+    } else {
+      details.setAttribute("open", "");
+      const height = body.scrollHeight + "px";
+      body.style.maxHeight = "0";
+      requestAnimationFrame(() => {
+        body.style.maxHeight = height;
+      });
+      body.addEventListener("transitionend", () => {
+        body.style.maxHeight = "";
+      }, { once: true });
+    }
+  });
+});
+
 const root = document.querySelector(".tab-navigation");
 
 if (root) {

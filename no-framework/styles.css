@@ -169,10 +169,6 @@ html[data-tab-direction=backward]::view-transition-new(tab-panels) {
   box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
 }
 
-.tab-navigation details::details-content {
-  display: block;
-}
-
 .tab-navigation .details-body {
   display: grid;
   grid-template-rows: 0fr;
@@ -188,6 +184,11 @@ html[data-tab-direction=backward]::view-transition-new(tab-panels) {
   grid-template-rows: 1fr;
 }
 
+@starting-style {
+  .tab-navigation details[open] > .details-body {
+    grid-template-rows: 0fr;
+  }
+}
 .tab-navigation details {
   margin-top: 1rem;
   border: 1px solid var(--tab-border);

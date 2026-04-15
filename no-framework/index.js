@@ -2,60 +2,16 @@ import "./components/form-group/form-group.js";
 import "./components/popover-tip/popover-tip.js";
 import "./components/error-summary/error-summary.js";
 
-// Animate details open/close
-const closeDetails = (details) => {
-  const body = details.querySelector(":scope > .details-body");
-  if (!body || !details.open) return;
-  body.style.maxHeight = body.scrollHeight + "px";
-  requestAnimationFrame(() => {
-    body.style.maxHeight = "0";
-    body.style.paddingTop = "0";
-    body.style.paddingBottom = "0";
-  });
-  body.addEventListener("transitionend", () => {
-    details.removeAttribute("open");
-    body.style.maxHeight = "";
-    body.style.paddingTop = "";
-    body.style.paddingBottom = "";
-  }, { once: true });
-};
-
-document.querySelectorAll(".tab-navigation details").forEach(details => {
-  const nonSummary = Array.from(details.children).filter(el => el.tagName.toLowerCase() !== "summary");
-  if (!nonSummary.length) return;
-
-  const body = document.createElement("div");
-  body.className = "details-body";
-  nonSummary.forEach(el => body.appendChild(el));
-  details.appendChild(body);
-
-  const summary = details.querySelector("summary");
-  const isTopLevel = details.parentElement?.getAttribute("role") === "tabpanel";
-
-  summary.addEventListener("click", e => {
-    e.preventDefault();
-
-    if (details.open) {
-      closeDetails(details);
-    } else {
-      // Accordion: close sibling top-level details first
-      if (isTopLevel) {
-        Array.from(details.parentElement.querySelectorAll(":scope > details[open]"))
-          .forEach(sibling => sibling !== details && closeDetails(sibling));
+// Accordion: close sibling top-level details when one opens
+document.querySelectorAll('[role="tabpanel"]').forEach(panel => {
+  panel.querySelectorAll(':scope > details').forEach(details => {
+    details.addEventListener('toggle', () => {
+      if (details.open) {
+        panel.querySelectorAll(':scope > details[open]').forEach(sibling => {
+          if (sibling !== details) sibling.open = false;
+        });
       }
-      details.setAttribute("open", "");
-      body.style.maxHeight = "0";
-      body.style.paddingTop = "0";
-      body.style.paddingBottom = "0";
-      requestAnimationFrame(() => {
-        body.style.maxHeight = body.scrollHeight + "px";
-        body.style.paddingTop = "";
-        body.style.paddingBottom = "";
-      });
-      body.addEventListener("transitionend", () => {
-        body.style.maxHeight = "";
-      }, { once: true });
-    }
+    });
   });
 });
 

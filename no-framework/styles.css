@@ -119,8 +119,10 @@ main {
   transform: rotate(90deg);
 }
 .tab-navigation details > :not(summary) {
-  padding: 0 1rem 1rem;
   margin: 0;
   border-top: 1px solid var(--tab-border);
-  padding-top: 0.75rem;
+  padding: 0.75rem 1rem 1rem;
+}
+.tab-navigation details > ul:not(summary) {
+  padding-left: 2.25rem;
 }

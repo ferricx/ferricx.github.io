@@ -126,3 +126,23 @@ main {
 .tab-navigation details > ul:not(summary) {
   padding-left: 2.25rem;
 }
+.tab-navigation details details {
+  margin: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+}
+.tab-navigation details details:first-of-type {
+  margin-top: 0.75rem;
+}
+.tab-navigation details details:last-of-type {
+  margin-bottom: 0.75rem;
+}
+.tab-navigation details details summary {
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+}
+.tab-navigation details details > :not(summary) {
+  padding: 0.5rem 0.75rem 0.75rem;
+}
+.tab-navigation details details > ul {
+  padding-left: 2rem;
+}

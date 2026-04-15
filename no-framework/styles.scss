@@ -135,4 +135,30 @@ main {
   & > ul:not(summary) {
     padding-left: 2.25rem;
   }
+
+  details {
+    margin: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+
+    &:first-of-type {
+      margin-top: 0.75rem;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0.75rem;
+    }
+
+    summary {
+      padding: 0.5rem 0.75rem;
+      font-weight: 500;
+    }
+
+    & > :not(summary) {
+      padding: 0.5rem 0.75rem 0.75rem;
+    }
+
+    & > ul {
+      padding-left: 2rem;
+    }
+  }
 }

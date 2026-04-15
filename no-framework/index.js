@@ -13,15 +13,22 @@ document.querySelectorAll(".tab-navigation details").forEach(details => {
 });
 
 // Accordion: close sibling top-level details when one opens
-document.querySelectorAll('[role="tabpanel"]').forEach(panel => {
-  panel.querySelectorAll(':scope > details').forEach(details => {
-    details.addEventListener('toggle', () => {
-      if (details.open) {
-        panel.querySelectorAll(':scope > details[open]').forEach(sibling => {
+// Also close all nested details when a parent closes
+document.querySelectorAll(".tab-navigation details").forEach(details => {
+  details.addEventListener("toggle", () => {
+    if (!details.open) {
+      details.querySelectorAll("details[open]").forEach(child => {
+        child.open = false;
+      });
+    } else {
+      // Accordion: close siblings at the same level within a tabpanel
+      const panel = details.closest('[role="tabpanel"]');
+      if (panel && details.parentElement === panel) {
+        panel.querySelectorAll(":scope > details[open]").forEach(sibling => {
           if (sibling !== details) sibling.open = false;
         });
       }
-    });
+    }
   });
 });
 

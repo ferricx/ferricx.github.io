@@ -2,50 +2,20 @@ import "./components/form-group/form-group.js";
 import "./components/popover-tip/popover-tip.js";
 import "./components/error-summary/error-summary.js";
 
-// Wrap details content for grid-template-rows animation
-document.querySelectorAll(".tab-navigation details").forEach(details => {
-  const children = Array.from(details.children).filter(el => el.tagName.toLowerCase() !== "summary");
-  if (!children.length) return;
-  const wrapper = document.createElement("div");
-  wrapper.className = "details-body";
-  children.forEach(el => wrapper.appendChild(el));
-  details.appendChild(wrapper);
-});
-
-const closeWithAnimation = (details) => {
-  if (!details.open) return;
-  // Instantly close any nested open details before animating parent closed
-  details.querySelectorAll('details[open]').forEach(child => {
-    child.open = false;
-    child.removeAttribute('data-closing');
-  });
-  const body = details.querySelector(':scope > .details-body');
-  if (!body) { details.open = false; return; }
-  details.setAttribute('data-closing', '');
-  body.addEventListener('transitionend', () => {
-    details.open = false;
-    details.removeAttribute('data-closing');
-  }, { once: true });
-};
-
-document.querySelectorAll('.tab-navigation summary').forEach(summary => {
-  summary.addEventListener('click', e => {
-    e.preventDefault();
-    const details = summary.closest('details');
-    if (details.open || details.hasAttribute('data-closing')) {
-      closeWithAnimation(details);
+// Remove wrapper divs — not needed with ::details-content approach
+// Accordion: close sibling top-level details when one opens,
+// and close all nested details when a parent closes
+document.querySelectorAll('.tab-navigation details').forEach(details => {
+  details.addEventListener('toggle', () => {
+    if (!details.open) {
+      details.querySelectorAll('details[open]').forEach(child => child.open = false);
     } else {
-      // Accordion: instantly close top-level siblings
       const panel = details.closest('[role="tabpanel"]');
       if (panel && details.parentElement === panel) {
-        panel.querySelectorAll(':scope > details[open], :scope > details[data-closing]').forEach(sibling => {
-          if (sibling !== details) {
-            sibling.open = false;
-            sibling.removeAttribute('data-closing');
-          }
+        panel.querySelectorAll(':scope > details[open]').forEach(sibling => {
+          if (sibling !== details) sibling.open = false;
         });
       }
-      details.open = true;
     }
   });
 });

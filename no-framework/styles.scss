@@ -144,25 +144,23 @@ html[data-tab-direction="backward"]::view-transition-new(tab-panels) {
   box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
 }
 
-.tab-navigation .details-body {
-  display: grid;
-  grid-template-rows: 0fr;
-  overflow: hidden;
-  transition: grid-template-rows 300ms ease;
-
-  & > * {
-    min-height: 0;
-    overflow: hidden;
-  }
+:root {
+  interpolate-size: allow-keywords;
 }
 
-.tab-navigation details[open]:not([data-closing]) > .details-body {
-  grid-template-rows: 1fr;
+.tab-navigation details::details-content {
+  overflow: hidden;
+  height: 0;
+  transition: height 300ms ease, content-visibility 300ms ease allow-discrete;
+}
+
+.tab-navigation details[open]::details-content {
+  height: auto;
 }
 
 @starting-style {
-  .tab-navigation details[open]:not([data-closing]) > .details-body {
-    grid-template-rows: 0fr;
+  .tab-navigation details[open]::details-content {
+    height: 0;
   }
 }
 

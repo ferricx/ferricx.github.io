@@ -169,23 +169,31 @@ html[data-tab-direction=backward]::view-transition-new(tab-panels) {
   box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
 }
 
-.tab-navigation details > .details-body {
-  display: block;
-  overflow: hidden;
-  min-height: 0;
+:root {
+  interpolate-size: allow-keywords;
 }
 
+.tab-navigation details::details-content {
+  overflow: hidden;
+  height: 0;
+  transition: height 300ms ease, content-visibility 300ms ease allow-discrete;
+}
+
+.tab-navigation details[open]::details-content {
+  height: auto;
+}
+
+@starting-style {
+  .tab-navigation details[open]::details-content {
+    height: 0;
+  }
+}
 .tab-navigation details {
-  display: grid;
-  grid-template-rows: auto 0fr;
-  transition: grid-template-rows 300ms ease;
   margin-top: 1rem;
   border: 1px solid var(--tab-border);
   border-radius: 0.625rem;
   background: var(--tab-surface-muted);
-}
-.tab-navigation details[open] {
-  grid-template-rows: auto 1fr;
+  overflow: hidden;
 }
 .tab-navigation details summary {
   padding: 0.75rem 1rem;
@@ -213,14 +221,13 @@ html[data-tab-direction=backward]::view-transition-new(tab-panels) {
 .tab-navigation details[open] summary::before {
   transform: rotate(90deg);
 }
-.tab-navigation details > .details-body {
+.tab-navigation details > :not(summary) {
   margin: 0;
   border-top: 1px solid var(--tab-border);
   padding: 0.75rem 1rem 1rem;
 }
-.tab-navigation details > .details-body > ul {
+.tab-navigation details > ul:not(summary) {
   padding-left: 2.25rem;
-  margin: 0;
 }
 .tab-navigation details details {
   margin: 0.5rem 0.75rem;
@@ -236,10 +243,9 @@ html[data-tab-direction=backward]::view-transition-new(tab-panels) {
   padding: 0.5rem 0.75rem;
   font-weight: 500;
 }
-.tab-navigation details details > .details-body {
+.tab-navigation details details > :not(summary) {
   padding: 0.5rem 0.75rem 0.75rem;
 }
-.tab-navigation details details > .details-body > ul {
+.tab-navigation details details > ul {
   padding-left: 2rem;
-  margin: 0;
 }

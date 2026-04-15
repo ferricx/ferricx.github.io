@@ -12,22 +12,40 @@ document.querySelectorAll(".tab-navigation details").forEach(details => {
   details.appendChild(wrapper);
 });
 
-// Accordion: close sibling top-level details when one opens
-// Also close all nested details when a parent closes
-document.querySelectorAll(".tab-navigation details").forEach(details => {
-  details.addEventListener("toggle", () => {
-    if (!details.open) {
-      details.querySelectorAll("details[open]").forEach(child => {
-        child.open = false;
-      });
+const closeWithAnimation = (details) => {
+  if (!details.open) return;
+  // Instantly close any nested open details before animating parent closed
+  details.querySelectorAll('details[open]').forEach(child => {
+    child.open = false;
+    child.removeAttribute('data-closing');
+  });
+  const body = details.querySelector(':scope > .details-body');
+  if (!body) { details.open = false; return; }
+  details.setAttribute('data-closing', '');
+  body.addEventListener('transitionend', () => {
+    details.open = false;
+    details.removeAttribute('data-closing');
+  }, { once: true });
+};
+
+document.querySelectorAll('.tab-navigation summary').forEach(summary => {
+  summary.addEventListener('click', e => {
+    e.preventDefault();
+    const details = summary.closest('details');
+    if (details.open || details.hasAttribute('data-closing')) {
+      closeWithAnimation(details);
     } else {
-      // Accordion: close siblings at the same level within a tabpanel
+      // Accordion: instantly close top-level siblings
       const panel = details.closest('[role="tabpanel"]');
       if (panel && details.parentElement === panel) {
-        panel.querySelectorAll(":scope > details[open]").forEach(sibling => {
-          if (sibling !== details) sibling.open = false;
+        panel.querySelectorAll(':scope > details[open], :scope > details[data-closing]').forEach(sibling => {
+          if (sibling !== details) {
+            sibling.open = false;
+            sibling.removeAttribute('data-closing');
+          }
         });
       }
+      details.open = true;
     }
   });
 });

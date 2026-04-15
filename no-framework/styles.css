@@ -180,12 +180,12 @@ html[data-tab-direction=backward]::view-transition-new(tab-panels) {
   overflow: hidden;
 }
 
-.tab-navigation details[open] > .details-body {
+.tab-navigation details[open]:not([data-closing]) > .details-body {
   grid-template-rows: 1fr;
 }
 
 @starting-style {
-  .tab-navigation details[open] > .details-body {
+  .tab-navigation details[open]:not([data-closing]) > .details-body {
     grid-template-rows: 0fr;
   }
 }

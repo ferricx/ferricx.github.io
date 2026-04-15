@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What is Accessibility?</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="module" src="./what-is-it.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Breadcrumb">
+        <ol>
+          <li><a href="../">Accessibility</a></li>
+          <li aria-current="page">What is it?</li>
+        </ol>
+      </nav>
+      <h1>What is Accessibility?</h1>
+    </header>
+    <main>
+      <section class="tab-navigation" aria-label="What is Accessibility?">
+        <div role="tablist" aria-label="What is Accessibility?">
+          <button id="tab-overview" role="tab" aria-controls="panel-overview" aria-selected="true" tabindex="0" type="button">Overview</button>
+          <button id="tab-wcag" role="tab" aria-controls="panel-wcag" aria-selected="false" tabindex="-1" type="button">WCAG</button>
+          <button id="tab-why" role="tab" aria-controls="panel-why" aria-selected="false" tabindex="-1" type="button">Why it matters</button>
+        </div>
+
+        <section id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+          <h2>Overview</h2>
+          <p>Web accessibility means that websites, tools, and technologies are designed and developed so that people with disabilities can use them.</p>
+          <p>More specifically, people can perceive, understand, navigate, and interact with the web, and they can contribute to the web.</p>
+          <p>Web accessibility encompasses all disabilities that affect access to the web, including visual, auditory, physical, speech, cognitive, and neurological disabilities.</p>
+        </section>
+
+        <section id="panel-wcag" role="tabpanel" aria-labelledby="tab-wcag" hidden>
+          <h2>WCAG</h2>
+          <p>The Web Content Accessibility Guidelines (WCAG) are published by the Web Accessibility Initiative (WAI) of the World Wide Web Consortium (W3C).</p>
+          <p>WCAG is organized around four principles, often referred to as <strong>POUR</strong>:</p>
+          <ul>
+            <li><strong>Perceivable</strong> — Information and UI components must be presentable to users in ways they can perceive.</li>
+            <li><strong>Operable</strong> — UI components and navigation must be operable.</li>
+            <li><strong>Understandable</strong> — Information and the operation of UI must be understandable.</li>
+            <li><strong>Robust</strong> — Content must be robust enough to be interpreted by a wide variety of user agents, including assistive technologies.</li>
+          </ul>
+        </section>
+
+        <section id="panel-why" role="tabpanel" aria-labelledby="tab-why" hidden>
+          <h2>Why it matters</h2>
+          <p>About 1 in 4 adults in the United States has some type of disability. Accessibility ensures that everyone, regardless of ability, can access information and services on the web.</p>
+          <p>Beyond inclusion, accessible design often improves the overall user experience for everyone — for example, captions benefit people in noisy environments, and keyboard navigation helps power users.</p>
+          <p>Many countries also have legal requirements for digital accessibility, such as the Americans with Disabilities Act (ADA) in the US and the European Accessibility Act (EAA) in the EU.</p>
+        </section>
+      </section>
+    </main>
+    <footer>
+      <p><a href="https://github.com/ferricx/ferricx.github.io">View source on GitHub</a></p>
+      <p>&copy; 2026 FerricX</p>
+    </footer>
+  </body>
+</html>

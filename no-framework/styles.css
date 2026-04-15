@@ -218,7 +218,7 @@ html[data-tab-direction=backward]::view-transition-new(tab-panels) {
 .tab-navigation details summary::-webkit-details-marker {
   display: none;
 }
-.tab-navigation details[open] summary::before {
+.tab-navigation details[open] > summary::before {
   transform: rotate(90deg);
 }
 .tab-navigation details > :not(summary) {

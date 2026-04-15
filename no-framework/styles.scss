@@ -198,7 +198,7 @@ html[data-tab-direction="backward"]::view-transition-new(tab-panels) {
     }
   }
 
-  &[open] summary::before {
+  &[open] > summary::before {
     transform: rotate(90deg);
   }
 

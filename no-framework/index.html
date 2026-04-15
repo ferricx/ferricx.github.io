@@ -5,15 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accessibility</title>
     <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./index.js"></script>
   </head>
   <body>
     <header>
       <h1>Accessibility</h1>
     </header>
     <main>
-      <ol>
-        <li><a href="./what-is-it/">What is it?</a></li>
-      </ol>
+      <section class="tab-navigation" aria-label="Accessibility">
+        <div role="tablist" aria-label="Accessibility">
+          <button id="tab-what-is-it" role="tab" aria-controls="panel-what-is-it" aria-selected="true" tabindex="0" type="button">What is it?</button>
+        </div>
+
+        <section id="panel-what-is-it" role="tabpanel" aria-labelledby="tab-what-is-it">
+          <h2>What is it?</h2>
+          <p>Accessibility means that websites, tools, and technologies are designed and developed so that everyone can use them.</p>
+          <p>More specifically, people can perceive, understand, navigate, and interact with the web, and they can contribute to the web.</p>
+          <p>Accessibility encompasses all disabilities that affect access to the web, including visual, auditory, physical, speech, cognitive, and neurological disabilities.</p>
+        </section>
+      </section>
     </main>
     <footer>
       <p><a href="https://github.com/ferricx/ferricx.github.io">View source on GitHub</a></p>

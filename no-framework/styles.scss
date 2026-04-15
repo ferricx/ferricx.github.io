@@ -1,9 +1,13 @@
 body {
   margin: 0;
-  min-height: 100vh;
-  display: grid;
-  justify-items: center;
-  align-items: start;
+  padding: 0 5vw;
+  box-sizing: border-box;
+}
+
+header,
+main,
+footer {
+  max-width: 48rem;
 }
 
 main {

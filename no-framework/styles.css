@@ -169,7 +169,7 @@ html[data-tab-direction=backward]::view-transition-new(tab-panels) {
   box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
 }
 
-.details-body {
+.tab-navigation details > .details-body {
   display: block;
   overflow: hidden;
   min-height: 0;

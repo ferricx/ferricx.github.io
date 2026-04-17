@@ -56,7 +56,7 @@ jobs:
 
       - name: Build Angular app for Pages subpath
         working-directory: angular
-        run: npm run build -- --configuration production --base-href /angular-app/ --output-path ../site/angular-app
+        run: npm run build:pages
 
       - name: Flatten Angular browser output
         run: |

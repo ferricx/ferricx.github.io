@@ -13,7 +13,7 @@ function tryScheme(uri: string): void {
 export function openMap(event: Event): void {
   event.preventDefault();
   const ua = navigator.userAgent;
-  if (/Android|CrOS/.test(ua)) {
+  if (/Android/.test(ua) && !/CrOS/.test(ua)) {
     tryScheme('geo:0,0?q=1847+County+Rd+129%2C+No+Name%2C+CO+81601');
   } else if (/iPad|iPhone|iPod|Macintosh/.test(ua)) {
     tryScheme('maps://?q=1847+County+Rd+129%2C+No+Name%2C+CO+81601');

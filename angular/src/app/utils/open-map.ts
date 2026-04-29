@@ -13,7 +13,7 @@ function tryScheme(uri: string): void {
 export function openMap(event: Event): void {
   event.preventDefault();
   const ua = navigator.userAgent;
-  if (/Android/.test(ua)) {
+  if (/Android|CrOS/.test(ua)) {
     tryScheme('geo:0,0?q=123+Any+St%2C+No+Name%2C+CO+81419');
   } else if (/iPad|iPhone|iPod|Macintosh/.test(ua)) {
     tryScheme('maps://?q=123+Any+St%2C+No+Name%2C+CO+81419');

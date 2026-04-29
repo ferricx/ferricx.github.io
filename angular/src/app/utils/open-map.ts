@@ -15,7 +15,7 @@ export function openMap(event: Event): void {
   const ua = navigator.userAgent;
   if (/Android/.test(ua)) {
     tryScheme('geo:0,0?q=123+Any+St%2C+No+Name%2C+CO+81419');
-  } else if (/iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) {
+  } else if (/iPad|iPhone|iPod|Macintosh/.test(ua)) {
     tryScheme('maps://?q=123+Any+St%2C+No+Name%2C+CO+81419');
   } else {
     window.open(MAPS_FALLBACK_URL, '_blank', 'noopener');

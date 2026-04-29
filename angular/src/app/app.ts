@@ -3,6 +3,7 @@ import { Router, NavigationEnd, RouterLink, RouterLinkActive, RouterOutlet } fro
 import { filter } from 'rxjs';
 import { ThemeService } from './services/theme.service';
 import { routes } from './app.routes';
+import { openMap, MAPS_FALLBACK_URL } from './utils/open-map';
 
 const routeOrder: Record<string, number> = {};
 routes.forEach((r, i) => routeOrder['/' + (r.path ?? '')] = i);
@@ -16,6 +17,8 @@ routes.forEach((r, i) => routeOrder['/' + (r.path ?? '')] = i);
 export class App {
   private readonly theme = inject(ThemeService);
   direction = 'forward';
+  readonly mapsFallbackUrl = MAPS_FALLBACK_URL;
+  readonly openMap = openMap;
 
   constructor() {
     const router = inject(Router);

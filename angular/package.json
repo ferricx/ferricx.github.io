@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && mkdir -p ../angular-app/browser/registration ../angular-app/browser/registration-2 ../angular-app/browser/registration-3 ../angular-app/browser/profile && cp ../angular-app/browser/index.html ../angular-app/browser/registration/index.html && cp ../angular-app/browser/index.html ../angular-app/browser/registration-2/index.html && cp ../angular-app/browser/index.html ../angular-app/browser/registration-3/index.html && cp ../angular-app/browser/index.html ../angular-app/browser/profile/index.html",
+    "build": "ng build && mkdir -p ../angular-app/browser/registration ../angular-app/browser/registration-2 ../angular-app/browser/registration-3 ../angular-app/browser/profile ../angular-app/browser/contact-us && cp ../angular-app/browser/index.html ../angular-app/browser/registration/index.html && cp ../angular-app/browser/index.html ../angular-app/browser/registration-2/index.html && cp ../angular-app/browser/index.html ../angular-app/browser/registration-3/index.html && cp ../angular-app/browser/index.html ../angular-app/browser/profile/index.html && cp ../angular-app/browser/index.html ../angular-app/browser/contact-us/index.html",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

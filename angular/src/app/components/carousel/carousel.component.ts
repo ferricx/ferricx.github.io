@@ -1,11 +1,12 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
-  HostListener,
+  OnDestroy,
   QueryList,
+  ViewChild,
   ViewChildren,
   signal,
-  computed,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -23,7 +24,7 @@ export interface CarouselSlide {
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.css',
 })
-export class CarouselComponent {
+export class CarouselComponent implements AfterViewInit, OnDestroy {
   readonly slides: CarouselSlide[] = [
     {
       heading: 'Single Column Registration',
@@ -72,32 +73,35 @@ export class CarouselComponent {
   readonly currentIndex = signal(0);
   readonly total = this.slides.length;
 
-  readonly slideLabel = computed(
-    () => `${this.currentIndex() + 1} of ${this.total}`
-  );
+  @ViewChild('trackWrapper') private trackWrapper!: ElementRef<HTMLElement>;
+  @ViewChildren('headingEl') headingElements!: QueryList<ElementRef<HTMLHeadingElement>>;
 
-  @ViewChildren('slideEl') slideElements!: QueryList<ElementRef<HTMLElement>>;
+  private readonly onScrollEnd = () => {
+    const el = this.trackWrapper.nativeElement;
+    const index = Math.round(el.scrollLeft / el.offsetWidth);
+    this.currentIndex.set(index);
+    this.headingElements.toArray()[index]?.nativeElement.focus();
+  };
+
+  ngAfterViewInit(): void {
+    this.trackWrapper.nativeElement.addEventListener('scrollend', this.onScrollEnd);
+  }
+
+  ngOnDestroy(): void {
+    this.trackWrapper.nativeElement.removeEventListener('scrollend', this.onScrollEnd);
+  }
 
   goTo(index: number): void {
-    this.currentIndex.set((index + this.total) % this.total);
+    const el = this.trackWrapper.nativeElement;
+    this.currentIndex.set(index);
+    el.scrollTo({ left: index * el.offsetWidth, behavior: 'smooth' });
   }
 
   prev(): void {
-    this.goTo(this.currentIndex() - 1);
+    this.goTo((this.currentIndex() - 1 + this.total) % this.total);
   }
 
   next(): void {
-    this.goTo(this.currentIndex() + 1);
-  }
-
-  @HostListener('keydown', ['$event'])
-  onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'ArrowLeft') {
-      event.preventDefault();
-      this.prev();
-    } else if (event.key === 'ArrowRight') {
-      event.preventDefault();
-      this.next();
-    }
+    this.goTo((this.currentIndex() + 1) % this.total);
   }
 }

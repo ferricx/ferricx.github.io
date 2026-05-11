@@ -16,17 +16,14 @@
     </button>
 
     <div
+      #trackWrapper
       class="carousel-track-wrapper"
       aria-live="polite"
       aria-atomic="true"
     >
-      <ul
-        class="carousel-track"
-        [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'"
-      >
+      <ul class="carousel-track">
         @for (slide of slides; track slide.route; let i = $index) {
           <li
-            #slideEl
             class="carousel-slide"
             role="group"
             aria-roledescription="slide"
@@ -34,7 +31,11 @@
             [attr.aria-hidden]="currentIndex() !== i ? 'true' : null"
           >
             <article class="slide-content">
-              <h3 class="slide-heading">{{ slide.heading }}</h3>
+              <h3
+                #headingEl
+                class="slide-heading"
+                tabindex="-1"
+              >{{ slide.heading }}</h3>
               <p class="slide-description">{{ slide.description }}</p>
               <a
                 [routerLink]="slide.route"

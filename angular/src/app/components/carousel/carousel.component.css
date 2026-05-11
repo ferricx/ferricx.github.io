@@ -15,9 +15,15 @@
 /* Track */
 .carousel-track-wrapper {
   flex: 1;
-  overflow: hidden;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
   border-radius: 0.75rem;
   border: 1px solid var(--tab-border, #e2e8f0);
+}
+
+.carousel-track-wrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .carousel-track {
@@ -25,13 +31,13 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Slides */
 .carousel-slide {
   flex: 0 0 100%;
   min-width: 0;
+  scroll-snap-align: start;
 }
 
 .slide-content {

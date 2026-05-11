@@ -63,13 +63,16 @@
   <div class="carousel-indicators" role="tablist" aria-label="Slides">
     @for (slide of slides; track slide.route; let i = $index) {
       <button
+        #dotEl
         type="button"
         role="tab"
         class="carousel-dot"
         [class.active]="currentIndex() === i"
         [attr.aria-selected]="currentIndex() === i"
         [attr.aria-label]="'Slide ' + (i + 1) + ': ' + slide.heading"
+        [tabindex]="currentIndex() === i ? 0 : -1"
         (click)="goTo(i)"
+        (keydown)="onDotKeydown($event, i)"
       ></button>
     }
   </div>

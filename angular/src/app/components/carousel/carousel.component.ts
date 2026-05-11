@@ -75,6 +75,7 @@ export class CarouselComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('trackWrapper') private trackWrapper!: ElementRef<HTMLElement>;
   @ViewChildren('headingEl') headingElements!: QueryList<ElementRef<HTMLHeadingElement>>;
+  @ViewChildren('dotEl') dotElements!: QueryList<ElementRef<HTMLButtonElement>>;
 
   private readonly onScrollEnd = () => {
     const el = this.trackWrapper.nativeElement;
@@ -103,5 +104,23 @@ export class CarouselComponent implements AfterViewInit, OnDestroy {
 
   next(): void {
     this.goTo((this.currentIndex() + 1) % this.total);
+  }
+
+  onDotKeydown(event: KeyboardEvent, index: number): void {
+    let target: number | null = null;
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      target = (index - 1 + this.total) % this.total;
+    } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      target = (index + 1) % this.total;
+    } else if (event.key === 'Home') {
+      target = 0;
+    } else if (event.key === 'End') {
+      target = this.total - 1;
+    }
+    if (target !== null) {
+      event.preventDefault();
+      this.goTo(target);
+      this.dotElements.toArray()[target]?.nativeElement.focus();
+    }
   }
 }

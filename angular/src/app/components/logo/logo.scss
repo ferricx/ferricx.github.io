@@ -10,6 +10,12 @@
     display: block;
     animation: rotate 16s linear infinite;
     transform-origin: center;
+
+    .sub-tomoe {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: rotate 16s linear infinite reverse;
+    }
   }
 
   // &::before,

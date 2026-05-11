@@ -4,13 +4,14 @@ import { filter } from 'rxjs';
 import { ThemeService } from './services/theme.service';
 import { routes } from './app.routes';
 import { openMap, MAPS_FALLBACK_URL } from './utils/open-map';
+import { LogoComponent } from './components/logo/logo.component';
 
 const routeOrder: Record<string, number> = {};
 routes.forEach((r, i) => routeOrder['/' + (r.path ?? '')] = i);
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, LogoComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

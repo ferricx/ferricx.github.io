@@ -1,0 +1,51 @@
+.mitsu-tomoe-wrapper {
+  position: relative;
+  animation: rotate 16s linear infinite;
+  transform-origin: center;
+  display: flex;
+
+  &::before,
+  &::after,
+  .mini-tomoe {
+    content: url('/images/mitsu-tomoe.svg');
+    height: 2rem;
+    width: 2rem;
+    z-index: 1;
+    position: absolute;
+    transform-origin: center;
+    animation: rotate-inner1 8s linear infinite;
+    animation-direction: reverse;
+    --translatex: 108%;
+    --translatey: 18%;
+  }
+
+  &::after {
+    --translatex: 9%;
+    --translatey: 75%;
+  }
+
+  .mini-tomoe {
+    --translatex: 108%;
+    --translatey: 130%;
+  }
+}
+
+@keyframes rotate-inner1 {
+  from {
+    transform: translate(var(--translatex), var(--translatey)) rotate(0deg);
+  }
+
+  to {
+    transform: translate(var(--translatex), var(--translatey)) rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

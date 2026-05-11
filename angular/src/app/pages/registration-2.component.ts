@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 import { StateComboboxComponent } from '../components/state-combobox/state-combobox.component';
@@ -12,18 +11,10 @@ import { PhoneFieldComponent } from '../components/phone-field/phone-field.compo
   templateUrl: './registration-2.component.html',
   styleUrl: './registration-2.component.css'
 })
-export class Registration2Component implements AfterViewInit {
-  private readonly router = inject(Router);
-  @ViewChild('pageHeading') private pageHeading!: ElementRef<HTMLHeadingElement>;
+export class Registration2Component {
   @ViewChild('stepperEl') private stepperEl!: ElementRef<HTMLElement>;
 
   protected activeStep = 0;
-
-  ngAfterViewInit(): void {
-    if ((this.router.lastSuccessfulNavigation()?.id ?? 1) > 1) {
-      this.pageHeading.nativeElement.focus();
-    }
-  }
 
   protected readonly steps = [
     { id: 'personal', label: 'Personal' },
@@ -68,11 +59,9 @@ export class Registration2Component implements AfterViewInit {
 
     panels.forEach(panel => {
       const fields: { label: string; value: string }[] = [];
-      panel.querySelectorAll<HTMLElement>('app-form-group, app-state-combobox, app-phone-field').forEach(comp => {
-        const labelEl = comp.querySelector('label:not(.sr-only)');
-        const input = comp.tagName === 'APP-PHONE-FIELD'
-          ? comp.querySelector<HTMLInputElement>('input[type="hidden"]')
-          : comp.querySelector<HTMLInputElement | HTMLSelectElement>('input, select');
+      panel.querySelectorAll<HTMLElement>('app-form-group, app-state-combobox').forEach(comp => {
+        const labelEl = comp.querySelector('label');
+        const input = comp.querySelector<HTMLInputElement | HTMLSelectElement>('input, select');
         const label = labelEl?.textContent?.replace(/\s*\*$/, '').trim() ?? '';
         const value = input?.value ?? '';
         if (label) {

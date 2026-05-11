@@ -3,15 +3,19 @@
   animation: rotate 16s linear infinite;
   transform-origin: center;
   display: flex;
-.header-logo {
   width: 5rem;
   height: 5rem;
-  display: block;
-}
+
+  .header-logo {
+    width: 5rem;
+    height: 5rem;
+    display: block;
+  }
+
   &::before,
   &::after,
   .mini-tomoe {
-    content: url('/images/mitsu-tomoe.svg');
+    content: url("/angular-app/browser/images/mitsu-tomoe.svg");
     height: 2rem;
     width: 2rem;
     z-index: 1;

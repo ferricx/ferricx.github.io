@@ -1,0 +1,79 @@
+<section
+  class="carousel"
+  aria-roledescription="carousel"
+  aria-label="Page patterns"
+>
+  <div class="carousel-controls">
+    <button
+      type="button"
+      class="carousel-btn carousel-btn--prev"
+      aria-label="Previous slide"
+      (click)="prev()"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    </button>
+
+    <div
+      class="carousel-track-wrapper"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <ul
+        class="carousel-track"
+        [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'"
+      >
+        @for (slide of slides; track slide.route; let i = $index) {
+          <li
+            #slideEl
+            class="carousel-slide"
+            role="group"
+            aria-roledescription="slide"
+            [attr.aria-label]="(i + 1) + ' of ' + total"
+            [attr.aria-hidden]="currentIndex() !== i ? 'true' : null"
+          >
+            <article class="slide-content">
+              <h3 class="slide-heading">{{ slide.heading }}</h3>
+              <p class="slide-description">{{ slide.description }}</p>
+              <a
+                [routerLink]="slide.route"
+                class="slide-link"
+                [tabindex]="currentIndex() === i ? 0 : -1"
+              >{{ slide.linkLabel }}</a>
+            </article>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <button
+      type="button"
+      class="carousel-btn carousel-btn--next"
+      aria-label="Next slide"
+      (click)="next()"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="carousel-indicators" role="tablist" aria-label="Slides">
+    @for (slide of slides; track slide.route; let i = $index) {
+      <button
+        type="button"
+        role="tab"
+        class="carousel-dot"
+        [class.active]="currentIndex() === i"
+        [attr.aria-selected]="currentIndex() === i"
+        [attr.aria-label]="'Slide ' + (i + 1) + ': ' + slide.heading"
+        (click)="goTo(i)"
+      ></button>
+    }
+  </div>
+
+  <p class="sr-only" aria-live="polite" aria-atomic="true">
+    Slide {{ currentIndex() + 1 }} of {{ total }}: {{ slides[currentIndex()].heading }}
+  </p>
+</section>

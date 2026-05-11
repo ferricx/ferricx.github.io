@@ -1,7 +1,5 @@
 .mitsu-tomoe-wrapper {
   position: relative;
-  animation: rotate 16s linear infinite;
-  transform-origin: center;
   display: flex;
   width: 5rem;
   height: 5rem;
@@ -10,6 +8,8 @@
     width: 5rem;
     height: 5rem;
     display: block;
+    animation: rotate 16s linear infinite;
+    transform-origin: center;
   }
 
   // &::before,

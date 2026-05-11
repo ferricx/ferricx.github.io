@@ -40,11 +40,11 @@
 
 @keyframes rotate-inner1 {
   from {
-    transform: translate(var(--translatex), var(--translatey)) scale(0.4) rotate(0deg);
+    transform: translate(var(--translatex), var(--translatey)) scale(0.024) rotate(0deg);
   }
 
   to {
-    transform: translate(var(--translatex), var(--translatey)) scale(0.4) rotate(360deg);
+    transform: translate(var(--translatex), var(--translatey)) scale(0.024) rotate(360deg);
   }
 }
 

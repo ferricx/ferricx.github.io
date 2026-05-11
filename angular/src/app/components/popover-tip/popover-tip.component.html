@@ -16,7 +16,9 @@
     (focusin)="openByFocus()"
     (keydown)="suppressKeyboardToggle($event)"
   >
-    <span aria-hidden="true">{{ buttonLabel }}</span>
+    <ng-content select="[popover-trigger]">
+      <span aria-hidden="true">{{ buttonLabel }}</span>
+    </ng-content>
   </button>
 
   <div

@@ -92,6 +92,11 @@ input[type="tel"]:user-invalid {
   outline-offset: 0;
 }
 
+input[type="tel"]:user-invalid:focus-visible {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: 2px;
+}
+
 .form-error {
   min-height: 1.25rem;
   margin-top: 0.35rem;

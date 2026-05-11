@@ -54,6 +54,11 @@ textarea:user-invalid {
   outline-offset: 0;
 }
 
+textarea:user-invalid:focus {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: 0;
+}
+
 .footer-row {
   display: flex;
   flex-wrap: wrap;

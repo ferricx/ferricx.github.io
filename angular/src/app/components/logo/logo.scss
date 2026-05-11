@@ -12,30 +12,30 @@
     display: block;
   }
 
-  &::before,
-  &::after,
-  .mini-tomoe {
-    content: url('/angular-app/browser/images/mitsu-tomoe.svg');
-    height: 2rem;
-    width: 2rem;
-    z-index: 1;
-    position: absolute;
-    transform-origin: center;
-    animation: rotate-inner1 8s linear infinite;
-    animation-direction: reverse;
-    --translatex: 108%;
-    --translatey: 18%;
-  }
+  // &::before,
+  // &::after,
+  // .mini-tomoe {
+  //   content: url('/angular-app/browser/images/mitsu-tomoe.svg');
+  //   height: 2rem;
+  //   width: 2rem;
+  //   z-index: 1;
+  //   position: absolute;
+  //   transform-origin: center;
+  //   animation: rotate-inner1 8s linear infinite;
+  //   animation-direction: reverse;
+  //   --translatex: 108%;
+  //   --translatey: 18%;
+  // }
 
-  &::after {
-    --translatex: 9%;
-    --translatey: 75%;
-  }
+  // &::after {
+  //   --translatex: 9%;
+  //   --translatey: 75%;
+  // }
 
-  .mini-tomoe {
-    --translatex: 108%;
-    --translatey: 130%;
-  }
+  // .mini-tomoe {
+  //   --translatex: 108%;
+  //   --translatey: 130%;
+  // }
 }
 
 @keyframes rotate-inner1 {

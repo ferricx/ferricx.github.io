@@ -3,7 +3,11 @@
   animation: rotate 16s linear infinite;
   transform-origin: center;
   display: flex;
-
+.header-logo {
+  width: 5rem;
+  height: 5rem;
+  display: block;
+}
   &::before,
   &::after,
   .mini-tomoe {

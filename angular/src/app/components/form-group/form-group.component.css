@@ -59,6 +59,51 @@ input {
   background: var(--tab-input-bg, #ffffff);
 }
 
+.input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 20rem;
+}
+
+.input-wrapper input {
+  max-width: none;
+  padding-right: 2.5rem;
+}
+
+.show-hide-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--tab-text-muted, #334155);
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+.show-hide-btn:hover {
+  color: var(--tab-text, #0f172a);
+}
+
+.show-hide-btn:focus-visible {
+  outline: 2px solid var(--tab-accent, #2563eb);
+  outline-offset: 2px;
+}
+
+.show-hide-btn svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  pointer-events: none;
+}
+
 input:hover {
   border-color: var(--tab-accent, #2563eb);
 }

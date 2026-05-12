@@ -12,23 +12,46 @@
       </app-popover-tip>
     }
   </div>
-  <input
-    #fieldInput
-    [id]="fieldId"
-    [name]="name"
-    [type]="type"
-    [attr.autocomplete]="autocomplete || null"
-    [attr.inputmode]="inputmode || null"
-    [attr.maxlength]="maxlength || null"
-    [required]="required"
-    [attr.pattern]="pattern || null"
-    [autofocus]="autofocus"
-    [attr.aria-describedby]="hint && errorMessage() ? hintId + ' ' + errorId : hint ? hintId : errorMessage() ? errorId : null"
-    [attr.aria-invalid]="errorMessage() ? 'true' : null"
-    (invalid)="onInvalid($event)"
-    (blur)="onBlur()"
-    (input)="onInput()"
-    [attr.native-validation]="nativeValidation ? '' : null"
-  />
+  <div [class.input-wrapper]="showHideToggle">
+    <input
+      #fieldInput
+      [id]="fieldId"
+      [name]="name"
+      [type]="effectiveType()"
+      [attr.autocomplete]="autocomplete || null"
+      [attr.inputmode]="inputmode || null"
+      [attr.maxlength]="maxlength || null"
+      [required]="required"
+      [attr.pattern]="pattern || null"
+      [autofocus]="autofocus"
+      [attr.aria-describedby]="hint && errorMessage() ? hintId + ' ' + errorId : hint ? hintId : errorMessage() ? errorId : null"
+      [attr.aria-invalid]="errorMessage() ? 'true' : null"
+      (invalid)="onInvalid($event)"
+      (blur)="onBlur()"
+      (input)="onInput()"
+      [attr.native-validation]="nativeValidation ? '' : null"
+    />
+    @if (showHideToggle) {
+      <button
+        type="button"
+        class="show-hide-btn"
+        [attr.aria-label]="showPasswordLabel"
+        (click)="togglePasswordVisibility()"
+      >
+        @if (effectiveType() === 'text') {
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20C6 20 2 12 2 12a18.09 18.09 0 0 1 5.06-6.06"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c6 0 10 8 10 8a18.49 18.49 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        } @else {
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        }
+      </button>
+    }
+  </div>
 </div>
 <div [id]="errorId" class="form-error" [class.visible]="!!errorMessage()">{{ errorMessage() }}</div>

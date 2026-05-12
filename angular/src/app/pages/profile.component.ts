@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 
@@ -16,6 +16,18 @@ export class ProfileComponent implements AfterViewInit {
   @ViewChild('confirmPwGroup') private confirmPwGroup!: FormGroupComponent;
 
   readonly passwordSuccess = signal(false);
+  readonly newPasswordValue = signal('');
+
+  readonly passwordRules = computed(() => {
+    const v = this.newPasswordValue();
+    return [
+      { label: 'At least 8 characters', met: v.length >= 8 },
+      { label: 'Uppercase letter (A–Z)', met: /[A-Z]/.test(v) },
+      { label: 'Lowercase letter (a–z)', met: /[a-z]/.test(v) },
+      { label: 'Number (0–9)', met: /[0-9]/.test(v) },
+      { label: 'Special character (e.g. !@#$)', met: /[^A-Za-z0-9]/.test(v) },
+    ];
+  });
 
   ngAfterViewInit(): void {
     this.pageHeading.nativeElement.focus();

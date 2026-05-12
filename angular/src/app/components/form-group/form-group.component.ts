@@ -1,5 +1,4 @@
-import { Component, Input, ContentChild, ViewChild, ElementRef, OnChanges, TemplateRef } from '@angular/core';
-import { signal } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ContentChild, ViewChild, ElementRef, OnChanges, TemplateRef, signal, computed } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { PopoverTipComponent } from '../popover-tip/popover-tip.component';
 
@@ -62,6 +61,27 @@ export class FormGroupComponent implements OnChanges {
   @Input({ alias: 'native-validation' })
   nativeValidation = false;
 
+  @Input({ alias: 'show-hide-toggle' })
+  showHideToggle = false;
+
+  private readonly passwordVisible = signal(false);
+
+  @Output() valueChange = new EventEmitter<string>();
+
+  protected readonly effectiveType = computed(() =>
+    this.type === 'password' && this.showHideToggle
+      ? (this.passwordVisible() ? 'text' : 'password')
+      : this.type
+  );
+
+  protected togglePasswordVisibility(): void {
+    this.passwordVisible.update(v => !v);
+  }
+
+  protected get showPasswordLabel(): string {
+    return this.passwordVisible() ? 'Hide password for ' + this.label : 'Show password for ' + this.label;
+  }
+
   @ContentChild('tip')
   tipContent?: TemplateRef<unknown>;
 
@@ -121,9 +141,10 @@ export class FormGroupComponent implements OnChanges {
   }
   protected onInput(): void {
     this.dirty = true;
+    const input = this.fieldInput.nativeElement;
+    this.valueChange.emit(input.value);
     if (!this.errorMessage()) return;
 
-    const input = this.fieldInput.nativeElement;
     input.setCustomValidity('');
 
     if (this.required && !input.value) {

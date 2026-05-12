@@ -12,6 +12,7 @@
       type="password"
       autocomplete="current-password"
       [required]="true"
+      [show-hide-toggle]="true"
     ></app-form-group>
     <app-form-group
       #newPwGroup
@@ -20,11 +21,20 @@
       label="New password"
       type="password"
       autocomplete="new-password"
-      hint="Min. 8 characters with uppercase, lowercase, number, and special character."
       pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}"
       format-message="Password must be at least 8 characters and include uppercase, lowercase, a number, and a special character."
       [required]="true"
+      [show-hide-toggle]="true"
+      (valueChange)="newPasswordValue.set($event)"
     ></app-form-group>
+    <ul class="password-rules" aria-label="Password requirements">
+      @for (rule of passwordRules(); track rule.label) {
+        <li [class.met]="rule.met" [attr.aria-label]="rule.label + (rule.met ? ', met' : ', not met')">
+          <span class="rule-icon" aria-hidden="true">{{ rule.met ? '✓' : '○' }}</span>
+          {{ rule.label }}
+        </li>
+      }
+    </ul>
     <app-form-group
       #confirmPwGroup
       field-id="confirm-password"
@@ -33,6 +43,7 @@
       type="password"
       autocomplete="new-password"
       [required]="true"
+      [show-hide-toggle]="true"
     ></app-form-group>
     <div class="password-actions">
       <button type="submit" class="btn-primary">Update password</button>

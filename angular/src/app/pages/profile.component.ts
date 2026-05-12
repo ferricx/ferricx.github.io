@@ -1,19 +1,65 @@
-import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
+import { FormGroupComponent } from '../components/form-group/form-group.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [FormGroupComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements AfterViewInit {
   @ViewChild('pageHeading') private pageHeading!: ElementRef<HTMLHeadingElement>;
+  @ViewChild('currentPwGroup') private currentPwGroup!: FormGroupComponent;
+  @ViewChild('newPwGroup') private newPwGroup!: FormGroupComponent;
+  @ViewChild('confirmPwGroup') private confirmPwGroup!: FormGroupComponent;
+
+  readonly passwordSuccess = signal(false);
 
   ngAfterViewInit(): void {
     this.pageHeading.nativeElement.focus();
   }
+
+  onPasswordSubmit(event: Event): void {
+    event.preventDefault();
+    this.passwordSuccess.set(false);
+    const form = event.target as HTMLFormElement;
+
+    // Trigger inline validation on all inputs
+    const inputs = Array.from(form.querySelectorAll('input'));
+    for (const input of inputs) {
+      input.dispatchEvent(new Event('invalid', { cancelable: true }));
+      if (!input.validity.valid) {
+        const formGroup = input.closest('app-form-group') as any;
+        formGroup?.markDirty?.();
+      }
+    }
+
+    if (!form.checkValidity()) {
+      return;
+    }
+
+    const data = new FormData(form);
+    const newPassword = data.get('newPassword') as string;
+    const confirmPassword = data.get('confirmPassword') as string;
+
+    if (newPassword !== confirmPassword) {
+      const confirmInput = form.elements.namedItem('confirmPassword') as HTMLInputElement;
+      confirmInput.setCustomValidity('Passwords do not match.');
+      confirmInput.dispatchEvent(new Event('invalid', { cancelable: true }));
+      this.confirmPwGroup.markDirty();
+      return;
+    }
+
+    // TODO: call password update API
+    form.reset();
+    this.currentPwGroup.reset();
+    this.newPwGroup.reset();
+    this.confirmPwGroup.reset();
+    this.passwordSuccess.set(true);
+  }
+
   onProfileSubmit(event: Event): void {
     event.preventDefault();
     const form = event.target as HTMLFormElement;

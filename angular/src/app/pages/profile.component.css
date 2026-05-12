@@ -9,8 +9,52 @@
   box-shadow: 0 4px 18px color-mix(in srgb, var(--tab-text, #0f172a) 6%, transparent);
 }
 
-.theme-section {
+.password-section {
   margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--tab-border, #e2e8f0);
+}
+
+.password-section h2 {
+  margin: 0 0 1rem;
+}
+
+.password-actions {
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  appearance: none;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--tab-accent, #2563eb);
+  color: #fff;
+  font: inherit;
+  font-size: 0.9375rem;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: filter 180ms ease;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.9);
+}
+
+:root[data-theme="dark"] .btn-primary:hover {
+  filter: brightness(1.15);
+}
+
+.password-success {
+  margin-top: 0.75rem;
+  color: var(--tab-success-text, #166534);
+  background: var(--tab-success-surface, #dcfce7);
+  border: 1px solid var(--tab-success-border, #86efac);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.theme-section {
   padding-top: 1.5rem;
   border-top: 1px solid var(--tab-border, #e2e8f0);
 }

@@ -1,6 +1,48 @@
 
 <h1 tabindex="-1" #pageHeading>Profile</h1>
 
+<section class="password-section" aria-labelledby="password-heading">
+  <h2 id="password-heading">Change Password</h2>
+  <form id="password-form" novalidate (submit)="onPasswordSubmit($event)">
+    <app-form-group
+      #currentPwGroup
+      field-id="current-password"
+      name="currentPassword"
+      label="Current password"
+      type="password"
+      autocomplete="current-password"
+      [required]="true"
+    ></app-form-group>
+    <app-form-group
+      #newPwGroup
+      field-id="new-password"
+      name="newPassword"
+      label="New password"
+      type="password"
+      autocomplete="new-password"
+      hint="Min. 8 characters with uppercase, lowercase, number, and special character."
+      pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}"
+      format-message="Password must be at least 8 characters and include uppercase, lowercase, a number, and a special character."
+      [required]="true"
+    ></app-form-group>
+    <app-form-group
+      #confirmPwGroup
+      field-id="confirm-password"
+      name="confirmPassword"
+      label="Confirm new password"
+      type="password"
+      autocomplete="new-password"
+      [required]="true"
+    ></app-form-group>
+    <div class="password-actions">
+      <button type="submit" class="btn-primary">Update password</button>
+    </div>
+    @if (passwordSuccess()) {
+      <p class="password-success" role="status">Password updated successfully.</p>
+    }
+  </form>
+</section>
+
 <section class="theme-section" aria-labelledby="theme-heading">
   <h2 id="theme-heading">Theme</h2>
   <p>Pick a color to generate a site-wide theme.</p>

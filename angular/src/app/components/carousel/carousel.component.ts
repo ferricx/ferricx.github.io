@@ -6,6 +6,7 @@ import {
   QueryList,
   ViewChild,
   ViewChildren,
+  inject,
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -73,6 +74,7 @@ export class CarouselComponent implements AfterViewInit, OnDestroy {
   readonly currentIndex = signal(0);
   readonly total = this.slides.length;
 
+  private readonly host = inject(ElementRef) as ElementRef<HTMLElement>;
   @ViewChild('trackWrapper') private trackWrapper!: ElementRef<HTMLElement>;
   @ViewChildren('headingEl') headingElements!: QueryList<ElementRef<HTMLHeadingElement>>;
   @ViewChildren('dotEl') dotElements!: QueryList<ElementRef<HTMLButtonElement>>;
@@ -81,7 +83,10 @@ export class CarouselComponent implements AfterViewInit, OnDestroy {
     const el = this.trackWrapper.nativeElement;
     const index = Math.round(el.scrollLeft / el.offsetWidth);
     this.currentIndex.set(index);
-    this.headingElements.toArray()[index]?.nativeElement.focus();
+    // Only move focus to the heading if focus is not already on a control inside this component
+    if (!this.host.nativeElement.contains(document.activeElement)) {
+      this.headingElements.toArray()[index]?.nativeElement.focus();
+    }
   };
 
   ngAfterViewInit(): void {

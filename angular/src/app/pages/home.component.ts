@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { CarouselComponent } from '../components/carousel/carousel.component';
 
 @Component({
@@ -11,8 +11,11 @@ import { CarouselComponent } from '../components/carousel/carousel.component';
 })
 export class HomeComponent implements AfterViewInit {
   @ViewChild('pageHeading') private pageHeading!: ElementRef<HTMLHeadingElement>;
+  private readonly router = inject(Router);
 
   ngAfterViewInit(): void {
-    this.pageHeading.nativeElement.focus();
+    if ((this.router.lastSuccessfulNavigation()?.id ?? 1) > 1) {
+      this.pageHeading.nativeElement.focus();
+    }
   }
 }

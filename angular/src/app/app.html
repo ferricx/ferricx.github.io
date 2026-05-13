@@ -2,9 +2,9 @@
 <header>
   <div class="header-content">
     <div>
-      <app-logo></app-logo>
       <nav aria-label="Main">
         <ul>
+          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-logo-link" aria-label="Home"><app-logo></app-logo></a></li>
           <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
           <li><a routerLink="/registration" routerLinkActive="active">Single Column</a></li>
           <li><a routerLink="/registration-2" routerLinkActive="active">Wizard</a></li>

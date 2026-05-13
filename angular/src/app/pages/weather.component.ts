@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, signal, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, signal, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface CurrentWeather {
   temperature: number;
@@ -68,8 +69,12 @@ export class WeatherComponent implements OnInit, AfterViewInit {
     this.fetchWeather();
   }
 
+  private readonly router = inject(Router);
+
   ngAfterViewInit(): void {
-    this.pageHeading.nativeElement.focus();
+    if ((this.router.lastSuccessfulNavigation()?.id ?? 1) > 1) {
+      this.pageHeading.nativeElement.focus();
+    }
   }
 
   async fetchWeather(): Promise<void> {

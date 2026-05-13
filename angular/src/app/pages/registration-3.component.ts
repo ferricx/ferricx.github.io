@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, signal, viewChild, viewChildren, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, signal, viewChild, viewChildren, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 import { PhoneFieldComponent } from '../components/phone-field/phone-field.component';
 import { CharCountTextareaComponent } from '../components/char-count-textarea/char-count-textarea.component';
@@ -36,8 +37,12 @@ export class Registration3Component implements AfterViewInit {
   readonly dependentsError = signal(false);
   private readonly regForm = viewChild<ElementRef<HTMLFormElement>>('regForm');
 
+  private readonly router = inject(Router);
+
   ngAfterViewInit(): void {
-    this.pageHeading.nativeElement.focus();
+    if ((this.router.lastSuccessfulNavigation()?.id ?? 1) > 1) {
+      this.pageHeading.nativeElement.focus();
+    }
   }
   private readonly formGroups = viewChildren(FormGroupComponent);
   private readonly phoneField = viewChild(PhoneFieldComponent);

@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
 
@@ -12,6 +13,7 @@ import { FormGroupComponent } from '../components/form-group/form-group.componen
 export class ProfileComponent implements AfterViewInit {
   @ViewChild('pageHeading') private pageHeading!: ElementRef<HTMLHeadingElement>;
   @ViewChild('currentPwGroup') private currentPwGroup!: FormGroupComponent;
+  private readonly router = inject(Router);
   @ViewChild('newPwGroup') private newPwGroup!: FormGroupComponent;
   @ViewChild('confirmPwGroup') private confirmPwGroup!: FormGroupComponent;
 
@@ -30,7 +32,9 @@ export class ProfileComponent implements AfterViewInit {
   });
 
   ngAfterViewInit(): void {
-    this.pageHeading.nativeElement.focus();
+    if ((this.router.lastSuccessfulNavigation()?.id ?? 1) > 1) {
+      this.pageHeading.nativeElement.focus();
+    }
   }
 
   onPasswordSubmit(event: Event): void {

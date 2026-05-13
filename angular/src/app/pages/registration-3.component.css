@@ -108,6 +108,15 @@ table {
   font-size: 0.875rem;
 }
 
+caption {
+  caption-side: top;
+  text-align: left;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--tab-text, #0f172a);
+  padding: 0 0 0.5rem 0;
+}
+
 thead {
   background: var(--tab-surface-muted, #f8fafc);
 }

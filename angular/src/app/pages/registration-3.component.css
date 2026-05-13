@@ -100,6 +100,8 @@
 /* Table */
 .table-wrap {
   overflow-x: auto;
+  anchor-name: --table-wrap;
+  margin-top: 1.75rem;
 }
 
 table {
@@ -109,12 +111,28 @@ table {
 }
 
 caption {
-  caption-side: top;
-  text-align: left;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.table-caption {
+  position: fixed;
+  position-anchor: --table-wrap;
+  top: calc(anchor(top) - 1.75rem);
+  left: anchor(left);
+  margin: 0;
   font-weight: 700;
   font-size: 1rem;
   color: var(--tab-text, #0f172a);
-  padding: 0 0 0.5rem 0;
+  background: var(--tab-surface, #ffffff);
+  z-index: 1;
 }
 
 thead {

@@ -20,6 +20,10 @@ export class FormGroupComponent implements OnChanges {
     this.dirty = false;
     this.errorMessage.set('');
   }
+
+  public setValue(value: string): void {
+    this.fieldInput.nativeElement.value = value;
+  }
   @Input({ alias: 'field-id' })
   fieldId = 'field';
 

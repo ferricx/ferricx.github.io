@@ -203,19 +203,16 @@ export class Registration3Component implements AfterViewInit {
 
     // Pre-fill the dialog form after the dialog is open
     requestAnimationFrame(() => {
-      const form = this.regForm()?.nativeElement;
-      if (!form) return;
-
-      const fields: Record<string, string> = {
+      const fieldMap: Record<string, string> = {
         firstName: reg.firstName,
         lastName: reg.lastName,
         dateOfBirth: reg.dateOfBirth,
         email: reg.email,
       };
 
-      for (const [name, value] of Object.entries(fields)) {
-        const input = form.querySelector<HTMLInputElement>(`[name="${name}"]`);
-        if (input) input.value = value;
+      for (const fg of this.formGroups()) {
+        const val = fieldMap[fg.name];
+        if (val !== undefined) fg.setValue(val);
       }
 
       this.phoneField()?.setValue(reg.phone);

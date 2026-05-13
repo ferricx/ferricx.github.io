@@ -64,7 +64,7 @@ export class CarouselComponent implements AfterViewInit, OnDestroy {
     {
       heading: 'Contact Us',
       description:
-        'A contact form with accessible validation, character-count feedback, and a phone field pattern. Shows how to surface clear, helpful error messages to all users.',
+        'A contact details page with address information, a map link, and organized email contacts using a description list.',
       route: '/contact-us',
       linkLabel: 'Open now',
     },

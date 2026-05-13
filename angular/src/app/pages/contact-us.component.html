@@ -22,3 +22,40 @@
     <dd><a href="mailto:accessibility.em@il.com" aria-describedby="email-accessibility">accessibility.em&#64;il.com</a></dd>
   </dl>
 </section>
+
+@if (!submitted()) {
+  <section class="form-section" aria-labelledby="form-heading">
+    <h2 id="form-heading">Send a Message</h2>
+    <app-error-summary formId="contact-form"></app-error-summary>
+    <form id="contact-form" novalidate (submit)="onSubmit($event)">
+      <p class="required-legend" aria-hidden="true"><span class="required-indicator">*</span> Required</p>
+      <app-form-group field-id="contact-name" name="name" label="Name" autocomplete="name" [required]="true">
+      </app-form-group>
+      <app-form-group field-id="contact-email" name="email" label="Email" type="email" autocomplete="email" [required]="true">
+      </app-form-group>
+      <app-form-group field-id="contact-subject" name="subject" label="Subject" [required]="true">
+      </app-form-group>
+      <app-char-count-textarea
+        label="Message"
+        inputId="contact-message"
+        name="message"
+        [rows]="6"
+        [required]="true"
+      >
+      </app-char-count-textarea>
+      <div class="form-actions">
+        <button type="submit">Send Message</button>
+      </div>
+    </form>
+  </section>
+} @else {
+  <div class="success-panel" role="status">
+    <svg class="success-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M7 12.5l3.5 3.5 6.5-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h2 tabindex="-1">Message sent!</h2>
+    <p>Thank you for reaching out. We'll get back to you shortly.</p>
+    <button type="button" (click)="onStartOver()">Send another message</button>
+  </div>
+}

@@ -1,4 +1,4 @@
-<a class="skip-link" href="#main-content">Skip to main content</a>
+<a class="skip-link" href="#main-content" (click)="skipToMain($event)">Skip to main content</a>
 <header>
   <div class="header-content">
     <div>
@@ -23,7 +23,7 @@
     </a>
   </div>
 </header>
-<main id="main-content" [attr.data-direction]="direction">
+<main id="main-content" tabindex="-1" [attr.data-direction]="direction">
   <router-outlet></router-outlet>
 </main>
 <footer>

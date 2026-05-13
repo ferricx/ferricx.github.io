@@ -21,6 +21,12 @@ export class App {
   readonly mapsFallbackUrl = MAPS_FALLBACK_URL;
   readonly openMap = openMap;
 
+  skipToMain(event: Event): void {
+    event.preventDefault();
+    const main = document.getElementById('main-content');
+    main?.focus();
+  }
+
   constructor() {
     const router = inject(Router);
     let prevIndex = routeOrder[router.url] ?? 0;

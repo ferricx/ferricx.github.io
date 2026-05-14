@@ -25,23 +25,25 @@
         @for (slide of slides; track slide.route; let i = $index) {
           <li
             [id]="'carousel-panel-' + (i + 1)"
-            class="carousel-slide slide-content"
+            class="carousel-slide"
             role="tabpanel"
             aria-roledescription="slide"
             [attr.aria-labelledby]="'carousel-tab-' + (i + 1)"
             [attr.aria-hidden]="currentIndex() !== i ? 'true' : null"
           >
-            <h3
-              #headingEl
-              class="slide-heading"
-              tabindex="-1"
-            >{{ slide.heading }}</h3>
-            <p class="slide-description">{{ slide.description }}</p>
-            <a
-              [routerLink]="slide.route"
-              class="slide-link"
-              [tabindex]="currentIndex() === i ? 0 : -1"
-            >{{ slide.linkLabel }}</a>
+            <article class="slide-content">
+              <h3
+                #headingEl
+                class="slide-heading"
+                tabindex="-1"
+              >{{ slide.heading }}</h3>
+              <p class="slide-description">{{ slide.description }}</p>
+              <a
+                [routerLink]="slide.route"
+                class="slide-link"
+                [tabindex]="currentIndex() === i ? 0 : -1"
+              >{{ slide.linkLabel }}</a>
+            </article>
           </li>
         }
       </ul>

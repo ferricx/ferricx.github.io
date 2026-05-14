@@ -26,9 +26,8 @@
           <li
             [id]="'carousel-panel-' + (i + 1)"
             class="carousel-slide"
-            role="tabpanel"
             aria-roledescription="slide"
-            [attr.aria-labelledby]="'carousel-tab-' + (i + 1)"
+            [attr.aria-label]="'Slide ' + (i + 1) + ' of ' + total + ': ' + slide.heading"
             [attr.aria-hidden]="currentIndex() !== i ? 'true' : null"
           >
             <div class="slide-content">
@@ -61,17 +60,15 @@
     </button>
   </div>
 
-  <div class="carousel-indicators" role="tablist" aria-label="Slides">
+  <div class="carousel-indicators" aria-label="Choose slide">
     @for (slide of slides; track slide.route; let i = $index) {
       <button
         #dotEl
         [id]="'carousel-tab-' + (i + 1)"
         type="button"
-        role="tab"
         class="carousel-dot"
         [class.active]="currentIndex() === i"
-        [attr.aria-selected]="currentIndex() === i"
-        [attr.aria-controls]="'carousel-panel-' + (i + 1)"
+        [attr.aria-current]="currentIndex() === i ? 'true' : null"
         [attr.aria-label]="'Slide ' + (i + 1) + ' of ' + total + ': ' + slide.heading"
         [tabindex]="currentIndex() === i ? 0 : -1"
         (click)="goTo(i)"

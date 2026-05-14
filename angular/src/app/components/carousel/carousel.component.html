@@ -24,25 +24,24 @@
       <ul class="carousel-track">
         @for (slide of slides; track slide.route; let i = $index) {
           <li
-            class="carousel-slide"
-            role="group"
+            [id]="'carousel-panel-' + (i + 1)"
+            class="carousel-slide slide-content"
+            role="tabpanel"
             aria-roledescription="slide"
-            [attr.aria-label]="(i + 1) + ' of ' + total"
+            [attr.aria-labelledby]="'carousel-tab-' + (i + 1)"
             [attr.aria-hidden]="currentIndex() !== i ? 'true' : null"
           >
-            <article class="slide-content">
-              <h3
-                #headingEl
-                class="slide-heading"
-                tabindex="-1"
-              >{{ slide.heading }}</h3>
-              <p class="slide-description">{{ slide.description }}</p>
-              <a
-                [routerLink]="slide.route"
-                class="slide-link"
-                [tabindex]="currentIndex() === i ? 0 : -1"
-              >{{ slide.linkLabel }}</a>
-            </article>
+            <h3
+              #headingEl
+              class="slide-heading"
+              tabindex="-1"
+            >{{ slide.heading }}</h3>
+            <p class="slide-description">{{ slide.description }}</p>
+            <a
+              [routerLink]="slide.route"
+              class="slide-link"
+              [tabindex]="currentIndex() === i ? 0 : -1"
+            >{{ slide.linkLabel }}</a>
           </li>
         }
       </ul>
@@ -64,12 +63,14 @@
     @for (slide of slides; track slide.route; let i = $index) {
       <button
         #dotEl
+        [id]="'carousel-tab-' + (i + 1)"
         type="button"
         role="tab"
         class="carousel-dot"
         [class.active]="currentIndex() === i"
         [attr.aria-selected]="currentIndex() === i"
-        [attr.aria-label]="'Slide ' + (i + 1) + ': ' + slide.heading"
+        [attr.aria-controls]="'carousel-panel-' + (i + 1)"
+        [attr.aria-label]="'Slide ' + (i + 1) + ' of ' + total + ': ' + slide.heading"
         [tabindex]="currentIndex() === i ? 0 : -1"
         (click)="goTo(i)"
         (keydown)="onDotKeydown($event, i)"

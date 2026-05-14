@@ -3,7 +3,7 @@
 <app-error-summary formId="reg2-step3-form" [hidden]="activeStep !== 2"></app-error-summary>
 <h1 id="reg2-heading" tabindex="-1" #pageHeading>Registration</h1>
 <div class="stepper" aria-label="Registration steps" aria-labelledby="reg2-heading" #stepperEl>
-  <ol class="stepper-header">
+  <ol class="stepper-header" aria-label="Registration steps">
     @for (step of steps; track step.id; let i = $index) {
       <li [class.active]="activeStep === i" [class.completed]="i < activeStep">
         <span class="step-number" [attr.aria-current]="activeStep === i ? 'step' : null">{{ i + 1 }}</span>

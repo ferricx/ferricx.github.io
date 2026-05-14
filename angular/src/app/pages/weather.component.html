@@ -24,8 +24,8 @@
 
 @if (forecast().length) {
   <details class="forecast">
-    <summary><h2>16-Day Forecast</h2></summary>
-    <ul class="forecast-grid" role="list">
+    <summary><h2 id="forecast-heading">16-Day Forecast</h2></summary>
+    <ul class="forecast-grid" role="list" aria-labelledby="forecast-heading">
       @for (day of forecast(); track day.date) {
         <li class="forecast-day">
           <span class="day-name">{{ formatDay(day.date) }}</span>

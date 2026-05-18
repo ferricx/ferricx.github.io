@@ -123,6 +123,11 @@ input:user-invalid {
   background-size: 0.875rem 0.875rem;
 }
 
+.input-wrapper input[type="password"]:user-invalid {
+  padding-right: 4.5rem;
+  background-position: right 2.75rem center;
+}
+
 input:user-invalid:focus-visible {
   outline: 2px solid var(--tab-accent, #2563eb);
   outline-offset: 2px;

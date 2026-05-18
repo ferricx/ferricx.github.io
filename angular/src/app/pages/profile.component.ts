@@ -2,11 +2,12 @@ import { AfterViewInit, Component, computed, ElementRef, inject, signal, ViewChi
 import { Router } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
 import { FormGroupComponent } from '../components/form-group/form-group.component';
+import { ErrorSummaryComponent } from '../components/error-summary/error-summary.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormGroupComponent],
+  imports: [FormGroupComponent, ErrorSummaryComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })

@@ -4,6 +4,7 @@
 <section class="password-section" aria-labelledby="password-heading">
   <h2 id="password-heading">Change Password</h2>
   <form id="password-form" novalidate (submit)="onPasswordSubmit($event)">
+    <app-error-summary formId="password-form"></app-error-summary>
     <app-form-group
       #currentPwGroup
       field-id="current-password"

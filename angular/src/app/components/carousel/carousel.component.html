@@ -28,6 +28,7 @@
             [attr.aria-label]="slide.heading"
             [attr.aria-posinset]="i + 1"
             [attr.aria-setsize]="total"
+            [attr.inert]="currentIndex() !== i ? '' : null"
           >
             <div class="slide-content">
               <h3
@@ -39,7 +40,7 @@
               <a
                 [routerLink]="slide.route"
                 class="slide-link"
-                [tabindex]="currentIndex() === i ? 0 : -1"
+                tabindex="0"
               >{{ slide.linkLabel }}</a>
             </div>
           </li>

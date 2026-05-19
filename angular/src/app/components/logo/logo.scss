@@ -14,7 +14,7 @@
     .sub-tomoe {
       transform-box: fill-box;
       transform-origin: center;
-      animation: rotate-flipped 8s linear infinite;
+      animation: rotate-flipped 8s linear infinite reverse;
     }
   }
 

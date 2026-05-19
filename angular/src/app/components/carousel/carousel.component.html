@@ -60,21 +60,23 @@
     </button>
   </div>
 
-  <div class="carousel-indicators" aria-label="Choose slide">
+  <ul class="carousel-indicators" aria-label="Choose slide">
     @for (slide of slides; track slide.route; let i = $index) {
-      <button
-        #dotEl
-        [id]="'carousel-tab-' + (i + 1)"
-        type="button"
-        class="carousel-dot"
-        [class.active]="currentIndex() === i"
-        [attr.aria-current]="currentIndex() === i ? 'true' : null"
-        [attr.aria-label]="'Slide ' + (i + 1) + ' of ' + total + ': ' + slide.heading"
-        [tabindex]="currentIndex() === i ? 0 : -1"
-        (click)="goTo(i)"
-        (keydown)="onDotKeydown($event, i)"
-      ></button>
+      <li>
+        <button
+          #dotEl
+          [id]="'carousel-tab-' + (i + 1)"
+          type="button"
+          class="carousel-dot"
+          [class.active]="currentIndex() === i"
+          [attr.aria-current]="currentIndex() === i ? 'true' : null"
+          [attr.aria-label]="slide.heading"
+          [tabindex]="currentIndex() === i ? 0 : -1"
+          (click)="goTo(i)"
+          (keydown)="onDotKeydown($event, i)"
+        ></button>
+      </li>
     }
-  </div>
+  </ul>
 
 </section>

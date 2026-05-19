@@ -17,9 +17,16 @@
   flex: 1;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
   scrollbar-width: none;
   border-radius: 0.75rem;
   border: 1px solid var(--tab-border, #e2e8f0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track-wrapper {
+    scroll-behavior: auto;
+  }
 }
 
 .carousel-track-wrapper::-webkit-scrollbar {

@@ -104,7 +104,7 @@ export class CarouselComponent implements AfterViewInit, OnDestroy {
   goTo(index: number): void {
     const el = this.trackWrapper.nativeElement;
     this.currentIndex.set(index);
-    el.scrollTo({ left: index * el.offsetWidth, behavior: 'smooth' });
+    el.scrollTo({ left: index * el.offsetWidth });
   }
 
   prev(): void {

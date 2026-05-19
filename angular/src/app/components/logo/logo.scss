@@ -67,5 +67,13 @@
 @media (prefers-reduced-motion: reduce) {
   .mitsu-tomoe-wrapper {
     animation: none;
+
+    .header-logo {
+      animation: none;
+
+      .sub-tomoe {
+        animation: none;
+      }
+    }
   }
 }

@@ -14,7 +14,7 @@
     .sub-tomoe {
       transform-box: fill-box;
       transform-origin: center;
-      animation: rotate 8s linear infinite;
+      animation: rotate-flipped 8s linear infinite;
     }
   }
 
@@ -64,6 +64,16 @@
   }
 }
 
+@keyframes rotate-flipped {
+  from {
+    transform: scaleX(-1) rotate(0deg);
+  }
+
+  to {
+    transform: scaleX(-1) rotate(360deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mitsu-tomoe-wrapper {
     animation: none;
@@ -73,6 +83,7 @@
 
       .sub-tomoe {
         animation: none;
+        transform: scaleX(-1);
       }
     }
   }

@@ -55,8 +55,9 @@
   text-decoration: underline;
 }
 
-.pattern-list p {
-  margin: 0.25rem 0 0;
+.pattern-list span {
+  display: block;
+  margin-top: 0.25rem;
   font-size: 0.9rem;
   color: var(--tab-text-muted, #334155);
 }

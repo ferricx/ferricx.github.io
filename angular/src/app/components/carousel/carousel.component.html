@@ -28,9 +28,8 @@
             [attr.aria-label]="slide.heading"
             [attr.aria-posinset]="i + 1"
             [attr.aria-setsize]="total"
-            [attr.inert]="currentIndex() !== i ? '' : null"
           >
-            <div class="slide-content">
+            <div class="slide-content" [attr.inert]="currentIndex() !== i ? '' : null">
               <h3
                 #headingEl
                 class="slide-heading"

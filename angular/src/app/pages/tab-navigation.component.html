@@ -28,12 +28,13 @@
 <section class="a11y-section" aria-labelledby="tabs-sr-findings-heading">
   <h2 id="tabs-sr-findings-heading">Screen Reader Findings</h2>
   <p class="tabs-note">
-    Manual testing on the second tab set, where each list carries <code>aria-labelledby</code> pointing
-    at its own tab, found different results in NVDA and VoiceOver.
+    Manual testing of both tab sets found that NVDA and VoiceOver disagree about which element
+    carries the useful name, so the same markup helps one and hurts the other.
   </p>
   <ul class="a11y-list" aria-labelledby="tabs-sr-findings-heading">
-    <li><strong>NVDA</strong> — Announces the tab's label twice: once for the <code>tabpanel</code>, which is also named via <code>aria-labelledby</code> referencing the tab, and again for the list nested inside it. The two overlapping names produce a duplicate announcement rather than one clear name.</li>
-    <li><strong>VoiceOver</strong> — Does not announce a name for the list at all; <code>aria-labelledby</code> on the <code>&lt;ul&gt;</code> appears not to be honored. VoiceOver also does not announce the <code>tabpanel</code>'s own accessible name when focus enters it, unlike NVDA, which does announce the panel name on entry.</li>
+    <li><strong>NVDA</strong> — Always announces the <code>tabpanel</code>'s accessible name on entry. In the second set the list carries <code>aria-labelledby</code> pointing at the same tab, so the tab's label is announced twice, once as the panel's name and again as the list's name.</li>
+    <li><strong>VoiceOver</strong> — Never announces the <code>tabpanel</code>'s accessible name. It does honor <code>aria-labelledby</code> on the <code>&lt;ul&gt;</code> and reads the list's name, so the second set is the only one where VoiceOver states which tab the links belong to. In the first set it announces neither name.</li>
+    <li><strong>The tradeoff</strong> — Naming the list is the difference between context and no context in VoiceOver, and the difference between one announcement and a duplicated one in NVDA. Neither screen reader is wrong; they differ on whether a <code>tabpanel</code>'s name is worth announcing, and the redundancy only appears when both names resolve to the same tab.</li>
   </ul>
 </section>
 

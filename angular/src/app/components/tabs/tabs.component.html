@@ -21,7 +21,11 @@
 @for (tab of tabs(); track tab.label; let i = $index) {
   @if (selectedIndex() === i) {
     <div role="tabpanel" class="tabpanel" [id]="panelId(i)" [attr.aria-labelledby]="tabId(i)">
-      <ul class="tabpanel-list" [attr.aria-labelledby]="listLabelledBy(i)">
+      <ul
+        class="tabpanel-list"
+        [attr.aria-labelledby]="listLabelledBy(i)"
+        [attr.aria-label]="listLabel(i)"
+      >
         @for (link of tab.links; track link.url) {
           <li><a [href]="link.url">{{ link.label }}</a></li>
         }

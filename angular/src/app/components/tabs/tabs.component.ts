@@ -10,6 +10,8 @@ export interface TabItem {
   links: TabLink[];
 }
 
+export type ListNaming = 'none' | 'labelledby' | 'label';
+
 @Component({
   selector: 'app-tabs',
   standalone: true,
@@ -22,8 +24,12 @@ export class TabsComponent {
   readonly idPrefix = input.required<string>();
   /** Id of the heading that names the tab list. */
   readonly labelledBy = input<string | null>(null);
-  /** When true, each panel's list is given aria-labelledby pointing at its own tab. */
-  readonly labelListByTab = input(false);
+  /**
+   * How each panel's list gets its accessible name.
+   * 'none' leaves it unnamed, 'labelledby' points at the owning tab, and 'label' uses an
+   * aria-label of the tab's name followed by "Links".
+   */
+  readonly listNaming = input<ListNaming>('none');
 
   readonly selectedIndex = signal(0);
   /** Tab that holds tabindex="0". Manual activation lets focus move away from the selected tab. */
@@ -40,7 +46,11 @@ export class TabsComponent {
   }
 
   listLabelledBy(index: number): string | null {
-    return this.labelListByTab() ? this.tabId(index) : null;
+    return this.listNaming() === 'labelledby' ? this.tabId(index) : null;
+  }
+
+  listLabel(index: number): string | null {
+    return this.listNaming() === 'label' ? `${this.tabs()[index].label} Links` : null;
   }
 
   select(index: number): void {

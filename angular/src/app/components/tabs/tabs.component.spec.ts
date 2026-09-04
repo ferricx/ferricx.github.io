@@ -88,11 +88,33 @@ describe('TabsComponent manual activation', () => {
     });
   });
 
-  it('omits the list name unless labelListByTab is set', async () => {
-    expect(panel()!.querySelector('ul')!.getAttribute('aria-labelledby')).toBeNull();
+  it('leaves the list unnamed by default', () => {
+    const ul = panel()!.querySelector('ul')!;
+    expect(ul.getAttribute('aria-labelledby')).toBeNull();
+    expect(ul.getAttribute('aria-label')).toBeNull();
+  });
 
-    fixture.componentRef.setInput('labelListByTab', true);
+  it('names the list with aria-labelledby pointing at its tab', async () => {
+    fixture.componentRef.setInput('listNaming', 'labelledby');
     await fixture.whenStable();
-    expect(panel()!.querySelector('ul')!.getAttribute('aria-labelledby')).toBe('test-tab-0');
+    const ul = panel()!.querySelector('ul')!;
+    expect(ul.getAttribute('aria-labelledby')).toBe('test-tab-0');
+    expect(ul.getAttribute('aria-label')).toBeNull();
+  });
+
+  it('names the list with aria-label built from the tab label', async () => {
+    fixture.componentRef.setInput('listNaming', 'label');
+    await fixture.whenStable();
+    const ul = panel()!.querySelector('ul')!;
+    expect(ul.getAttribute('aria-label')).toBe('Tab 0 Links');
+    expect(ul.getAttribute('aria-labelledby')).toBeNull();
+  });
+
+  it('tracks the selected tab when naming the list with aria-label', async () => {
+    fixture.componentRef.setInput('listNaming', 'label');
+    await fixture.whenStable();
+    tabs()[3].click();
+    await fixture.whenStable();
+    expect(panel()!.querySelector('ul')!.getAttribute('aria-label')).toBe('Tab 3 Links');
   });
 });

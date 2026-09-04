@@ -48,7 +48,8 @@
     <li><strong>Arrow key navigation</strong> — <kbd>Left</kbd> and <kbd>Right</kbd> wrap through the tabs, <kbd>Home</kbd> moves to the first, <kbd>End</kbd> moves to the last. These move focus only.</li>
     <li><strong>Manual activation</strong> — Moving focus does not change the panel. The focused tab is selected only when <kbd>Enter</kbd> or <kbd>Space</kbd> is pressed, or when it is clicked. This lets a screen reader user read every tab label before committing to one, and avoids loading each panel in passing.</li>
     <li><strong>No panel tabindex</strong> — Panels contain focusable links, so they are not added to the tab sequence themselves.</li>
-    <li><strong>Visible focus</strong> — Tabs and links show a <code>:focus-visible</code> outline that does not rely on color alone.</li>
+    <li><strong>Scrolling tab list</strong> — The tab list scrolls horizontally instead of wrapping to a second row, so the tabs stay on one line at narrow widths and the panel below does not shift down. Every tab is a focusable control, so the browser scrolls the focused tab into view on its own and the scroll container needs no <code>tabindex</code> of its own, which would otherwise add a stop that announces nothing.</li>
+    <li><strong>Visible focus</strong> — Tabs and links show a <code>:focus-visible</code> outline that does not rely on color alone. On the tabs it is drawn inside the control, using a negative <code>outline-offset</code>, because a scroll container clips anything painted outside its edge and an offset ring would be cut off.</li>
     <li><strong>Selection not by color alone</strong> — The selected tab is marked by an accent bar, a border, and a background change, not hue alone.</li>
   </ul>
 </section>

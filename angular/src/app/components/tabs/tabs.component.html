@@ -8,8 +8,9 @@
       [id]="tabId(i)"
       [attr.aria-selected]="selectedIndex() === i"
       [attr.aria-controls]="panelId(i)"
-      [attr.tabindex]="selectedIndex() === i ? 0 : -1"
+      [attr.tabindex]="focusedIndex() === i ? 0 : -1"
       (click)="select(i)"
+      (focus)="focusedIndex.set(i)"
       (keydown)="onKeydown($event, i)"
     >
       {{ tab.label }}

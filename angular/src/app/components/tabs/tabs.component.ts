@@ -26,6 +26,8 @@ export class TabsComponent {
   readonly labelListByTab = input(false);
 
   readonly selectedIndex = signal(0);
+  /** Tab that holds tabindex="0". Manual activation lets focus move away from the selected tab. */
+  readonly focusedIndex = signal(0);
 
   private readonly tabButtons = viewChildren<ElementRef<HTMLButtonElement>>('tabButton');
 
@@ -43,6 +45,12 @@ export class TabsComponent {
 
   select(index: number): void {
     this.selectedIndex.set(index);
+    this.focusedIndex.set(index);
+  }
+
+  focusTab(index: number): void {
+    this.focusedIndex.set(index);
+    this.tabButtons()[index]?.nativeElement.focus();
   }
 
   onKeydown(event: KeyboardEvent, index: number): void {
@@ -62,7 +70,6 @@ export class TabsComponent {
     if (target === null) return;
 
     event.preventDefault();
-    this.select(target);
-    this.tabButtons()[target]?.nativeElement.focus();
+    this.focusTab(target);
   }
 }

@@ -6,6 +6,7 @@ import { Registration3Component } from './pages/registration-3.component';
 import { ProfileComponent } from './pages/profile.component';
 import { WeatherComponent } from './pages/weather.component';
 import { ContactUsComponent } from './pages/contact-us.component';
+import { TabNavigationComponent } from './pages/tab-navigation.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Accessible Web Content' },
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent, title: 'Profile — Accessible Web Content' },
   { path: 'weather', component: WeatherComponent, title: 'Weather — Accessible Web Content' },
   { path: 'contact-us', component: ContactUsComponent, title: 'Contact Us — Accessible Web Content' },
+  { path: 'tabs', component: TabNavigationComponent, title: 'Tab Navigation — Accessible Web Content' },
   // { path: 'registration-native', loadComponent: () => import('./pages/registration-native.component').then(m => m.RegistrationNativeComponent) },
 ];

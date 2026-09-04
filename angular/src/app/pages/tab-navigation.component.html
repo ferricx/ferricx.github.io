@@ -1,0 +1,41 @@
+<h1 id="tabs-page-heading" tabindex="-1" #pageHeading>Tab Navigation</h1>
+
+<p class="intro">
+  Two tab sets built on the ARIA tabs pattern. Each has five tabs, and each tab panel holds a list of
+  five links. The two sets are identical except for one detail: in the second set every list carries
+  <code>aria-labelledby</code> pointing at the tab that owns its panel, so the list is announced with a
+  name. Compare how a screen reader reports the two.
+</p>
+
+<section class="tabs-section" aria-labelledby="wcag-tabs-heading">
+  <h2 id="wcag-tabs-heading">WCAG 2.2 guidance</h2>
+  <p class="tabs-note">
+    The lists in these panels have no accessible name. A screen reader announces only
+    &ldquo;list, 5 items&rdquo;.
+  </p>
+  <app-tabs idPrefix="wcag" [tabs]="wcagTabs" labelledBy="wcag-tabs-heading" />
+</section>
+
+<section class="tabs-section" aria-labelledby="apg-tabs-heading">
+  <h2 id="apg-tabs-heading">ARIA Authoring Practices</h2>
+  <p class="tabs-note">
+    The lists in these panels use <code>aria-labelledby</code> referencing their own tab, so each list
+    is announced with the tab's name.
+  </p>
+  <app-tabs idPrefix="apg" [tabs]="apgTabs" labelledBy="apg-tabs-heading" [labelListByTab]="true" />
+</section>
+
+<section class="a11y-section" aria-labelledby="tabs-a11y-heading">
+  <h2 id="tabs-a11y-heading">Accessibility Notes</h2>
+  <ul class="a11y-list" aria-labelledby="tabs-a11y-heading">
+    <li><strong>Tab list semantics</strong> — The container uses <code>role="tablist"</code>, each control uses <code>role="tab"</code>, and each panel uses <code>role="tabpanel"</code>.</li>
+    <li><strong>Named tab list</strong> — Each <code>tablist</code> carries <code>aria-labelledby</code> pointing at its section heading, so the two sets are distinguishable.</li>
+    <li><strong>Selection state</strong> — The active tab carries <code>aria-selected="true"</code>; the others carry <code>aria-selected="false"</code>.</li>
+    <li><strong>Tab to panel association</strong> — Each tab uses <code>aria-controls</code> to reference its panel, and each panel uses <code>aria-labelledby</code> to reference its tab.</li>
+    <li><strong>Roving tabindex</strong> — Only the selected tab is in the tab sequence; <kbd>Tab</kbd> then moves straight into the panel content.</li>
+    <li><strong>Arrow key navigation</strong> — <kbd>Left</kbd> and <kbd>Right</kbd> wrap through the tabs, <kbd>Home</kbd> selects the first, <kbd>End</kbd> selects the last, with activation following focus.</li>
+    <li><strong>No panel tabindex</strong> — Panels contain focusable links, so they are not added to the tab sequence themselves.</li>
+    <li><strong>Visible focus</strong> — Tabs and links show a <code>:focus-visible</code> outline that does not rely on color alone.</li>
+    <li><strong>Selection not by color alone</strong> — The selected tab is marked by an accent bar, a border, and a background change, not hue alone.</li>
+  </ul>
+</section>

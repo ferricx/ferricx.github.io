@@ -68,6 +68,13 @@ export class CarouselComponent implements AfterViewInit, OnDestroy {
       route: '/contact-us',
       linkLabel: 'Open now',
     },
+    {
+      heading: 'Tab Navigation',
+      description:
+        'Two ARIA tab sets, each with five tabs whose panels hold a list of five links. Demonstrates roving tabindex, arrow key navigation, and the effect of naming a list with aria-labelledby.',
+      route: '/tabs',
+      linkLabel: 'Open now',
+    },
   ];
 
   readonly currentIndex = signal(0);

@@ -1,0 +1,30 @@
+<div role="tablist" class="tablist" [attr.aria-labelledby]="labelledBy()">
+  @for (tab of tabs(); track tab.label; let i = $index) {
+    <button
+      #tabButton
+      type="button"
+      role="tab"
+      class="tab"
+      [id]="tabId(i)"
+      [attr.aria-selected]="selectedIndex() === i"
+      [attr.aria-controls]="panelId(i)"
+      [attr.tabindex]="selectedIndex() === i ? 0 : -1"
+      (click)="select(i)"
+      (keydown)="onKeydown($event, i)"
+    >
+      {{ tab.label }}
+    </button>
+  }
+</div>
+
+@for (tab of tabs(); track tab.label; let i = $index) {
+  @if (selectedIndex() === i) {
+    <div role="tabpanel" class="tabpanel" [id]="panelId(i)" [attr.aria-labelledby]="tabId(i)">
+      <ul class="tabpanel-list" [attr.aria-labelledby]="listLabelledBy(i)">
+        @for (link of tab.links; track link.url) {
+          <li><a [href]="link.url">{{ link.label }}</a></li>
+        }
+      </ul>
+    </div>
+  }
+}

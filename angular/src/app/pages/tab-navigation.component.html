@@ -25,6 +25,18 @@
   <app-tabs idPrefix="apg" [tabs]="apgTabs" labelledBy="apg-tabs-heading" [labelListByTab]="true" />
 </section>
 
+<section class="a11y-section" aria-labelledby="tabs-sr-findings-heading">
+  <h2 id="tabs-sr-findings-heading">Screen Reader Findings</h2>
+  <p class="tabs-note">
+    Manual testing on the second tab set, where each list carries <code>aria-labelledby</code> pointing
+    at its own tab, found different results in NVDA and VoiceOver.
+  </p>
+  <ul class="a11y-list" aria-labelledby="tabs-sr-findings-heading">
+    <li><strong>NVDA</strong> — Announces the tab's label twice: once for the <code>tabpanel</code>, which is also named via <code>aria-labelledby</code> referencing the tab, and again for the list nested inside it. The two overlapping names produce a duplicate announcement rather than one clear name.</li>
+    <li><strong>VoiceOver</strong> — Does not announce a name for the list at all; <code>aria-labelledby</code> on the <code>&lt;ul&gt;</code> appears not to be honored. VoiceOver also does not announce the <code>tabpanel</code>'s own accessible name when focus enters it, unlike NVDA, which does announce the panel name on entry.</li>
+  </ul>
+</section>
+
 <section class="a11y-section" aria-labelledby="tabs-a11y-heading">
   <h2 id="tabs-a11y-heading">Accessibility Notes</h2>
   <ul class="a11y-list" aria-labelledby="tabs-a11y-heading">

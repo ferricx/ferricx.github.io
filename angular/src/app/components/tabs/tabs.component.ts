@@ -30,6 +30,11 @@ export class TabsComponent {
    * aria-label of the tab's name followed by "Links".
    */
   readonly listNaming = input<ListNaming>('none');
+  /**
+   * Whether each panel is named by its tab. The APG convention is to name it, but doing so is
+   * what gives NVDA a second string to announce when the list is named after the same tab.
+   */
+  readonly namePanel = input(true);
 
   readonly selectedIndex = signal(0);
   /** Tab that holds tabindex="0". Manual activation lets focus move away from the selected tab. */
@@ -43,6 +48,10 @@ export class TabsComponent {
 
   panelId(index: number): string {
     return `${this.idPrefix()}-panel-${index}`;
+  }
+
+  panelLabelledBy(index: number): string | null {
+    return this.namePanel() ? this.tabId(index) : null;
   }
 
   listLabelledBy(index: number): string | null {

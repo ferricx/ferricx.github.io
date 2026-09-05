@@ -20,7 +20,7 @@
 
 @for (tab of tabs(); track tab.label; let i = $index) {
   @if (selectedIndex() === i) {
-    <div role="tabpanel" class="tabpanel" [id]="panelId(i)" [attr.aria-labelledby]="tabId(i)">
+    <div role="tabpanel" class="tabpanel" [id]="panelId(i)" [attr.aria-labelledby]="panelLabelledBy(i)">
       <ul
         class="tabpanel-list"
         [attr.aria-labelledby]="listLabelledBy(i)"

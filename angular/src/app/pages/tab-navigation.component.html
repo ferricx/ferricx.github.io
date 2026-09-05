@@ -1,11 +1,12 @@
 <h1 id="tabs-page-heading" tabindex="-1" #pageHeading>Tab Navigation</h1>
 
 <p class="intro">
-  Three tab sets built on the ARIA tabs pattern. Each has five tabs, and each tab panel holds a list
-  of five links. The sets differ only in how the list inside each panel gets an accessible name: the
-  first leaves it unnamed, the second uses <code>aria-labelledby</code> pointing at the tab that owns
-  the panel, and the third uses <code>aria-label</code> set to the tab's name followed by
-  &ldquo;Links&rdquo;. Compare how a screen reader reports the three.
+  Four tab sets built on the ARIA tabs pattern. Each has five tabs, and each tab panel holds a list
+  of five links. The sets differ only in how the panel and the list inside it get their accessible
+  names: the first leaves the list unnamed, the second names it with <code>aria-labelledby</code>
+  pointing at the tab that owns the panel, the third names it with <code>aria-label</code> set to the
+  tab's name followed by &ldquo;Links&rdquo;, and the fourth keeps <code>aria-labelledby</code> on the
+  list but removes the name from the panel. Compare how a screen reader reports the four.
 </p>
 
 <section class="tabs-section" aria-labelledby="wcag-tabs-heading">
@@ -41,18 +42,37 @@
   />
 </section>
 
+<section class="tabs-section" aria-labelledby="apg-nopanel-tabs-heading">
+  <h2 id="apg-nopanel-tabs-heading">ARIA Authoring Practices, unnamed panel, list named by its tab</h2>
+  <p class="tabs-note">
+    Same content again, attacking the duplicate from the other side. The <code>tabpanel</code> carries
+    no <code>aria-labelledby</code> and so has no accessible name, while the list keeps
+    <code>aria-labelledby</code> pointing at its tab. Only one element in the panel is named, so there
+    is no second string for a screen reader to repeat.
+  </p>
+  <app-tabs
+    idPrefix="apg-nopanel"
+    [tabs]="apgTabs"
+    labelledBy="apg-nopanel-tabs-heading"
+    listNaming="labelledby"
+    [namePanel]="false"
+  />
+</section>
+
 <section class="a11y-section" aria-labelledby="tabs-sr-findings-heading">
   <h2 id="tabs-sr-findings-heading">Screen Reader Findings</h2>
   <p class="tabs-note">
     Manual testing of the first two tab sets found that NVDA and VoiceOver disagree about which
-    element carries the useful name, so the same markup helps one and hurts the other. The third set
-    is an attempt to work around that disagreement rather than a further finding.
+    element carries the useful name, so the same markup helps one and hurts the other. The third and
+    fourth sets are attempts to work around that disagreement rather than further findings.
   </p>
   <ul class="a11y-list" aria-labelledby="tabs-sr-findings-heading">
     <li><strong>NVDA</strong> — Always announces the <code>tabpanel</code>'s accessible name on entry. In the second set the list carries <code>aria-labelledby</code> pointing at the same tab, so the tab's label is announced twice, once as the panel's name and again as the list's name.</li>
     <li><strong>VoiceOver</strong> — Never announces the <code>tabpanel</code>'s accessible name. It does honor <code>aria-labelledby</code> on the <code>&lt;ul&gt;</code> and reads the list's name, so the second set is the only one where VoiceOver states which tab the links belong to. In the first set it announces neither name.</li>
     <li><strong>The tradeoff</strong> — Naming the list is the difference between context and no context in VoiceOver, and the difference between one announcement and a duplicated one in NVDA. Neither screen reader is wrong; they differ on whether a <code>tabpanel</code>'s name is worth announcing, and the redundancy only appears when both names resolve to the same tab.</li>
     <li><strong>The workaround, third set</strong> — Since the redundancy comes from the two names being the same string, the third set gives the list a name of its own: <code>aria-label</code> of the tab's name plus &ldquo;Links&rdquo;. Both screen readers still announce exactly what the findings above describe, because <code>aria-label</code> and <code>aria-labelledby</code> feed the same accessible name computation and neither tool branches on which one produced the name. What changes is only the string, so NVDA's second announcement is no longer a repeat of the first, and VoiceOver still gets the context it would otherwise lack. Not yet confirmed by testing.</li>
+    <li><strong>The workaround, fourth set</strong> — Takes the other route: leave the two names identical but remove one of them, so the <code>tabpanel</code> has no accessible name and only the list is named. NVDA has nothing to repeat, since the panel it would otherwise name is unnamed, and VoiceOver is unaffected because it never announced the panel's name anyway. Both then read the same name, once each. This is the only set where the two tools agree.</li>
+    <li><strong>Why the fourth set works, and when it stops working</strong> — It works only because the list is the <code>tabpanel</code>'s only child. A name on the list names the list, not the panel that contains it. Here the two are effectively the same region, so moving the name from one to the other loses nothing. Add anything else to the panel — a heading, a paragraph, a second list, a button — and that content sits inside an unnamed panel with nothing tying it back to its tab, while the list's name still covers only the list. Dropping the panel's name substitutes for naming it only while the list is the whole panel. It also departs from the APG convention, and JAWS, Narrator, and TalkBack are untested here.</li>
   </ul>
 </section>
 
@@ -62,7 +82,7 @@
     <li><strong>Tab list semantics</strong> — The container uses <code>role="tablist"</code>, each control uses <code>role="tab"</code>, and each panel uses <code>role="tabpanel"</code>.</li>
     <li><strong>Named tab list</strong> — Each <code>tablist</code> carries <code>aria-labelledby</code> pointing at its section heading, so the two sets are distinguishable.</li>
     <li><strong>Selection state</strong> — The active tab carries <code>aria-selected="true"</code>; the others carry <code>aria-selected="false"</code>.</li>
-    <li><strong>Tab to panel association</strong> — Each tab uses <code>aria-controls</code> to reference its panel, and each panel uses <code>aria-labelledby</code> to reference its tab.</li>
+    <li><strong>Tab to panel association</strong> — Each tab uses <code>aria-controls</code> to reference its panel, and each panel uses <code>aria-labelledby</code> to reference its tab. The fourth set deliberately omits that panel name, for the reason given under Screen Reader Findings.</li>
     <li><strong>Roving tabindex</strong> — Only one tab is in the tab sequence at a time, and it is the tab that last held focus; <kbd>Tab</kbd> then moves straight into the panel content.</li>
     <li><strong>Arrow key navigation</strong> — <kbd>Left</kbd> and <kbd>Right</kbd> wrap through the tabs, <kbd>Home</kbd> moves to the first, <kbd>End</kbd> moves to the last. These move focus only.</li>
     <li><strong>Manual activation</strong> — Moving focus does not change the panel. The focused tab is selected only when <kbd>Enter</kbd> or <kbd>Space</kbd> is pressed, or when it is clicked. This lets a screen reader user read every tab label before committing to one, and avoids loading each panel in passing.</li>

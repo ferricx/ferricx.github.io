@@ -88,6 +88,18 @@ describe('TabsComponent manual activation', () => {
     });
   });
 
+  it('names the panel by its tab by default', () => {
+    expect(panel()!.getAttribute('aria-labelledby')).toBe('test-tab-0');
+  });
+
+  it('omits the panel name when namePanel is false, keeping the list named', async () => {
+    fixture.componentRef.setInput('namePanel', false);
+    fixture.componentRef.setInput('listNaming', 'labelledby');
+    await fixture.whenStable();
+    expect(panel()!.getAttribute('aria-labelledby')).toBeNull();
+    expect(panel()!.querySelector('ul')!.getAttribute('aria-labelledby')).toBe('test-tab-0');
+  });
+
   it('leaves the list unnamed by default', () => {
     const ul = panel()!.querySelector('ul')!;
     expect(ul.getAttribute('aria-labelledby')).toBeNull();

@@ -27,7 +27,7 @@ export class TabsComponent {
   /**
    * How each panel's list gets its accessible name.
    * 'none' leaves it unnamed, 'labelledby' points at the owning tab, and 'label' uses an
-   * aria-label of the tab's name followed by "Links".
+   * aria-label of "Links for" followed by the tab's name.
    */
   readonly listNaming = input<ListNaming>('none');
   /**
@@ -59,7 +59,7 @@ export class TabsComponent {
   }
 
   listLabel(index: number): string | null {
-    return this.listNaming() === 'label' ? `${this.tabs()[index].label} Links` : null;
+    return this.listNaming() === 'label' ? `Links for ${this.tabs()[index].label}` : null;
   }
 
   select(index: number): void {

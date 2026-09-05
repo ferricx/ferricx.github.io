@@ -118,7 +118,7 @@ describe('TabsComponent manual activation', () => {
     fixture.componentRef.setInput('listNaming', 'label');
     await fixture.whenStable();
     const ul = panel()!.querySelector('ul')!;
-    expect(ul.getAttribute('aria-label')).toBe('Tab 0 Links');
+    expect(ul.getAttribute('aria-label')).toBe('Links for Tab 0');
     expect(ul.getAttribute('aria-labelledby')).toBeNull();
   });
 
@@ -127,6 +127,6 @@ describe('TabsComponent manual activation', () => {
     await fixture.whenStable();
     tabs()[3].click();
     await fixture.whenStable();
-    expect(panel()!.querySelector('ul')!.getAttribute('aria-label')).toBe('Tab 3 Links');
+    expect(panel()!.querySelector('ul')!.getAttribute('aria-label')).toBe('Links for Tab 3');
   });
 });
